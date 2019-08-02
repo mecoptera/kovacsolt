@@ -1032,7 +1032,7 @@ class SimpleLiveUpdate extends SimpleTransaction
      * @return string HTML form
      *
      */
-    public function createHtmlForm($formName = 'SimplePayForm', $submitElement = 'button', $submitElementText = 'Start Payment')
+    public function createHtmlForm($formName = 'SimplePayForm', $submitElement = 'button', $submitElementText = 'Start Payment', $submitElementClass = '')
     {
         if (count($this->errorMessage) > 0) {
             return false;
@@ -1064,7 +1064,7 @@ class SimpleLiveUpdate extends SimpleTransaction
             }
         }
         $this->luForm .= $this->createHiddenField("SDK_VERSION", $this->sdkVersion);
-        $this->luForm .= $this->formSubmitElement($formName, $submitElement, $submitElementText);
+        $this->luForm .= $this->formSubmitElement($formName, $submitElement, $submitElementText, $submitElementClass);
         $this->luForm .= "\n</form>";
         $this->logFunc("LiveUpdate", $this->formData, $this->formData['ORDER_REF']);
         $this->debugMessage[] = 'HASH CODE: ' . $this->hashCode;
@@ -1082,14 +1082,14 @@ class SimpleLiveUpdate extends SimpleTransaction
      * @return string HTML submit
      *
      */
-    protected function formSubmitElement($formName = '', $submitElement = 'button', $submitElementText = '')
+    protected function formSubmitElement($formName = '', $submitElement = 'button', $submitElementText = '', $submitElementClass = '')
     {
         switch ($submitElement) {
         case 'link':
             $element = "\n<a href='javascript:document.getElementById(\"" . $formName ."\").submit()'>" . addslashes($submitElementText) . "</a>";
             break;
         case 'button':
-            $element = "\n<button type='submit'>" . addslashes($submitElementText) . "</button>";
+            $element = "\n<button class='" . $submitElementClass . "' type='submit'>" . addslashes($submitElementText) . "</button>";
             break;
         case 'auto':
             $element = "\n<button type='submit'>" . addslashes($submitElementText) . "</button>";

@@ -1,0 +1,13 @@
+.l-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+
+  &__header {
+    flex: 0 1 auto;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+  }
+}

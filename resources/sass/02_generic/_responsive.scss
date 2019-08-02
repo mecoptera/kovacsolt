@@ -1,0 +1,63 @@
+$screen-sm: 480 !default;
+$screen-md: 768 !default;
+$screen-lg: 992 !default;
+$screen-xl: 1200 !default;
+$screen-sl: 1600 !default;
+
+@mixin respond($media, $boundary: 'down') {
+  @if $boundary == 'exact' {
+    @if $media == 'xs' {
+      @media (max-width: #{$screen-sm - 1}px) { @content; }
+    } @else if $media == 'sm' {
+      @media (min-width: #{$screen-sm}px) and (max-width: #{$screen-md - 1}px) { @content; }
+    } @else if $media == 'md' {
+      @media (min-width: #{$screen-md}px) and (max-width: #{$screen-lg - 1}px) { @content; }
+    } @else if $media == 'lg' {
+      @media (min-width: #{$screen-lg}px) and (max-width: #{$screen-xl - 1}px) { @content; }
+    } @else if $media == 'xl' {
+      @media (min-width: #{$screen-xl}px) and (max-width: #{$screen-sl - 1}px) { @content; }
+    } @else if $media == 'sl' {
+      @media (min-width: #{$screen-sl}px) { @content; }
+    }
+  } @else if $boundary == 'up' {
+    @if $media == 'xs' {
+      @media (min-width: 0) { @content; }
+    } @else if $media == 'sm' {
+      @media (min-width: #{$screen-sm}px) { @content; }
+    } @else if $media == 'md' {
+      @media (min-width: #{$screen-md}px) { @content; }
+    } @else if $media == 'lg' {
+      @media (min-width: #{$screen-lg}px) { @content; }
+    } @else if $media == 'xl' {
+      @media (min-width: #{$screen-xl}px) { @content; }
+    } @else if $media == 'sl' {
+      @media (min-width: #{$screen-sl}px) { @content; }
+    }
+  } @else if $boundary == 'down' {
+    @if $media == 'xs' {
+      @media (max-width: #{$screen-sm - 1}px) { @content; }
+    } @else if $media == 'sm' {
+      @media (max-width: #{$screen-md - 1}px) { @content; }
+    } @else if $media == 'md' {
+      @media (max-width: #{$screen-lg - 1}px) { @content; }
+    } @else if $media == 'lg' {
+      @media (max-width: #{$screen-xl - 1}px) { @content; }
+    } @else if $media == 'xl' {
+      @media (max-width: #{$screen-sl - 1}px) { @content; }
+    }
+  }
+}
+
+@mixin on-retina($density: 1.5) {
+  @media
+  (-webkit-min-device-pixel-ratio: #{$density}),
+  (min-resolution: #{$density * 96}dpi){
+    @content;
+  }
+}
+
+@mixin hover() {
+  html:not(.u-has-touch) &:hover {
+    @content;
+  }
+}

@@ -1,0 +1,35 @@
+.c-loader {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: var(--grid-gap);
+
+  &:before {
+    animation: loader .4s steps(8, end) infinite;
+    background-image: url('../images/loader.svg');
+    content: '';
+    display: inline-block;
+    height: 132px;
+    margin-left: -20px;
+    transform: scale(.75);
+    width: 144px;
+  }
+
+  &:after {
+    content: 'Töltés folyamatban';
+    font-weight: bold;
+  }
+
+  &--inverse {
+    &:before {
+      background-image: url('../images/loader-white.svg');
+    }
+  }
+}
+
+@keyframes loader {
+  to {
+    background-position: -1152px center;
+  }
+}

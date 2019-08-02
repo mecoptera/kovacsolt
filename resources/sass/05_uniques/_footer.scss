@@ -1,0 +1,44 @@
+.q-footer {
+  background: var(--color-background-gray);
+
+  &__content {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 64px;
+
+    @include respond('sm') {
+      display: block;
+      margin-bottom: 64px;
+    }
+  }
+
+  &__category {
+    @include respond('sm') {
+      margin-bottom: 64px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+
+    @include respond('sm') {
+      margin: 16px 0 0;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    padding: 8px 0;
+  }
+
+  &__copyright {
+    color: var(--color-secondary);
+    text-align: center;
+  }
+}

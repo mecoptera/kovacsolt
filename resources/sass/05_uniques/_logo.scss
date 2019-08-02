@@ -1,0 +1,10 @@
+.q-logo {
+  background: no-repeat center/186px 50px url('../images/logo-full.svg');
+  display: inline-block;
+  height: 50px;
+  width: 186px;
+
+  &--white {
+    background-image: url('../images/logo-full-white.svg');
+  }
+}

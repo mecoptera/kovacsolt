@@ -1,0 +1,83 @@
+.c-checkbox {
+  position: relative;
+
+  &__label {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    position: relative;
+    user-select: none;
+
+    &:before {
+      background: #fff;
+      border: 2px solid var(--color-form-text-placeholder);
+      border-radius: 8px;
+      content: '';
+      display: inline-block;
+      flex: 0 0 auto;
+      height: 32px;
+      margin-right: 16px;
+      transition: background .2s, border .2s;
+      width: 32px;
+
+      @include respond('sm') {
+        height: 48px;
+        margin-right: 32px;
+        width: 48px;
+      }
+
+      input:checked + & {
+        background: var(--color-form-border);
+        border-color: var(--color-form-border);
+      }
+    }
+
+    @include hover {
+      &:before {
+        border-color: var(--color-form-border-active);
+
+        input:checked + & {
+          background: var(--color-form-border-active);
+          border-color: var(--color-form-border-active);
+        }
+      }
+    }
+
+    &:after {
+      content: '';
+      transform: translate(11px, calc(-50% - 2px)) rotate(45deg) scale(0);
+
+      @include respond('sm') {
+        transform: translate(16px, calc(-50% - 4px)) rotate(45deg) scale(0);
+      }
+
+      input:checked + & {
+        border-bottom: 3px solid #fff;
+        border-radius: 1px;
+        border-right: 3px solid #fff;
+        content: '';
+        height: 20px;
+        left: 0;
+        position: absolute;
+        top: 50%;
+        transform: translate(11px, calc(-50% - 2px)) rotate(45deg) scale(1);
+        transition: background .2s, border .2s, transform .2s;
+        width: 10px;
+
+        @include respond('sm') {
+          height: 32px;
+          transform: translate(16px, calc(-50% - 4px)) rotate(45deg) scale(1);
+          width: 16px;
+        }
+      }
+    }
+  }
+
+  input {
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+  }
+}

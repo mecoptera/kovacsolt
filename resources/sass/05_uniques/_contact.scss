@@ -1,0 +1,36 @@
+.q-contact {
+  align-items: center;
+  background: var(--color-secondary);
+  color: var(--color-text-body-inverse);
+  display: flex;
+
+  @include respond('sm') {
+    display: block;
+    min-height: 0;
+    padding-bottom: 32px;
+    padding-top: 32px;
+  }
+
+  &__form {
+    align-items: flex-end;
+    display: flex;
+
+    @include respond('sm') {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  &__email {
+    flex: 1 1 100%;
+    margin-right: 32px;
+
+    @include respond('sm') {
+      margin: 0 0 32px;
+    }
+  }
+
+  &__button {
+    flex: 0 0 auto;
+  }
+}

@@ -1,0 +1,30 @@
+.q-planner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  &__left,
+  &__right {
+    flex: 0 1 auto;
+    width: 256px;
+  }
+
+  &__middle {
+    flex: 1 1 auto;
+    margin: auto;
+    position: relative;
+  }
+
+  &__product {
+    background-image: url('../images/products/shirt-white-front.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 100%;
+  }
+
+  &__zone {
+    position: absolute;
+    border: 2px dashed #999;
+  }
+}

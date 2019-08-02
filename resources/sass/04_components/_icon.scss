@@ -1,0 +1,77 @@
+.c-icon {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px;
+  cursor: pointer;
+  display: inline-block;
+  height: 50px;
+  position: relative;
+  text-decoration: none;
+  width: 50px;
+
+  &--cart {
+    background-image: url('../images/icons/cart.svg');
+
+    &.c-icon--white {
+      background-image: url('../images/icons/cart-white.svg');
+    }
+  }
+
+  &--person {
+    background-image: url('../images/icons/person.svg');
+
+    &.c-icon--white {
+      background-image: url('../images/icons/person-white.svg');
+    }
+  }
+
+  &--brush {
+    background-image: url('../images/icons/brush.svg');
+
+    &.c-icon--white {
+      background-image: url('../images/icons/brush-white.svg');
+    }
+  }
+
+  &--facebook {
+    background-image: url('../images/icons/facebook.svg');
+
+    &.c-icon--white {
+      background-image: url('../images/icons/facebook-white.svg');
+    }
+  }
+
+  &--instagram {
+    background-image: url('../images/icons/instagram.svg');
+
+    &.c-icon--white {
+      background-image: url('../images/icons/instagram-white.svg');
+    }
+  }
+
+  &--twitter {
+    background-image: url('../images/icons/twitter.svg');
+
+    &.c-icon--white {
+      background-image: url('../images/icons/twitter-white.svg');
+    }
+  }
+
+  &__badge {
+    align-items: center;
+    background: var(--color-primary);
+    border-radius: 100%;
+    color: #fff;
+    display: inline-flex;
+    font-size: 12px;
+    height: 16px;
+    justify-content: center;
+    min-width: 16px;
+    padding: 0 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateX(calc(25% - 9px)) translateY(9px);
+    user-select: none;
+  }
+}

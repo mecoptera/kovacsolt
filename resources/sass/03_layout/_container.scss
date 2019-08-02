@@ -1,0 +1,18 @@
+.l-container {
+  margin: auto;
+  max-width: var(--layout-container-width);
+  padding: 0 var(--grid-gap);
+
+  &--full {
+    max-width: none;
+  }
+
+  &--smaller {
+    max-width: var(--layout-container-width-smaller);
+  }
+
+  &--padding {
+    padding-bottom: calc(var(--grid-gap) * 8);
+    padding-top: calc(var(--grid-gap) * 8);
+  }
+}

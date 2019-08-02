@@ -1,0 +1,31 @@
+.q-cart-button {
+  position: relative;
+
+  &__popup {
+    background: #fff;
+    bottom: -16px;
+    cursor: default;
+    display: none;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+    padding: 12px;
+    position: absolute;
+    right: 0;
+    transform: translateY(100%);
+    width: 300px;
+
+    &:before {
+      border: 8px solid transparent;
+      border-bottom-color: #fff;
+      border-top-width: 0;
+      content: '';
+      right: 16px;
+      position: absolute;
+      top: -12px;
+    }
+
+    &--visible {
+      display: block;
+    }
+  }
+}

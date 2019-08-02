@@ -36,11 +36,11 @@ $config = array(
   'SANDBOX' => true,        //true: sandbox transaction, false: live transaction
   'PROTOCOL' => 'http',     //http or https
 
-  'BACK_REF' => $_SERVER['HTTP_HOST'] . '/simplepay/backref.php',      //url of payment backref page
-  'TIMEOUT_URL' => $_SERVER['HTTP_HOST'] . '/simplepay/timeout.php',     //url of payment timeout page
-  'IRN_BACK_URL' => $_SERVER['HTTP_HOST'] . '/simplepay/irn.php',        //url of payment irn page
-  'IDN_BACK_URL' => $_SERVER['HTTP_HOST'] . '/simplepay/idn.php',        //url of payment idn page
-  'IOS_BACK_URL' => $_SERVER['HTTP_HOST'] . '/simplepay/ios.php',        //url of payment idn page
+  'BACK_REF' => str_replace(['http://','https://'], '', url('/pay/backref')),      //url of payment backref page
+  'TIMEOUT_URL' => str_replace(['http://','https://'], '', url('/pay/timeout')),     //url of payment timeout page
+  'IRN_BACK_URL' => str_replace(['http://','https://'], '', url('/pay/irn')),        //url of payment irn page
+  'IDN_BACK_URL' => str_replace(['http://','https://'], '', url('/pay/idn')),        //url of payment idn page
+  'IOS_BACK_URL' => str_replace(['http://','https://'], '', url('/pay/ios')),        //url of payment idn page
 
   'GET_DATA' => $_GET,
   'POST_DATA' => $_POST,
