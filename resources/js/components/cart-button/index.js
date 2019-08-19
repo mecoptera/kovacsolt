@@ -1,10 +1,9 @@
-import { html } from 'lighterhtml';
 import axios from 'axios';
 import SmartComponent from '../../libs/smartcomponent';
 
 export default class KCartButton extends SmartComponent {
   init() {
-    this._popup = super._parseHTML('<div class="q-cart-button__popup"></div>');
+    this._popup = this.constructor._parseHTML('<div class="q-cart-button__popup"></div>');
 
     super.init({
       className: 'q-cart-button',
@@ -15,6 +14,16 @@ export default class KCartButton extends SmartComponent {
     });
   }
 
+  static get observedAttributes() {
+    return ['data-cart-url'];
+  }
+
+  static get boundProperties() {
+    return [
+      { name: 'dataCartUrl', as: 'cartUrl' }
+    ];
+  }
+
   static get eventHandlers() {
     return {
       ':click': '_onClick'
@@ -22,9 +31,16 @@ export default class KCartButton extends SmartComponent {
   }
 
   static get template() {
-    return component => () => html`
-      <div class="c-loader"></div>
-    `;
+    return (html, component) => {
+      const cartUrl = component._state.get('cartUrl');
+
+      return html`
+        <div class="c-loader"></div>
+        <div class="u-text-center">
+          <a href="${cartUrl}" class="c-button c-button--small">Tovább a kosárhoz</a>
+        </div>
+      `;
+    }
   }
 
   _onClick(event) {

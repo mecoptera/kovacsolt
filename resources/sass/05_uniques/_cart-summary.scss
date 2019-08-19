@@ -1,0 +1,27 @@
+.q-cart-summary {
+  &__image {
+    background: var(--color-background);
+    max-height: 128px;
+    max-width: 128px;
+    padding: 12px;
+  }
+
+  &__price {
+    &--discount {
+      font-weight: bold;
+    }
+  }
+
+  &__price-original {
+    color: var(--color-secondary);
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0 8px 4px 0;
+    text-decoration: line-through;
+  }
+
+  &__total {
+    border-top: 1px solid var(--color-text-body);
+    padding-top: 16px;
+  }
+}

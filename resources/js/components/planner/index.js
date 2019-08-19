@@ -1,4 +1,3 @@
-import { html } from 'lighterhtml';
 import tingle from 'tingle.js';
 import SmartComponent from '../../libs/smartcomponent';
 
@@ -9,10 +8,7 @@ const patternTemplate = data => {
 export default class KPlanner extends SmartComponent {
   init() {
     super.init({
-      className: 'q-planner',
-      render: {
-        container: this
-      }
+      className: 'q-planner'
     });
 
     this._modal = new tingle.modal({
@@ -29,7 +25,7 @@ export default class KPlanner extends SmartComponent {
     return ['data-zone-width', 'data-zone-height', 'data-zone-left', 'data-zone-top', 'data-area-url'];
   }
 
-  static get boundPropertiesToState() {
+  static get boundProperties() {
     return [
       { name: 'dataZoneWidth', as: 'zoneWidth' },
       { name: 'dataZoneHeight', as: 'zoneHeight' },
@@ -46,7 +42,7 @@ export default class KPlanner extends SmartComponent {
   }
 
   static get template() {
-    return component => () => {
+    return (html, component) => {
       const state = component._state.get();
       const zoneStyle = `width: ${state.zoneWidth}%; height: ${state.zoneHeight}%; left: ${state.zoneLeft}%; top: ${state.zoneTop}%;`;
 

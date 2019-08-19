@@ -21,28 +21,6 @@
   &--inverse {
     border-bottom: 2px solid rgba(var(--color-primary-rgb), .5);
 
-    .c-input__field {
-      background: transparent;
-      color: var(--color-text-body-inverse);
-    }
-
-    .c-input__label {
-      &:before {
-        background-color: rgba(var(--color-primary-rgb), .7);
-      }
-
-      &:after {
-        color: rgba(var(--color-primary-rgb), .5);
-      }
-    }
-
-    .c-input__field:focus + .c-input__label,
-    .c-input__field:not(:placeholder-shown) + .c-input__label {
-      &:after {
-        color: var(--color-primary);
-      }
-    }
-
     @include hover {
       border-bottom: 2px solid rgba(var(--color-primary-rgb), .7);
 
@@ -56,6 +34,11 @@
         }
       }
     }
+  }
+
+  &--small {
+    margin-bottom: 32px;
+    padding-bottom: 4px;
   }
 
   &__field {
@@ -97,10 +80,27 @@
       color: transparent;
     }
 
+    .c-input--inverse & {
+      background: transparent;
+      color: var(--color-text-body-inverse);
+    }
+
+    .c-input--small & {
+      font-size: 16px;
+      height: 32px;
+      line-height: 24px;
+      margin: 24px 0 0;
+      padding: 8px 0 0;
+    }
+
     &--textarea {
       max-height: 200px;
       padding-top: 14px;
       resize: none;
+
+      .c-input--small & {
+        padding-top: 8px;
+      }
     }
   }
 
@@ -115,6 +115,15 @@
       transition: width .2s;
       width: 0;
       will-change: width;
+
+      .c-input__field:focus + &,
+      .c-input__field:not(:placeholder-shown) + & {
+        width: 100%;
+      }
+
+      .c-input--inverse & {
+        background-color: rgba(var(--color-primary-rgb), .7);
+      }
     }
 
     &:after {
@@ -130,18 +139,34 @@
       top: 38px;
       transition: color .2s, font-size .2s, top .2s;
       will-change: color, font-size, top;
-    }
 
-    .c-input__field:focus + &,
-    .c-input__field:not(:placeholder-shown) + & {
-      &:before {
-        width: 100%;
-      }
-
-      &:after {
+      .c-input__field:focus + &,
+      .c-input__field:not(:placeholder-shown) + & {
         color: var(--color-form-text);
         font-size: 20px;
         height: 32px;
+        top: 8px;
+      }
+
+      .c-input--inverse & {
+        color: rgba(var(--color-primary-rgb), .5);
+      }
+
+      .c-input--inverse .c-input__field:focus + &,
+      .c-input--inverse .c-input__field:not(:placeholder-shown) + & {
+        color: var(--color-primary);
+      }
+
+      .c-input--small & {
+        font-size: 16px;
+        height: 24px;
+        top: 32px;
+      }
+
+      .c-input--small .c-input__field:focus + &,
+      .c-input--small .c-input__field:not(:placeholder-shown) + & {
+        font-size: 14px;
+        height: 16px;
         top: 8px;
       }
     }

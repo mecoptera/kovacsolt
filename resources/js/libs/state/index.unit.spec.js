@@ -61,6 +61,15 @@ describe('State', () => {
         expect(state.get('a')).to.equal(1);
       });
 
+      it('sets value as function', () => {
+        const state = new State();
+
+        state.set('a', 2);
+        state.set('a', value => ++value);
+
+        expect(state.get('a')).to.equal(3);
+      });
+
       it('sets deep data according to parameters', () => {
         const state = new State();
 
@@ -390,6 +399,16 @@ describe('State', () => {
         expect(state.get('a')).to.equal(1);
       });
 
+      it('number is NaN falls back to 0', () => {
+        const subscribeSpy = sinon.spy();
+        const state = new State({});
+
+        state.setOptions('a', { type: 'number' });
+        state.set('a', 'test');
+
+        expect(state.get('a')).to.equal(0);
+      });
+
       it('integer', () => {
         const subscribeSpy = sinon.spy();
         const state = new State({});
@@ -400,6 +419,16 @@ describe('State', () => {
         expect(state.get('a')).to.equal(1);
       });
 
+      it('integer isNaN falls back to 0', () => {
+        const subscribeSpy = sinon.spy();
+        const state = new State({});
+
+        state.setOptions('a', { type: 'integer' });
+        state.set('a', 'test');
+
+        expect(state.get('a')).to.equal(0);
+      });
+
       it('float', () => {
         const subscribeSpy = sinon.spy();
         const state = new State({});
@@ -408,6 +437,16 @@ describe('State', () => {
         state.set('a', '1.2');
 
         expect(state.get('a')).to.equal(1.2);
+      });
+
+      it('float isNaN falls back to 0', () => {
+        const subscribeSpy = sinon.spy();
+        const state = new State({});
+
+        state.setOptions('a', { type: 'float' });
+        state.set('a', 'test');
+
+        expect(state.get('a')).to.equal(0);
       });
 
       it('boolean', () => {
@@ -463,6 +502,16 @@ describe('State', () => {
       expect(state.get('a')).to.equal(null);
 
       state.set('a', 'ipsum');
+
+      expect(state.get('a')).to.equal('ipsum');
+    });
+
+    it('sets allowedValues and falls back to default value', () => {
+      const subscribeSpy = sinon.spy();
+      const state = new State({});
+
+      state.setOptions('a', { allowedValues: ['lorem', 'ipsum'], defaultValue: 'ipsum' });
+      state.set('a', 'dolor');
 
       expect(state.get('a')).to.equal('ipsum');
     });

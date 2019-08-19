@@ -19,12 +19,14 @@ Route::get('/planner/{product}', 'PageController@step2')->name('page.planner.ste
 Route::get('/planner/area/{area?}', 'PageController@step2Area')->name('page.planner.area');
 Route::get('/planner/finalize', 'PageController@step3')->name('page.planner.step3');
 
+Route::get('/order', 'PageController@order')->middleware('verified')->name('page.order');
+
 Route::get('/contact', 'PageController@contact')->name('page.contact');
 Route::get('/about', 'PageController@about')->name('page.about');
 Route::get('/privacy', 'PageController@privacy')->name('page.privacy');
 
 Auth::routes(['verify' => true]);
-Route::get('/user', 'UserController@index')->middleware('verified')->name('user');
+Route::get('/user', 'UserController@index')->middleware('verified')->name('user.home');
 Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 Route::prefix('panel')->group(function() {

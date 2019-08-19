@@ -1,17 +1,8 @@
-import { html } from 'lighterhtml';
 import SmartComponent from '../../libs/smartcomponent';
 
 export default class KProductCard extends SmartComponent {
   init() {
-    super.init({
-      className: 'c-product',
-      render: {
-        container: this
-      }
-    });
-
-    this.addEventListener('click', this);
-    this.addEventListener('mouseleave', this);
+    super.init({ className: 'c-product' });
   }
 
   static get eventHandlers() {
@@ -28,7 +19,7 @@ export default class KProductCard extends SmartComponent {
     };
   }
 
-  static get boundPropertiesToState() {
+  static get boundProperties() {
     return [
       { name: 'dataCsrf', as: 'csrf' },
       { name: 'dataDetail', as: 'detail' },
@@ -42,7 +33,7 @@ export default class KProductCard extends SmartComponent {
   }
 
   static get template() {
-    return component => () => {
+    return (html, component) => {
       const csrf = component._state.get('csrf');
       const data = component._state.get('detail');
       const plannerUrl = component._state.get('plannerUrl');

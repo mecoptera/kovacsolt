@@ -20,22 +20,31 @@ class Cart {
 
   public function __construct() {
     $this->userId = Auth::user() ? Auth::user()->id : false;
-    $this->cartId = $this->userId ? CartModel::where('user_id', $this->userId)->first()->id : null;
+    $userCart = $this->userId ? CartModel::where([
+      ['user_id', '=', $this->userId],
+      ['closed', '=', false]
+    ])->first() : null;
 
-    if (Session::has('cart')) {
-      $this->items = Session::get('cart');
-    } elseif ($this->userId) {
+    $this->cartId = $userCart ? $userCart->id : null;
+
+    if ($this->userId && !$userCart) {
+      $this->cartId = $this->createDatabase();
+    }
+
+    //if (Session::has('cart')) {
+    //  $this->items = Session::get('cart');
+    //} elseif ($this->userId) {
       $cartProducts = CartProductModel::with('product')->where('cart_id', $this->cartId)->get();
 
       foreach ($cartProducts as $cartProduct) {
         $this->items[$cartProduct->product->id] = [
-          'product' => $cartProduct->product->first(),
+          'product' => $cartProduct->product,
           'quantity' => $cartProduct->quantity
         ];
       }
 
       $this->updateSession();
-    }
+    //}
   }
 
   public function add($productId) {
@@ -60,7 +69,7 @@ class Cart {
     $priceTotal = 0;
 
     foreach ($this->items as $item) {
-      $priceTotal += $item['product']['price'] * $item['quantity'];
+      $priceTotal += $item['product']->discountPrice * $item['quantity'];
     }
 
     return $priceTotal;
@@ -69,6 +78,12 @@ class Cart {
   public function empty() {
     $this->items = [];
     $this->updateSession();
+  }
+
+  private function createDatabase() {
+    $cart = CartModel::create([ 'user_id' => $this->userId ]);
+
+    return $cart->id;
   }
 
   private function updateDatabase($productId) {

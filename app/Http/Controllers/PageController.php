@@ -50,4 +50,8 @@ class PageController extends Controller {
   public function privacy() {
     return view('page.privacy');
   }
+
+  public function order() {
+    return view('page.order');
+  }
 }

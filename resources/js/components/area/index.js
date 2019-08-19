@@ -1,4 +1,3 @@
-import { html } from 'lighterhtml';
 import axios from 'axios';
 import SmartComponent from '../../libs/smartcomponent';
 
@@ -18,7 +17,7 @@ export default class KArea extends SmartComponent {
     return ['data-name', 'data-endpoint'];
   }
 
-  static get boundPropertiesToState() {
+  static get boundProperties() {
     return [
       { name: 'dataName', as: 'name' },
       { name: 'dataEndpoint', as: 'endpoint' }
@@ -26,7 +25,7 @@ export default class KArea extends SmartComponent {
   }
 
   static get template() {
-    return component => () => html`<div class="c-area__loading">Loading...</div>`;
+    return (html, component) => html`<div class="c-area__loading">Loading...</div>`;
   }
 
   connectedCallback() {

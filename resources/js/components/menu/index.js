@@ -2,7 +2,7 @@ import SmartComponent from '../../libs/smartcomponent';
 
 export default class KMenu extends SmartComponent {
   init() {
-    this._marker = super._parseHTML('<div class="q-menu__marker"></div>');
+    this._marker = this.constructor._parseHTML('<div class="q-menu__marker"></div>');
 
     super.init({
       listenChildren: true,

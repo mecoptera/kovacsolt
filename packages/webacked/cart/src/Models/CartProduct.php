@@ -9,6 +9,6 @@ class CartProduct extends Model {
   protected $with = array('product');
 
   public function product() {
-    return $this->hasOne(App\Products::class, 'id', 'product_id');
+    return $this->hasOne(\App\Product::class, 'id', 'product_id');
   }
 }

@@ -26,7 +26,7 @@ export default class SmartComponent extends HTMLElement {
       watchContent: false,
       connectedChildren: new NodeCollection(),
       render: {
-        container: null,
+        container: this.constructor.template ? this : null,
         globalState: false,
         autoAppendContainer: true,
         prepend: false
@@ -51,24 +51,28 @@ export default class SmartComponent extends HTMLElement {
     });
 
     if (this.constructor.stateOptions) {
-      Object.keys(this.constructor.stateOptions).forEach(name => {
-        this._state.setOptions(name, this.constructor.stateOptions[name]);
+      Object.keys(this.constructor.stateOptions).forEach(option => {
+        this._state.setOptions(option, this.constructor.stateOptions[option]);
       });
     }
 
-    if (this.constructor.boundPropertiesToState) {
-      this.constructor.boundPropertiesToState.forEach(property => {
+    if (this.constructor.boundProperties) {
+      this.constructor.boundProperties.forEach(property => {
         const propertyName = property.name || property;
         const propertyOptions = property.options || {};
         const stateName = property.as || propertyName;
 
         Object.defineProperty(this, propertyName, {
-          get() { this._state.get(stateName); },
+          get() { return this._state.get(stateName); },
           set(value) { this._state.set(stateName, value, propertyOptions); },
           configurable: true
         });
 
-        this._state.set(stateName, this._state.getDefaultValue(stateName));
+        const defaultValue = this._state.getDefaultValue(stateName);
+
+        if (defaultValue !== undefined) {
+          this._state.set(stateName, defaultValue);
+        }
       });
     }
 
@@ -95,14 +99,20 @@ export default class SmartComponent extends HTMLElement {
     const renderContainer = this._options.get('render.container');
 
     if (renderContainer) {
+      this.__cleanUpContainer();
+
       const renderAutoAppendContiner = this._options.get('render.autoAppendContainer');
       const renderPrepend = this._options.get('render.prepend');
 
-      if (renderAutoAppendContiner && renderContainer !== this) {
-        if (renderPrepend) {
-          this.insertAdjacentElement('afterbegin', renderContainer);
-        } else {
-          this.appendChild(renderContainer);
+      if (renderContainer !== this) {
+        renderContainer.setAttribute('data-render-container', '');
+
+        if (renderAutoAppendContiner) {
+          if (renderPrepend) {
+            this.insertAdjacentElement('afterbegin', renderContainer);
+          } else {
+            this.appendChild(renderContainer);
+          }
         }
       }
 
@@ -157,20 +167,23 @@ export default class SmartComponent extends HTMLElement {
     });
   }
 
-  _render() {
-    const renderContainer = this._options.get('render.container');
-    const renderTemplate = this.constructor.template(this);
-
-    render(renderContainer, renderTemplate);
+  static _parseHTML(content) {
+    return new DOMParser().parseFromString(content, 'text/html').body.childNodes[0];
   }
 
-  _parseHTML(content) {
-    const parser = new DOMParser();
-    return parser.parseFromString(content, 'text/html').body.childNodes[0];
+  _render() {
+    const renderContainer = this._options.get('render.container');
+    const renderTemplate = this.constructor.template;
+
+    render(renderContainer, () => renderTemplate(html, this));
   }
 
   _dispatchEvent(eventName, detail = {}, bubbles = true) {
     this.dispatchEvent(new CustomEvent(eventName, { detail, bubbles }));
+  }
+
+  __cleanUpContainer() {
+    Array.from(this.querySelectorAll('[data-render-container]')).forEach(node => this.removeChild(node));
   }
 
   __notifyParent(value) {

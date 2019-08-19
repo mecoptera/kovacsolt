@@ -1,4 +1,3 @@
-import { html, render } from 'lighterhtml';
 import tingle from 'tingle.js';
 import SmartComponent from '../../libs/smartcomponent';
 
@@ -66,7 +65,7 @@ export default class KResizer extends SmartComponent {
   }
 
   static get template() {
-    return component => () => {
+    return (html, component) => {
       const state = component._state.get();
       const width = state.elementWidth;
       const left = state.elementLeft;

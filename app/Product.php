@@ -6,18 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model {
   protected $hidden = [ 'design_id' ];
-  protected $appends = [ 'design', 'discount_price' ];
+  protected $appends = [ 'design', 'price_formatted', 'discount_price', 'discount_price_formatted' ];
 
   public function getDesignAttribute() {
     return url(Design::where('id', $this->design_id)->first()->getFirstMediaUrl('design'));
   }
 
-  public function getDiscountPriceAttribute() {
-    return number_format($this->ceiling($this->price * 0.75, 10), 0, ',', ' ');
+  public function getPriceFormattedAttribute() {
+    return number_format($this->price, 0, ',', ' ');
   }
 
-  public function price() {
-    return number_format($this->price, 0, ',', ' ');
+  public function getDiscountPriceAttribute() {
+    return $this->ceiling($this->price * 0.75, 10);
+  }
+
+  public function getDiscountPriceFormattedAttribute() {
+    return number_format($this->ceiling($this->price * 0.75, 10), 0, ',', ' ');
   }
 
   private function ceiling($number, $significance = 1) {
