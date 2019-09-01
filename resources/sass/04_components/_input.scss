@@ -1,62 +1,71 @@
 .c-input {
-  border-bottom: 2px solid var(--color-form-text-placeholder);
-  padding-bottom: 6px;
-  position: relative;
-  transition: border .2s;
-
-  @include hover {
-    border-bottom: 2px solid var(--color-form-border-active);
-
-    .c-input__label {
-      &:before {
-        background-color: var(--color-form-border-active);
-      }
-
-      &:after {
-        color: var(--color-form-text);
-      }
-    }
-  }
-
-  &--inverse {
-    border-bottom: 2px solid rgba(var(--color-primary-rgb), .5);
-
-    @include hover {
-      border-bottom: 2px solid rgba(var(--color-primary-rgb), .7);
-
-      .c-input__label {
-        &:before {
-          background-color: var(--color-primary);
-        }
-
-        &:after {
-          color: var(--color-primary);
-        }
-      }
-    }
-  }
-
-  &--small {
-    margin-bottom: 32px;
-    padding-bottom: 4px;
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 106px;
+  padding: 38px 16px 32px;
+  width: 344px;
 
   &__field {
-    border: 0;
-    background: #fff;
-    color: var(--color-form-text);
-    font-size: 24px;
+    border-bottom: 2px solid var(--color-form-element);
     height: 48px;
-    letter-spacing: .4px;
-    line-height: 32px;
-    margin: 32px 0 0;
-    padding: 12px 0 0;
-    vertical-align: top;
+    position: relative;
+    transition: border .2s;
+
+    .c-input--disabled & {
+      background: var(--color-form-element-disabled-background);
+    }
+
+    .c-input--hover & {
+      border-color: var(--color-form-element-hover);
+    }
+
+    .c-input--focus & {
+      border-color: var(--color-primary);
+    }
+
+    .c-input--error & {
+      border-color: var(--color-primary);
+    }
+  }
+
+  &__input {
+    background: transparent;
+    border: 0;
+    height: 46px;
+    padding: 0 8px;
     width: 100%;
 
-    &:active,
-    &:focus {
+    .c-input--focus & {
       outline: 0;
+
+      &::-webkit-input-placeholder {
+        opacity: 1;
+      }
+
+      &::-moz-placeholder {
+        opacity: 1;
+      }
+
+      &:-moz-placeholder {
+        opacity: 1;
+      }
+
+      &:-ms-input-placeholder {
+        opacity: 1;
+      }
+    }
+
+    &:not(:placeholder-shown) {
+      color: var(--color-text-body);
+      font-weight: bold;
+    }
+
+    .c-input--disabled &:not(:placeholder-shown) {
+      color: var(--color-form-element-hover);
+    }
+
+    .c-input--error &:not(:placeholder-shown) {
+      color: var(--color-primary-mid);
     }
 
     &:-webkit-autofill {
@@ -65,110 +74,88 @@
     }
 
     &::-webkit-input-placeholder {
-      color: transparent;
+      color: var(--color-form-element);
+      opacity: 0;
+      transition: opacity .2s;
+      user-select: none;
     }
 
     &::-moz-placeholder {
-      color: transparent;
-    }
-
-    &:-ms-input-placeholder {
-      color: transparent;
+      color: var(--color-form-element);
+      opacity: 0;
+      transition: opacity .2s;
+      user-select: none;
     }
 
     &:-moz-placeholder {
-      color: transparent;
+      color: var(--color-form-element);
+      opacity: 0;
+      transition: opacity .2s;
+      user-select: none;
     }
 
-    .c-input--inverse & {
-      background: transparent;
-      color: var(--color-text-body-inverse);
-    }
-
-    .c-input--small & {
-      font-size: 16px;
-      height: 32px;
-      line-height: 24px;
-      margin: 24px 0 0;
-      padding: 8px 0 0;
-    }
-
-    &--textarea {
-      max-height: 200px;
-      padding-top: 14px;
-      resize: none;
-
-      .c-input--small & {
-        padding-top: 8px;
-      }
+    &:-ms-input-placeholder {
+      color: var(--color-form-element);
+      opacity: 0;
+      transition: opacity .2s;
+      user-select: none;
     }
   }
 
   &__label {
-    &:before {
-      background-color: var(--color-form-border);
-      bottom: -2px;
-      content: '';
-      height: 2px;
-      left: 0;
-      position: absolute;
-      transition: width .2s;
-      width: 0;
-      will-change: width;
+    color: var(--color-form-element);
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transform: translate(8px, calc(-100% + 32px));
+    transition: color .2s, transform .2s;
 
-      .c-input__field:focus + &,
-      .c-input__field:not(:placeholder-shown) + & {
-        width: 100%;
-      }
-
-      .c-input--inverse & {
-        background-color: rgba(var(--color-primary-rgb), .7);
-      }
+    .c-input--hover & {
+      color: var(--color-form-element-hover);
     }
 
-    &:after {
-      align-items: center;
-      color: var(--color-form-text-placeholder);
-      content: attr(data-label);
-      display: flex;
-      font-size: 24px;
-      height: 48px;
-      left: 0;
-      pointer-events: none;
+    .c-input--focus &,
+    .c-input__input:not(:placeholder-shown) + & {
+      color: var(--color-text-primary);
+      pointer-events: all;
+      transform: translate(0, calc(-100% - 4px));
+    }
+
+    .c-input--disabled .c-input__input:not(:placeholder-shown) + & {
+      color: var(--color-form-element-hover);
+    }
+
+    .c-input--error &,
+    .c-input--error .c-input__input:not(:placeholder-shown) + & {
+      color: var(--color-primary);
+    }
+  }
+
+  &__helper,
+  &__error {
+    color: var(--color-text-body);
+    font-size: 12px;
+    margin-top: 8px;
+    padding-left: 8px;
+  }
+
+  &__error {
+    color: var(--color-primary);
+    padding-left: 32px;
+    position: relative;
+
+    &:before {
+      background: url('../images/icons/error.svg');
+      background-position: center;
+      background-size: cover;
+      content: '';
+      display: inline-block;
+      height: 16px;
+      left: 8px;
       position: absolute;
-      top: 38px;
-      transition: color .2s, font-size .2s, top .2s;
-      will-change: color, font-size, top;
-
-      .c-input__field:focus + &,
-      .c-input__field:not(:placeholder-shown) + & {
-        color: var(--color-form-text);
-        font-size: 20px;
-        height: 32px;
-        top: 8px;
-      }
-
-      .c-input--inverse & {
-        color: rgba(var(--color-primary-rgb), .5);
-      }
-
-      .c-input--inverse .c-input__field:focus + &,
-      .c-input--inverse .c-input__field:not(:placeholder-shown) + & {
-        color: var(--color-primary);
-      }
-
-      .c-input--small & {
-        font-size: 16px;
-        height: 24px;
-        top: 32px;
-      }
-
-      .c-input--small .c-input__field:focus + &,
-      .c-input--small .c-input__field:not(:placeholder-shown) + & {
-        font-size: 14px;
-        height: 16px;
-        top: 8px;
-      }
+      top: -2px;
+      width: 16px;
     }
   }
 }

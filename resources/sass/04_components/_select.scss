@@ -1,0 +1,80 @@
+.c-select {
+  cursor: pointer;
+  display: block;
+  padding: 16px;
+  position: relative;
+  width: 344px;
+
+  &__opener {
+    align-items: center;
+    border-bottom: 2px solid var(--color-form-element);
+    display: flex;
+    flex: 0 1 auto;
+    height: 48px;
+    padding-left: 8px;
+    width: 100%;
+
+    &--active {
+      color: var(--color-text-body);
+      border-color: var(--color-primary);
+      font-weight: bold;
+    }
+
+    &--placeholder {
+      color: var(--color-form-element);
+      font-weight: normal;
+
+      &.c-select__opener--active {
+        border-color: var(--color-primary);
+        color: var(--color-form-element-hover);
+
+        @include hover {
+          border-color: var(--color-primary);
+          color: var(--color-form-element-hover);
+        }
+      }
+
+      @include hover {
+        border-color: var(--color-form-element-hover);
+        color: var(--color-form-element-hover);
+      }
+    }
+  }
+
+  &__option {
+    align-items: center;
+    border-bottom: 1px solid var(--color-background-secondary);
+    cursor: pointer;
+    display: flex;
+    height: 48px;
+    padding-left: 24px;
+
+    @include hover {
+      background: var(--color-form-element-disabled-background);
+    }
+
+    &--selected {
+      background: var(--color-primary);
+      color: var(--color-text-body-inverse);
+      cursor: default;
+      font-weight: bold;
+
+      @include hover {
+        background: var(--color-primary);
+      }
+    }
+  }
+
+  &__popup {
+    background: #fff;
+    box-shadow: var(--shadow-level-2);
+    left: 0;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+  }
+}
+
+.c-select-option {
+  display: none;
+}

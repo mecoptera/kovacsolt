@@ -10,10 +10,10 @@
     "@babel/preset-env": "7.5.5",
     "autoprefixer": "9.6.1",
     "babel-loader": "8.0.6",
-    "browserslist": "4.6.6",
+    "browserslist": "4.7.0",
     "clean-webpack-plugin": "3.0.0",
     "copy-webpack-plugin": "5.0.4",
-    "cross-env": "5.2.0",
+    "cross-env": "5.2.1",
     "css-loader": "3.2.0",
     "cssnano": "4.1.10",
     "dotenv-webpack": "1.7.0",
@@ -21,10 +21,10 @@
     "node-sass": "4.12.0",
     "postcss-clean": "1.1.0",
     "postcss-loader": "3.0.0",
-    "sass-loader": "7.2.0",
+    "sass-loader": "8.0.0",
     "style-loader": "1.0.0",
     "uglifyjs-webpack-plugin": "2.2.0",
-    "webpack": "4.39.2",
+    "webpack": "4.39.3",
     "webpack-cli": "3.3.7"
   },
   "dependencies": {
@@ -34,7 +34,7 @@
     "custom-event": "1.0.1",
     "document-register-element": "1.14.3",
     "interactjs": "1.5.4",
-    "lighterhtml": "0.16.2",
+    "lighterhtml": "1.0.4",
     "tingle.js": "^0.15.1"
   }
 }

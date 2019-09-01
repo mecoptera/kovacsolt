@@ -1,20 +1,19 @@
 import SmartComponent from '../../libs/smartcomponent';
 import popupTemplate from './popup-template';
 
-export default class SampleSelect extends SmartComponent {
+export default class KSelect extends SmartComponent {
   init() {
-    this._container = this.constructor._parseHTML('<div class="container"></div>');
-    this._popupContainer = this.constructor._parseHTML('<div class="popup-container"></div>');
     super.init({
-      listenChildren: true,
-      render: {
-        container: this._container
-      }
+      className: 'c-select',
+      listenChildren: true
     });
   }
 
   static get defaultState() {
     return {
+      name: '',
+      value: null,
+      content: '',
       options: [],
       isOpen: false
     };
@@ -37,12 +36,30 @@ export default class SampleSelect extends SmartComponent {
     };
   }
 
-  static get template() {
-    return (html, component) => html`
-      <input type="hidden" name="${component._state.get('name')}" value="${component._state.get('value')}">
-      <div data-handler="opener" onclick="${component}">${component._state.get('content') || 'Select an option'}</div>
-      ${component._state.get('isOpen') ? popupTemplate(html, component) : ''}
-    `;
+  get template() {
+    return [
+      {
+        name: 'select',
+        markup: html => {
+          const hasPlaceholderClass = this._state.get('value') === null ? 'c-select__opener--placeholder' : '';
+          const hasOpenClass = this._state.get('isOpen') ? 'c-select__opener--opened' : '';
+          const hasActiveClass = this._state.get('value') !== null || this._state.get('isOpen') ? 'c-select__opener--active' : '';
+          const openerClassName = `c-select__opener ${hasActiveClass} ${hasOpenClass} ${hasPlaceholderClass}`;
+
+          return html`
+            <input type="hidden" name="${this._state.get('name')}" value="${this._state.get('value')}">
+            <div class="${openerClassName}" data-handler="opener" onclick="${this}">${this._state.get('content') || 'Select an option'}</div>
+            ${this._state.get('isOpen') ? this._templater.render('popup') : ''}
+          `
+        },
+        container: this.constructor._parseHTML('<div class="container"></div>'),
+        autoAppendContainer: true
+      },
+      {
+        name: 'popup',
+        markup: popupTemplate
+      }
+    ];
   }
 
   childrenChangedCallback(collection) {

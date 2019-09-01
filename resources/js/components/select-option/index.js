@@ -1,8 +1,9 @@
 import SmartComponent from '../../libs/smartcomponent';
 
-export default class SampleSelectOption extends SmartComponent {
+export default class KSelectOption extends SmartComponent {
   init() {
     super.init({
+      className: 'c-select-option',
       notifyParent: true,
       watchContent: true
     });

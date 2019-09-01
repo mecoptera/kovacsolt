@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Design;
 use Webacked\Cart\Facades\Cart;
 use Illuminate\Http\Request;
 
@@ -35,11 +36,11 @@ class PageController extends Controller {
     return view('page.planner-step3');
   }
 
-  private function areaProducts() {
-    $products = Product::all();
+  private function areaDesigns() {
+    $designs = Design::all();
 
     return [
-      'content' => view('page.areas.products', [ 'products' => $products ])->render()
+      'content' => view('page.areas.designs', [ 'designs' => $designs ])->render()
     ];
   }
 
@@ -51,7 +52,7 @@ class PageController extends Controller {
     return view('page.privacy');
   }
 
-  public function order() {
-    return view('page.order');
+  public function sandbox($page) {
+    return view('sandbox.' . $page);
   }
 }

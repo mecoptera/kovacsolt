@@ -3,8 +3,6 @@
 @section('title', 'Tervező')
 
 @section('content')
-  @yield('content')
-
   <div class="l-container">
     <h3 class="u-text-center">Válassz terméket az alábbiak közül:</h3>
 

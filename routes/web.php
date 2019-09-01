@@ -17,17 +17,22 @@ Route::get('/products', 'PageController@products')->name('page.products');
 Route::get('/planner', 'PageController@step1')->name('page.planner.step1');
 Route::get('/planner/{product}', 'PageController@step2')->name('page.planner.step2');
 Route::get('/planner/area/{area?}', 'PageController@step2Area')->name('page.planner.area');
-Route::get('/planner/finalize', 'PageController@step3')->name('page.planner.step3');
-
-Route::get('/order', 'PageController@order')->middleware('verified')->name('page.order');
 
 Route::get('/contact', 'PageController@contact')->name('page.contact');
 Route::get('/about', 'PageController@about')->name('page.about');
 Route::get('/privacy', 'PageController@privacy')->name('page.privacy');
 
 Auth::routes(['verify' => true]);
+
 Route::get('/user', 'UserController@index')->middleware('verified')->name('user.home');
 Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+
+Route::prefix('order')->group(function() {
+  Route::get('/profile', 'OrderController@profile')->name('order.profile');
+  Route::get('/billing', 'OrderController@billing')->name('order.billing');
+  Route::post('/billing', 'OrderController@billingPost')->name('order.billing');
+  Route::get('/shipping', 'OrderController@shipping')->name('order.shipping');
+});
 
 Route::prefix('panel')->group(function() {
     // Route::get('/email/resend', 'Auth\PanelVerificationController@resend')->name('panel.verification.resend');
@@ -50,3 +55,5 @@ Route::prefix('panel')->group(function() {
     Route::get('/designs/delete/{id}', 'Panel\DesignController@remove')->name('panel.designs.delete');
     Route::post('/designs/rename/{id}', 'Panel\DesignController@rename')->name('panel.designs.rename');
 });
+
+Route::get('/sandbox/{name}', 'PageController@sandbox');

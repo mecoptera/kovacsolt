@@ -1,4 +1,4 @@
-import tingle from 'tingle.js';
+import { html } from 'lighterhtml';
 import SmartComponent from '../../libs/smartcomponent';
 
 const patternTemplate = data => {
@@ -11,7 +11,7 @@ const between = (value, min, max) => {
 
 export default class KResizer extends SmartComponent {
   init() {
-    this._container = super._parseHTML('<div class="q-resizer__container"></div>');
+    this._container = this.constructor._parseHTML('<div class="q-resizer__container"></div>');
 
     super.init({
       className: 'q-resizer',

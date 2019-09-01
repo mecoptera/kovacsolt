@@ -24,7 +24,7 @@
         <div class="q-menu__left">
           <a class="q-logo {{ Route::currentRouteName() === 'page.welcome' ? 'q-logo--white' : '' }}" href="{{ url('/') }}"></a>
         </div>
-        <div class="q-menu__right">
+        <div class="q-menu__center">
           <k-menu class="q-menu__bar">
             <k-menu-item class="q-menu__link"><a class="q-menu__text" href="{{ url('/') }}">Kezdőlap</a></k-menu-item>
             <k-menu-item class="q-menu__link"><a class="q-menu__text" href="{{ route('page.products') }}">Termékek</a></k-menu-item>
@@ -32,6 +32,8 @@
             <k-menu-item class="q-menu__link"><a class="q-menu__text" href="{{ route('page.contact') }}">Kapcsolat</a></k-menu-item>
             <k-menu-item class="q-menu__link"><a class="q-menu__text" href="{{ route('page.about') }}">Rólunk</a></k-menu-item>
           </k-menu>
+        </div>
+        <div class="q-menu__right">
           <a class="c-icon c-icon--person {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" href="{{ route('user.home') }}"></a>
           <k-cart-button class="c-icon c-icon--cart {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" data-cart-url="{{ route('cart') }}">
             <div class="c-icon__badge">{{ Webacked\Cart\Helpers::itemsCount() }}</div>

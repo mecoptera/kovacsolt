@@ -1,7 +1,8 @@
 import tingle from 'tingle.js';
+import { html } from 'lighterhtml';
 import SmartComponent from '../../libs/smartcomponent';
 
-const patternTemplate = data => {
+const designTemplate = data => {
   return html`<k-resizer><img src="${data.url}"></k-resizer>`
 };
 
@@ -18,7 +19,7 @@ export default class KPlanner extends SmartComponent {
     });
 
     this._modal.addFooterBtn('Mégse', 'c-button c-button--link', this._modal.close.bind(this));
-    this._modal.addFooterBtn('Hozzáadom', 'c-button', this._addPatternToZone.bind(this));
+    this._modal.addFooterBtn('Hozzáadom', 'c-button', this._addDesignToZone.bind(this));
   }
 
   static get observedAttributes() {
@@ -37,7 +38,7 @@ export default class KPlanner extends SmartComponent {
 
   static get eventHandlers() {
     return {
-      'selectPattern:click': '_selectPatternHandler'
+      'selectDesign:click': '_selectDesignHandler'
     };
   }
 
@@ -47,36 +48,51 @@ export default class KPlanner extends SmartComponent {
       const zoneStyle = `width: ${state.zoneWidth}%; height: ${state.zoneHeight}%; left: ${state.zoneLeft}%; top: ${state.zoneTop}%;`;
 
       return html`
-        <div class="q-planner__left">
-          <button class="c-button" data-handler="selectPattern" onclick="${component}">Minta kiválasztása</button>
-          <b>Minták</b>
-        </div>
-        <div class="q-planner__middle">
-          <div class="q-planner__product">
-            <div class="q-planner__zone" style="${zoneStyle}">
-              ${state.patterns && state.patterns.map(patternTemplate)}
+        <div class="l-grid__row">
+          <div class="l-grid__col-sm-7">
+            <div class="q-planner__product">
+              <div class="q-planner__zone" style="${zoneStyle}">
+                ${state.designs && state.designs.map(designTemplate)}
+              </div>
+            </div>
+          </div>
+          <div class="l-grid__col-sm-5">
+            <div class="q-planner-settings">
+              <div class="q-planner-settings__title">Szín</div>
+              <div class="q-planner-settings__content">
+                <k-select data-name="dsads">
+                  <k-select-option data-value="0">dsadsa</k-select-option>
+                  <k-select-option data-value="1">ds423sa</k-select-option>
+                  <k-select-option data-value="2">dsa432a</k-select-option>
+                  <k-select-option data-value="3">ds234dsa</k-select-option>
+                </k-select>
+              </div>
+
+              <div class="q-planner-settings__title">Minta</div>
+              <div class="q-planner-settings__content">
+                <button data-handler="selectDesign" onclick="${component}" class="c-button">Katalógus megnyitása</button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="q-planner__right"></div>
       `;
     };
   }
 
-  _selectPatternHandler() {
+  _selectDesignHandler() {
     const areaUrl = this._state.get('areaUrl');
 
-    this._modal.setContent(`<k-area data-name="patterns" data-endpoint="${areaUrl}"></k-area>`);
+    this._modal.setContent(`<k-area data-name="designs" data-endpoint="${areaUrl}"></k-area>`);
 
     this._modal.open();
   }
 
-  _addPatternToZone() {
-    const currentPatterns = this._state.get('patterns') || [];
+  _addDesignToZone() {
+    const currentDesigns = this._state.get('designs') || [];
     const input = this._modal.modalBoxContent.querySelector('input:checked');
-    const patterns = currentPatterns.concat([{ id: Symbol(), id: input.value, url: input.getAttribute('url') }]);
+    const designs = currentDesigns.concat([{ id: Symbol(), id: input.value, url: input.getAttribute('url') }]);
 
-    this._state.set('patterns', patterns);
+    this._state.set('designs', designs);
 
     this._modal.close();
   }

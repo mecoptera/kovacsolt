@@ -10,8 +10,7 @@
                 <div class="panel-heading">USER Dashboard</div>
 
                 <div class="panel-body">
-                    @component('components.who')
-                    @endcomponent
+                    @component('components.who')@endcomponent
                 </div>
             </div>
         </div>

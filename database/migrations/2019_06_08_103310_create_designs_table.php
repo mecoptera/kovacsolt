@@ -15,6 +15,7 @@ class CreateDesignsTable extends Migration
     {
         Schema::create('designs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedInteger('user_id')->nullable();
             $table->string('name');
             $table->timestamps();
         });

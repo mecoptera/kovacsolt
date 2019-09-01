@@ -30,7 +30,7 @@
     </div>
 
     <div class="l-form__field u-text-center">
-      <a href="{{ route('page.order') }}" class="c-button">Szállítási adatok megadása</a>
+      <a href="{{ route('order.profile') }}" class="c-button">Tovább a pénztárhoz</a>
     </div>
   </form>
 </div>

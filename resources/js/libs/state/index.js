@@ -1,4 +1,3 @@
-import camelcaseKeys from 'camelcase-keys';
 import deepMerge from './deep-merge';
 
 export default class State {
@@ -21,7 +20,7 @@ export default class State {
   set(name, value, options = {}) {
     const stateOptions = this._getOptions(name);
 
-    if (typeof value === 'function') {
+    if (typeof value === 'function' && !options.storeFunction) {
       value = value(this._get(name, this._data));
     }
 
@@ -178,7 +177,6 @@ export default class State {
         if (typeof value !== 'string') { break; }
 
         try { value = JSON.parse(value); } catch(error) {}
-        try { value = camelcaseKeys(value); } catch(error) {}
       } break;
     }
 

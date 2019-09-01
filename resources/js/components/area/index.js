@@ -3,7 +3,7 @@ import SmartComponent from '../../libs/smartcomponent';
 
 export default class KArea extends SmartComponent {
   init() {
-    this._container = super._parseHTML('<div class="c-area__container"></div>');
+    this._container = this.constructor._parseHTML('<div class="c-area__container"></div>');
 
     super.init({
       className: 'c-area',
