@@ -8,6 +8,7 @@
 
   &__price {
     &--discount {
+      color: var(--color-primary);
       font-weight: bold;
     }
   }

@@ -1,5 +1,16 @@
 .c-checkbox {
+  display: flex;
+  padding: 24px 16px;
   position: relative;
+  width: 344px;
+
+  &--fluid {
+    width: 100%;
+  }
+
+  &__field {
+    height: 48px;
+  }
 
   &__label {
     align-items: center;
@@ -10,8 +21,7 @@
 
     &:before {
       background: #fff;
-      border: 2px solid var(--color-form-text-placeholder);
-      border-radius: 8px;
+      border: 2px solid var(--color-form-element);
       content: '';
       display: inline-block;
       flex: 0 0 auto;
@@ -20,6 +30,10 @@
       transition: background .2s, border .2s;
       width: 32px;
 
+      .c-checkbox--hover & {
+        border-color: var(--color-form-element-hover);
+      }
+
       @include respond('sm') {
         height: 48px;
         margin-right: 32px;
@@ -27,18 +41,12 @@
       }
 
       input:checked + & {
-        background: var(--color-form-border);
-        border-color: var(--color-form-border);
-      }
-    }
+        background: var(--color-primary);
+        border: 0;
 
-    @include hover {
-      &:before {
-        border-color: var(--color-form-border-active);
-
-        input:checked + & {
-          background: var(--color-form-border-active);
-          border-color: var(--color-form-border-active);
+        .c-checkbox--hover & {
+          background: var(--color-primary-mid);
+          border: 0;
         }
       }
     }

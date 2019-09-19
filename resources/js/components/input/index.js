@@ -7,6 +7,7 @@ export default class KInput extends SmartComponent {
     super.init({ className: 'c-input' });
 
     this._state.set('uuid', uuidv4());
+    this._state.set('preparing', true);
   }
 
   static get eventHandlers() {
@@ -14,51 +15,92 @@ export default class KInput extends SmartComponent {
       'input:mouseenter': '_inputMouseEnterHandler',
       'input:mouseleave': '_inputMouseLeaveHandler',
       'input:focus': '_inputFocusHandler',
-      'input:blur': '_inputBlurHandler'
+      'input:blur': '_inputBlurHandler',
+      'password:click': '_passwordClickHandler'
     };
   }
 
   static get stateOptions() {
     return {
-      disabled: { type: 'boolean' }
+      disabled: { type: 'boolean' },
+      fluid: { type: 'boolean' }
     };
   }
 
   static get observedAttributes() {
-    return ['data-placeholder', 'data-label', 'data-helper', 'data-disabled', 'data-value', 'data-error'];
+    return ['data-type', 'data-name', 'data-value', 'data-placeholder', 'data-label', 'data-helper', 'data-disabled', 'data-error', 'data-fluid'];
   }
 
   static get boundProperties() {
     return [
+      { name: 'dataType', as: 'type' },
+      { name: 'dataName', as: 'name' },
+      { name: 'dataValue', as: 'value' },
       { name: 'dataPlaceholder', as: 'placeholder' },
       { name: 'dataLabel', as: 'label' },
       { name: 'dataHelper', as: 'helper' },
       { name: 'dataDisabled', as: 'disabled' },
-      { name: 'dataValue', as: 'value' },
-      { name: 'dataError', as: 'error' }
+      { name: 'dataError', as: 'error' },
+      { name: 'dataFluid', as: 'fluid' }
     ];
   }
 
   get template() {
-    return html => {
-      this.classList.toggle('c-input--hover', !this._state.get('disabled') && !this._state.get('isFocused') && this._state.get('isHovered') || false);
-      this.classList.toggle('c-input--focus', !this._state.get('disabled') && this._state.get('isFocused') || false);
-      this.classList.toggle('c-input--disabled', this._state.get('disabled') || false);
-      this.classList.toggle('c-input--error', this._state.get('error') || false);
+    return [
+      {
+        name: 'input',
+        markup: html => {
+          const inputType = this._state.get('type') === 'password' && this._state.get('showPassword') ? 'text' : (this._state.get('type') || 'text');
+          const isReadOnly = this._state.get('preparing') ? 'readonly' : null;
 
-      return html`
-        <div class="c-input__field">
-          <input id="${this._state.get('uuid')}" value="${this._state.get('value')}" disabled="${this._state.get('disabled') ? 'disabled' : null}" placeholder="${this._state.get('placeholder') || ' '}" class="c-input__input" type="text" data-handler="input" onmouseenter="${this}" onmouseleave="${this}" onfocus="${this}" onblur="${this}">
-          ${this._state.get('label') ? html`<label class="c-input__label" for="${this._state.get('uuid')}">${this._state.get('label')}</label>` : ''}
-        </div>
-        ${!this._state.get('error') && this._state.get('helper') ? html`<div class="c-input__helper">${this._state.get('helper')}</div>` : ''}
-        ${this._state.get('error') ? html`<div class="c-input__error">${this._state.get('error')}</div>` : ''}
-      `;
-    };
+          this.classList.add(`c-input--type-${inputType}`);
+          this.classList.toggle('c-input--hover', !this._state.get('disabled') && !this._state.get('isFocused') && this._state.get('isHovered') || false);
+          this.classList.toggle('c-input--focus', !this._state.get('disabled') && this._state.get('isFocused') || false);
+          this.classList.toggle('c-input--disabled', this._state.get('disabled') || false);
+          this.classList.toggle('c-input--error', this._state.get('error') || this._state.get('error') === '' || false);
+          this.classList.toggle('c-input--fluid', this._state.get('fluid') || false);
+          this.classList.toggle('c-input--has-content', this._state.get('hasContent') || false);
+
+          return html`
+            <div class="c-input__field">
+              <input readonly="${isReadOnly}" class="c-input__input" type="${inputType}" name="${this._state.get('name')}" id="${this._state.get('uuid')}" value="${this._state.get('value')}" disabled="${this._state.get('disabled') ? 'disabled' : null}" placeholder="${this._state.get('placeholder') || ' '}" data-handler="input" onmouseenter="${this}" onmouseleave="${this}" onfocus="${this}" onblur="${this}">
+              ${this._state.get('label') ? html`<label class="c-input__label" for="${this._state.get('uuid')}">${this._state.get('label')}</label>` : ''}
+              ${inputType === 'password' ? html`<div class="c-input__password c-icon c-icon--eye" data-handler="password" onclick=${this}></div>` : ''}
+            </div>
+            ${!this._state.get('error') && this._state.get('helper') ? html`<div class="c-input__helper">${this._state.get('helper')}</div>` : ''}
+            ${!this._state.get('error') && this._templater.has('helper') ? html`<div class="c-input__helper">${this._templater.getContainer('helper')}</div>` : ''}
+            ${this._state.get('error') ? html`<div class="c-input__error">${this._state.get('error')}</div>` : ''}
+          `;
+        },
+        container: document.createElement('div'),
+        autoAppendContainer: true
+      },
+      {
+        name: 'helper',
+        markup: this.querySelector('[data-helper]'),
+        container: document.createElement('div')
+      }
+    ];
   }
 
   get value() {
     return this.querySelector('input').value;
+  }
+
+  renderCallback() {
+    super.renderCallback();
+
+    if (this.querySelector('input')) {
+      this._state.set('hasContent', this.querySelector('input').value !== '');
+
+      if (this._state.get('preparing')) {
+        setTimeout(() => this._state.set('preparing', false));
+      }
+    }
+  }
+
+  contentChangedCallback() {
+    this._templater.renderAll();
   }
 
   _inputMouseEnterHandler() {
@@ -76,5 +118,10 @@ export default class KInput extends SmartComponent {
 
   _inputBlurHandler() {
     this._state.set('isFocused', false);
+  }
+
+  _passwordClickHandler() {
+    this._state.set('showPassword', value => !value);
+    this.querySelector('input').focus();
   }
 }

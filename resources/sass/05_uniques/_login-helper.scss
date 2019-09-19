@@ -1,0 +1,27 @@
+.q-login-helper {
+  background: url('../images/background-1.jpg');
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 256px;
+  padding: 48px;
+
+  &__content {
+
+  }
+
+  &__text {
+    color: var(--color-text-body-inverse);
+    font-size: 24px;
+    font-weight: lighter;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  &__action {
+    display: flex;
+    justify-content: center;
+  }
+}

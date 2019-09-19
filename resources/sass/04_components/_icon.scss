@@ -4,10 +4,10 @@
   background-size: 24px;
   cursor: pointer;
   display: inline-block;
-  height: 50px;
+  height: 46px;
   position: relative;
   text-decoration: none;
-  width: 50px;
+  width: 46px;
 
   &--cart {
     background-image: url('../images/icons/cart.svg');
@@ -54,6 +54,14 @@
 
     &.c-icon--white {
       background-image: url('../images/icons/twitter-white.svg');
+    }
+  }
+
+  &--eye {
+    background-image: url('../images/icons/eye.svg');
+
+    &.c-icon--white {
+      background-image: url('../images/icons/eye-white.svg');
     }
   }
 

@@ -3,14 +3,9 @@ import SmartComponent from '../../libs/smartcomponent';
 
 export default class KCartButton extends SmartComponent {
   init() {
-    this._popup = this.constructor._parseHTML('<div class="q-cart-button__popup"></div>');
-
     super.init({
       className: 'q-cart-button',
-      listenChildren: true,
-      render: {
-        container: this._popup
-      }
+      listenChildren: true
     });
   }
 
@@ -26,26 +21,29 @@ export default class KCartButton extends SmartComponent {
 
   static get eventHandlers() {
     return {
-      ':click': '_onClick'
+      ':click': '_clickHandler'
     };
   }
 
-  static get template() {
-    return (html, component) => {
-      const cartUrl = component._state.get('cartUrl');
-
-      return html`
+  get template() {
+    return [{
+      name: 'popup',
+      markup: html => html`
         <div class="c-loader"></div>
         <div class="u-text-center">
-          <a href="${cartUrl}" class="c-button c-button--small">Tovább a kosárhoz</a>
+          <a href="${this._state.get('cartUrl')}" class="c-button c-button--small">Tovább a kosárhoz</a>
         </div>
-      `;
-    }
+      `,
+      container: this._templater.parseHTML('<div class="q-cart-button__popup"></div>'),
+      autoAppendContainer: true
+    }];
   }
 
-  _onClick(event) {
-    if (this._popup === event.target || this._popup.contains(event.target)) { return false; }
+  _clickHandler(event) {
+    const container = this._templater.getContainer('popup');
 
-    this._popup.classList.toggle('q-cart-button__popup--visible');
+    if (container === event.target || container.contains(event.target)) { return false; }
+
+    container.classList.toggle('q-cart-button__popup--visible');
   }
 }

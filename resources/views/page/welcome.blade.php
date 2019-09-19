@@ -3,7 +3,7 @@
 @section('title', 'Kezdőlap')
 
 @section('content')
-<div class="l-container l-container--full q-welcome">
+<div class="l-container l-container--stretch q-welcome">
   <div class="l-container q-welcome__container">
     <div class="q-welcome__headline">
       <div class="q-welcome__plan"></div>

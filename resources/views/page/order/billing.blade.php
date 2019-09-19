@@ -8,47 +8,65 @@
   <form class="l-form" method="post" action="{{ route('order.billing') }}">
     @csrf
 
-    <div class="l-form__field c-input c-input--small">
-      <input name="name" type="text" placeholder="Név" class="c-input__field" value="{{ $billingData ? $billingData['name'] : '' }}">
-      <div class="c-input__label" data-label="Név"></div>
+    <div class="l-form__field">
+      <k-input
+        data-name="name"
+        data-label="Név"
+        @if (isset($billingData['name']))data-value="{{ $billingData['name'] }}"@endif
+        @error('name')data-error="{{ $message }}"@enderror
+      ></k-input>
     </div>
 
-  @error('name')
-    <span class="invalid-feedback" role="alert">
-      <strong>{{ $message }}</strong>
-    </span>
-  @enderror
-
-    <div class="l-form__field c-input c-input--small">
-      <input name="zip" type="text" placeholder="Irányítószám" class="c-input__field">
-      <div class="c-input__label" data-label="Irányítószám"></div>
+    <div class="l-form__field">
+      <k-input
+        data-name="zip"
+        data-label="Irányítószám"
+        data-placeholder="Példa: 1123"
+        @if (isset($billingData['zip']))data-value="{{ $billingData['zip'] }}"@endif
+        @error('zip')data-error="{{ $message }}"@enderror
+      ></k-input>
     </div>
 
-    <div class="l-form__field c-input c-input--small">
-      <input name="city" type="text" placeholder="Város" class="c-input__field">
-      <div class="c-input__label" data-label="Város"></div>
+    <div class="l-form__field">
+      <k-input
+        data-name="city"
+        data-label="Város"
+        data-placeholder="Példa: Budapest"
+        @if (isset($billingData['city']))data-value="{{ $billingData['city'] }}"@endif
+        @error('city')data-error="{{ $message }}"@enderror
+      ></k-input>
     </div>
 
-    <div class="l-form__field c-input c-input--small">
-      <input name="address" type="text" placeholder="Utca / házszám" class="c-input__field">
-      <div class="c-input__label" data-label="Utca / házszám"></div>
+    <div class="l-form__field">
+      <k-input
+        data-name="address"
+        data-label="Cím"
+        data-placeholder="Példa: Ferenc tér 32. 4/10"
+        @if (isset($billingData['address']))data-value="{{ $billingData['address'] }}"@endif
+        @error('address')data-error="{{ $message }}"@enderror
+      ></k-input>
     </div>
 
-    <div class="l-form__field c-input c-input--small">
-      <input name="email" type="text" placeholder="E-mail cím" class="c-input__field">
-      <div class="c-input__label" data-label="E-mail cím"></div>
+    <div class="l-form__field">
+      <k-input
+        data-name="email"
+        data-label="E-mail cím"
+        @if (isset($billingData['email']))data-value="{{ $billingData['email'] }}"@endif
+        @error('email')data-error="{{ $message }}"@enderror
+      ></k-input>
     </div>
 
-    <div class="l-form__field c-input c-input--small">
-      <input name="phone" type="text" placeholder="Telefonszám" class="c-input__field">
-      <div class="c-input__label" data-label="Telefonszám"></div>
+    <div class="l-form__field">
+      <k-input
+        data-name="phone"
+        data-label="Telefonszám"
+        data-placeholder="Példa: 06 12 345 6789"
+        data-helper="Nem kötelező kitölteni"
+        @if (isset($billingData['phone']))data-value="{{ $billingData['phone'] }}"@endif
+      ></k-input>
     </div>
 
-    <div name="comment" class="l-form__field c-input c-input--small">
-      <k-textarea data-placeholder="Megjegyzés" data-size="small"></k-textarea>
-    </div>
-
-    <div class="l-form__field u-text-center">
+    <div class="l-form__field u-align-right">
       <input type="submit" class="c-button" value="Tovább a szállítási módokhoz">
     </div>
   </form>

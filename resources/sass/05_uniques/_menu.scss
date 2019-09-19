@@ -61,6 +61,7 @@
 
   &__text {
     color: var(--color-text-body);
+    text-decoration: none;
 
     @include hover {
       color: var(--color-text-body);

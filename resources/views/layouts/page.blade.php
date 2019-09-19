@@ -19,8 +19,8 @@
 </head>
 <body>
   <div class="l-layout">
-    <div class="l-layout__header q-menu {{ Route::currentRouteName() === 'page.welcome' ? 'l-layout__header--alternative q-menu--alternative' : '' }}">
-      <div class="l-container q-menu__container">
+    <header class="q-menu {{ Route::currentRouteName() === 'page.welcome' ? 'q-menu--alternative' : '' }}">
+      <nav class="l-container q-menu__container">
         <div class="q-menu__left">
           <a class="q-logo {{ Route::currentRouteName() === 'page.welcome' ? 'q-logo--white' : '' }}" href="{{ url('/') }}"></a>
         </div>
@@ -34,48 +34,48 @@
           </k-menu>
         </div>
         <div class="q-menu__right">
-          <a class="c-icon c-icon--person {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" href="{{ route('user.home') }}"></a>
+          <a class="c-icon c-icon--person {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" href="{{ route('user.profile') }}"></a>
           <k-cart-button class="c-icon c-icon--cart {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" data-cart-url="{{ route('cart') }}">
             <div class="c-icon__badge">{{ Webacked\Cart\Helpers::itemsCount() }}</div>
           </k-cart-button>
         </div>
-      </div>
-    </div>
+      </nav>
+    </header>
 
-    <main class="l-layout__content {{ Route::currentRouteName() === 'page.welcome' ? 'l-layout__content--alternative' : '' }}">
+    <main class="l-layout__content">
       @yield('content')
-
-      <div class="q-footer">
-        <div class="l-container l-container--padding">
-          <div class="q-footer__content">
-            <div class="q-footer__category">
-              <b class="q-footer__title">OLDALTÉRKÉP</b>
-              <ul class="q-footer__list">
-                <li><a class="q-footer__link" href="{{ url('/') }}">Kezdőlap</a></li>
-                <li><a class="q-footer__link" href="{{ url('/references') }}">Referenciák</a></li>
-                <li><a class="q-footer__link" href="{{ url('/about') }}">Rólunk</a></li>
-                <li><a class="q-footer__link" href="{{ url('/contact') }}">Kapcsolat</a></li>
-              </ul>
-            </div>
-            <div class="q-footer__category">
-              <b class="q-footer__title">ADATVÉDELEM</b>
-              <ul class="q-footer__list">
-                <li><a class="q-footer__link" href="{{ url('/privacy') }}">Adatvédelmi Nyilatkozat</a></li>
-              </ul>
-            </div>
-            <div class="q-footer__category">
-              <b class="q-footer__title">ELÉRHETŐSÉGEK</b>
-              <ul class="q-footer__list">
-                <li><a class="q-footer__link" href="mailto:hello@kovacsoltpolo.hu">hello@kovacsoltpolo.hu</a></li>
-                <li><a class="q-footer__link" href="tel:+36 12 345 6789">+36 12 345 6789</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="q-footer__copyright">© {{ date('Y') }} Kovácsolt Póló</div>
-        </div>
-      </div>
     </main>
+
+    <nav class="q-footer">
+      <div class="l-container l-container--padding">
+        <div class="q-footer__content">
+          <div class="q-footer__category">
+            <b class="q-footer__title">OLDALTÉRKÉP</b>
+            <ul class="q-footer__list">
+              <li><a class="q-footer__link" href="{{ url('/') }}">Kezdőlap</a></li>
+              <li><a class="q-footer__link" href="{{ url('/references') }}">Referenciák</a></li>
+              <li><a class="q-footer__link" href="{{ url('/about') }}">Rólunk</a></li>
+              <li><a class="q-footer__link" href="{{ url('/contact') }}">Kapcsolat</a></li>
+            </ul>
+          </div>
+          <div class="q-footer__category">
+            <b class="q-footer__title">ADATVÉDELEM</b>
+            <ul class="q-footer__list">
+              <li><a class="q-footer__link" href="{{ url('/privacy') }}">Adatvédelmi Nyilatkozat</a></li>
+            </ul>
+          </div>
+          <div class="q-footer__category">
+            <b class="q-footer__title">ELÉRHETŐSÉGEK</b>
+            <ul class="q-footer__list">
+              <li><a class="q-footer__link" href="mailto:hello@kovacsoltpolo.hu">hello@kovacsoltpolo.hu</a></li>
+              <li><a class="q-footer__link" href="tel:+36 12 345 6789">+36 12 345 6789</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="q-footer__copyright">© {{ date('Y') }} Kovácsolt Póló</div>
+      </div>
+    </nav>
   </div>
 
   <script src="{{ asset('dist/js/main.js') }}"></script>

@@ -1,74 +1,69 @@
-@extends('layouts.panel')
+@extends('layouts.page')
 
 @section('content')
-<h1>Customer Login</h1>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+  <div class="l-grid">
+    <div class="l-grid__row l-grid__row--center">
+      <div class="l-grid__col-sm-6 c-panel">
+        <h1 class="c-panel__title">Bejelentkezés</h1>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+        <div class="c-panel__content">
+          <form class="l-form l-grid" method="post" action="{{ route('user.login') }}">
+            @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+            <div class="l-grid__row l-grid__row--center">
+              <div class="l-grid__col-sm-8">
+                <k-input
+                  data-fluid
+                  data-name="email"
+                  data-label="E-mail cím"
+                  @if (old('email'))data-value="{{ old('email') }}"@endif
+                  @error('email')data-error @enderror
+                ></k-input>
+              </div>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+              <div class="l-grid__col-sm-8">
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <k-input
+                  data-fluid
+                  data-type="password"
+                  data-name="password"
+                  data-label="Jelszó"
+                  @error('password')data-error @enderror
+                >
+                  <template data-helper><a href="{{ route('user.password.email') }}">Elfelejtettem a jelszavam</a></template>
+                </k-input>
+              </div>
             </div>
+
+            <div class="l-grid__row l-grid__row--center">
+              <div class="l-grid__col-sm-8">
+                <k-checkbox
+                  data-fluid
+                  data-name="remember"
+                  data-label="Emlékezz rám ezen a gépen"
+                ></k-checkbox>
+              </div>
+            </div>
+
+            <div class="l-grid__row l-grid__row--center">
+              <div class="l-grid__col-sm-8 l-form__field u-align-center">
+                <input type="submit" class="c-button" value="Bejelentkezés">
+              </div>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
-</div>
+    <div class="l-grid__row l-grid__row--center">
+      <div class="l-grid__col-sm-6 q-login-helper">
+        <div class="q-login-helper__content">
+          <div class="q-login-helper__text">Még nincs felhasználói fiókod?</div>
+
+          <div class="q-login-helper__action">
+            <a class="c-button c-button--primary" href="{{ route('user.register') }}">Regisztrálok</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection

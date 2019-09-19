@@ -32,14 +32,14 @@ export default class KProductCard extends SmartComponent {
     return ['data-csrf', 'data-detail', 'data-planner-url', 'data-cart-url'];
   }
 
-  static get template() {
-    return (html, component) => {
-      const csrf = component._state.get('csrf');
-      const data = component._state.get('detail');
-      const plannerUrl = component._state.get('plannerUrl');
-      const cartUrl = component._state.get('cartUrl');
+  get template() {
+    return html => {
+      const csrf = this._state.get('csrf');
+      const data = this._state.get('detail');
+      const plannerUrl = this._state.get('plannerUrl');
+      const cartUrl = this._state.get('cartUrl');
 
-      component.classList.add(`c-product--variant-${data.variant}`);
+      this.classList.add(`c-product--variant-${data.variant}`);
 
       return html`
         <div class="c-product__container">
@@ -56,7 +56,7 @@ export default class KProductCard extends SmartComponent {
 
           <div class="c-product__actions">
             <a class="c-product__action" href="${plannerUrl}"><span class="c-icon c-icon--white c-icon--brush"></span></a>
-            <form data-handler="cartAdd" onclick="${component}" class="c-product__action" method="post" action="${cartUrl}">
+            <form data-handler="cartAdd" onclick="${this}" class="c-product__action" method="post" action="${cartUrl}">
               <input type="hidden" name="_token" value="${csrf}">
               <input type="hidden" name="product_id" value="${data.id}">
 
@@ -77,7 +77,6 @@ export default class KProductCard extends SmartComponent {
   }
 
   _onCartAddClick(event) {
-    console.log(event.currentTarget);
     event.currentTarget.submit();
   }
 }

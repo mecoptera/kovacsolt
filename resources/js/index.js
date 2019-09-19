@@ -1,6 +1,8 @@
 import '../sass/app.scss';
 
 import 'document-register-element';
+import 'classlist-polyfill';
+
 import defineElement from './libs/define-element';
 
 import KMenu from './components/menu';
@@ -9,6 +11,7 @@ import KPlanner from './components/planner';
 import KArea from './components/area';
 import KResizer from './components/resizer';
 import KInput from './components/input';
+import KCheckbox from './components/checkbox';
 import KTextarea from './components/textarea';
 import KCartButton from './components/cart-button';
 import KProductCard from './components/product-card';
@@ -20,6 +23,7 @@ defineElement(KPlanner);
 defineElement(KArea);
 defineElement(KResizer);
 defineElement(KInput);
+defineElement(KCheckbox);
 defineElement(KTextarea);
 defineElement(KCartButton);
 defineElement(KProductCard);

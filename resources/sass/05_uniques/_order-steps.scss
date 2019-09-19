@@ -6,6 +6,7 @@
 
   &__step {
     align-items: center;
+    color: var(--color-text-primary);
     display: flex;
     flex: 1 0 auto;
     flex-direction: column;
@@ -14,6 +15,10 @@
     justify-content: flex-start;
     position: relative;
     text-align: center;
+
+    &:hover {
+      color: var(--color-text-primary);
+    }
 
     &:before {
       align-items: center;

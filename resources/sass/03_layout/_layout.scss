@@ -1,13 +1,14 @@
 .l-layout {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
 
   &__header {
-    flex: 0 1 auto;
+    flex: 0 0 auto;
   }
 
   &__content {
     flex: 1 1 auto;
+    min-height: calc(100vh - var(--layout-header-height));
+    padding: 72px 0;
   }
 }

@@ -1,43 +1,106 @@
 .c-select {
-  cursor: pointer;
   display: block;
-  padding: 16px;
+  padding: 38px 16px 32px;
   position: relative;
   width: 344px;
 
   &__opener {
     align-items: center;
     border-bottom: 2px solid var(--color-form-element);
+    color: var(--color-form-element);
+    cursor: pointer;
     display: flex;
     flex: 0 1 auto;
     height: 48px;
     padding-left: 8px;
+    transition: border .2s, color .2s;
     width: 100%;
 
-    &--active {
+    &:focus {
+      outline: 0;
+    }
+
+    .c-select--hover & {
+      border-color: var(--color-form-element-hover);
+      color: var(--color-form-element-hover);
+    }
+
+    .c-select--filled & {
       color: var(--color-text-body);
-      border-color: var(--color-primary);
       font-weight: bold;
+    }
+
+    .c-select--focus & {
+      border-color: var(--color-primary);
+      color: var(--color-text-body);
+    }
+
+    .c-select--error & {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .c-select--disabled & {
+      background: var(--color-form-element-disabled-background);
+      color: var(--color-form-element-hover);
+      cursor: not-allowed;
+    }
+
+    .c-select--filled.c-select--error & {
+      color: var(--color-primary-mid);
     }
 
     &--placeholder {
       color: var(--color-form-element);
       font-weight: normal;
+    }
+  }
 
-      &.c-select__opener--active {
-        border-color: var(--color-primary);
-        color: var(--color-form-element-hover);
+  &__label {
+    color: var(--color-text-primary);
+    left: 8px;
+    position: absolute;
+    top: 0;
+    transform: translate(8px, calc(-100% + 32px));
+    transition: color .2s, transform .2s;
 
-        @include hover {
-          border-color: var(--color-primary);
-          color: var(--color-form-element-hover);
-        }
-      }
+    .c-select--hover & {
+      color: var(--color-form-element-hover);
+    }
 
-      @include hover {
-        border-color: var(--color-form-element-hover);
-        color: var(--color-form-element-hover);
-      }
+    .c-select--error & {
+      color: var(--color-primary);
+    }
+
+    .c-select--disabled & {
+      color: var(--color-form-element-hover);
+    }
+  }
+
+  &__helper,
+  &__error {
+    color: var(--color-form-element-hover);
+    font-size: 12px;
+    margin-top: 8px;
+    padding-left: 8px;
+  }
+
+  &__error {
+    color: var(--color-primary);
+    padding-left: 32px;
+    position: relative;
+
+    &:before {
+      background: url('../images/icons/error.svg');
+      background-position: center;
+      background-size: cover;
+      content: '';
+      display: inline-block;
+      height: 16px;
+      left: 8px;
+      position: absolute;
+      top: -2px;
+      width: 16px;
     }
   }
 
@@ -63,15 +126,35 @@
         background: var(--color-primary);
       }
     }
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
   }
 
   &__popup {
     background: #fff;
     box-shadow: var(--shadow-level-2);
-    left: 0;
-    position: absolute;
-    top: 100%;
-    width: 100%;
+    margin: 24px 0;
+    width: 344px;
+
+    &:before {
+      border: 12px solid transparent;
+      border-bottom-color: #fff;
+      content: '';
+      left: 50%;
+      position: absolute;
+      top: 0;
+      transform: translateX(-50%);
+      width: 12px;
+
+      [x-placement='top'] & {
+        border-bottom-color: transparent;
+        border-top: 12px solid #fff;
+        bottom: 0;
+        top: auto;
+      }
+    }
   }
 }
 

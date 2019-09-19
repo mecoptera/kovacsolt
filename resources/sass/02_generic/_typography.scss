@@ -33,7 +33,7 @@ h2 {
 }
 
 h3 {
-  color: var(--color-primary);
+  color: var(--color-body-text);
   font-size: 32px;
   font-weight: 700;
   line-height: 48px;
@@ -41,7 +41,7 @@ h3 {
 }
 
 h4 {
-  color: var(--color-primary);
+  color: var(--color-body-text);
   font-size: 24px;
   font-weight: 700;
   line-height: 40px;
@@ -55,10 +55,18 @@ p {
 
 a {
   color: var(--color-primary);
-  text-decoration: none;
+  text-decoration: underline;
   transition: color .2s;
 
   @include hover {
     color: var(--color-primary-dark);
   }
+}
+
+input {
+  font-size: 16px;
+}
+
+textarea {
+  font-size: 16px;
 }

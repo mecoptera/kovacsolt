@@ -24,36 +24,54 @@ Route::get('/privacy', 'PageController@privacy')->name('page.privacy');
 
 Auth::routes(['verify' => true]);
 
-Route::get('/user', 'UserController@index')->middleware('verified')->name('user.home');
-Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+Route::prefix('user')->group(function() {
+  Route::get('/profile', 'UserController@index')->middleware('verified')->name('user.profile');
+  Route::post('/profile', 'UserController@saveProfile')->middleware('verified')->name('user.profile.save');
+  Route::get('/login', 'Auth\LoginController@showLoginForm')->name('user.login');
+  Route::post('/login', 'Auth\LoginController@login')->name('user.login');
+  Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('user.register');
+  Route::post('/register', 'Auth\RegisterController@register')->name('user.register');
+  Route::get('/register/activate', 'UserController@activate')->name('user.register.activate');
+  Route::get('/email/resend', 'Auth\VerificationController@resend')->name('user.verification.resend');
+  Route::get('/email/verify', 'Auth\VerificationController@show')->name('user.verification.notice');
+  Route::get('/email/verify/{id}', 'Auth\VerificationController@verify')->name('user.verification.verify');
+  Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+  Route::get('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('user.password.email');
+});
 
 Route::prefix('order')->group(function() {
   Route::get('/profile', 'OrderController@profile')->name('order.profile');
   Route::get('/billing', 'OrderController@billing')->name('order.billing');
   Route::post('/billing', 'OrderController@billingPost')->name('order.billing');
   Route::get('/shipping', 'OrderController@shipping')->name('order.shipping');
+  Route::post('/shipping', 'OrderController@shippingPost')->name('order.shipping');
+  Route::get('/payment', 'OrderController@payment')->name('order.payment');
+  Route::post('/payment', 'OrderController@paymentPost')->name('order.payment');
+  Route::get('/finalize', 'OrderController@finalize')->name('order.finalize');
+  Route::get('/success', 'OrderController@success')->name('order.success');
+  Route::get('/error', 'OrderController@error')->name('order.error');
 });
 
 Route::prefix('panel')->group(function() {
-    // Route::get('/email/resend', 'Auth\PanelVerificationController@resend')->name('panel.verification.resend');
-    // Route::get('/email/verify', 'Auth\PanelVerificationController@show')->name('panel.verification.notice');
-    // Route::get('/email/verify/{id}', 'Auth\PanelVerificationController@verify')->name('panel.verification.verify');
-    Route::get('/login', 'Auth\PanelLoginController@showLoginForm')->name('panel.login');
-    Route::post('/login', 'Auth\PanelLoginController@login')->name('panel.login.submit');
-    Route::post('/password/email', 'Auth\PanelForgotPasswordController@sendResetLinkEmail')->name('panel.password.email');
-    Route::get('/password/reset', 'Auth\PanelForgotPasswordController@showLinkRequestForm')->name('panel.password.request');
-    Route::post('/password/reset', 'Auth\PanelResetPasswordController@reset')->name('panel.password.update');
-    Route::get('/password/reset/{token}', 'Auth\PanelResetPasswordController@showResetForm')->name('panel.password.reset');
-    // Route::get('/register', 'Auth\PanelRegisterController@showRegistrationForm')->name('panel.register');
-    // Route::post('/register', 'Auth\PanelRegisterController@register');
-    Route::get('', 'PanelController@index')->name('panel.dashboard');
-    Route::get('/logout', 'Auth\PanelLoginController@logout')->name('panel.logout');
+  // Route::get('/email/resend', 'Auth\PanelVerificationController@resend')->name('panel.verification.resend');
+  // Route::get('/email/verify', 'Auth\PanelVerificationController@show')->name('panel.verification.notice');
+  // Route::get('/email/verify/{id}', 'Auth\PanelVerificationController@verify')->name('panel.verification.verify');
+  Route::get('/login', 'Auth\PanelLoginController@showLoginForm')->name('panel.login');
+  Route::post('/login', 'Auth\PanelLoginController@login')->name('panel.login.submit');
+  Route::post('/password/email', 'Auth\PanelForgotPasswordController@sendResetLinkEmail')->name('panel.password.email');
+  Route::get('/password/reset', 'Auth\PanelForgotPasswordController@showLinkRequestForm')->name('panel.password.request');
+  Route::post('/password/reset', 'Auth\PanelResetPasswordController@reset')->name('panel.password.update');
+  Route::get('/password/reset/{token}', 'Auth\PanelResetPasswordController@showResetForm')->name('panel.password.reset');
+  // Route::get('/register', 'Auth\PanelRegisterController@showRegistrationForm')->name('panel.register');
+  // Route::post('/register', 'Auth\PanelRegisterController@register');
+  Route::get('', 'PanelController@index')->name('panel.dashboard');
+  Route::get('/logout', 'Auth\PanelLoginController@logout')->name('panel.logout');
 
-    Route::get('/designs', 'Panel\DesignController@index')->name('panel.designs');
-    Route::post('/designs', 'Panel\DesignController@store')->name('panel.designs.upload');
-    Route::get('/designs/feature/{id}', 'Panel\DesignController@feature')->name('panel.designs.feature');
-    Route::get('/designs/delete/{id}', 'Panel\DesignController@remove')->name('panel.designs.delete');
-    Route::post('/designs/rename/{id}', 'Panel\DesignController@rename')->name('panel.designs.rename');
+  Route::get('/designs', 'Panel\DesignController@index')->name('panel.designs');
+  Route::post('/designs', 'Panel\DesignController@store')->name('panel.designs.upload');
+  Route::get('/designs/feature/{id}', 'Panel\DesignController@feature')->name('panel.designs.feature');
+  Route::get('/designs/delete/{id}', 'Panel\DesignController@remove')->name('panel.designs.delete');
+  Route::post('/designs/rename/{id}', 'Panel\DesignController@rename')->name('panel.designs.rename');
 });
 
 Route::get('/sandbox/{name}', 'PageController@sandbox');

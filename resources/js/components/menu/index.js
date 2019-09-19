@@ -2,14 +2,18 @@ import SmartComponent from '../../libs/smartcomponent';
 
 export default class KMenu extends SmartComponent {
   init() {
-    this._marker = this.constructor._parseHTML('<div class="q-menu__marker"></div>');
+    super.init({ listenChildren: true });
 
-    super.init({
-      listenChildren: true,
-      render: {
-        container: this._marker
-      }
-    });
+    this._marker = this._templater.parseHTML('<div class="q-menu__marker"></div>');
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    const marker = this.querySelector('.q-menu__marker');
+    if (marker) { this.removeChild(marker); }
+
+    this.appendChild(this._marker);
   }
 
   disconnectedCallback() {

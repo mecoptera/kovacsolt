@@ -1,0 +1,36 @@
+.c-panel {
+  background-color: var(--color-background-white);
+  padding: 48px;
+
+  &__title {
+    color: var(--color-text-body);
+    font-size: var(--typography-font-size-title);
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__status {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 96px;
+    border: 8px solid var(--color-primary);
+    border-radius: 100%;
+    display: inline-block;
+    height: 128px;
+    margin: 0 auto 48px;
+    width: 128px;
+
+    &--success {
+      background-image: url('../images/check-success.svg');
+    }
+  }
+
+  &__notification {
+    background-color: var(--color-primary);
+    color: var(--color-text-body-inverse);
+    font-weight: bold;
+    margin-bottom: 32px;
+    padding: 16px;
+  }
+}

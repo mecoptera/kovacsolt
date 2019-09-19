@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Webacked\Cart\Facades\Cart;
 
 class OrderController extends Controller {
   public function profile() {
@@ -22,12 +23,18 @@ class OrderController extends Controller {
   public function billingPost(Request $request) {
     $validator = Validator::make($request->all(), [
       'name' => 'required',
-      'zip' => 'required|max:4',
+      'zip' => 'required|digits:4',
       'city' => 'required',
       'address' => 'required',
-      'email' => 'required|email'
+      'email' => 'required|email',
     ], [
-      'name.required' => 'Ki kéne tölteni...'
+      'name.required' => 'Kötelező kitölteni',
+      'zip.required' => 'Kötelező kitölteni',
+      'zip.digits' => 'Maximum 4 számjegy',
+      'city.required' => 'Kötelező kitölteni',
+      'address.required' => 'Kötelező kitölteni',
+      'email.required' => 'Kötelező kitölteni',
+      'email.email' => 'Nem megfelelő formátum'
     ]);
 
     $request->session()->put('billingData', $request->all());
@@ -40,14 +47,81 @@ class OrderController extends Controller {
   }
 
   public function shipping() {
-    return view('page.order.shipping', [ 'step' => 2 ]);
+    return view('page.order.shipping', [ 'step' => 2, 'shippingData' => session()->get('shippingData') ]);
+  }
+
+  public function shippingPost(Request $request) {
+    $validationRules = [];
+    $validationMessages = [];
+
+    if ($request->input('shipping_method') === '2') {
+      $shippingMethodText = 'Házhozszállítás';
+
+      $validationRules = [
+        'name' => 'required',
+        'zip' => 'required|digits:4',
+        'city' => 'required',
+        'address' => 'required',
+        'email' => 'required|email',
+      ];
+
+      $validationMessages = [
+        'name.required' => 'Kötelező kitölteni',
+        'zip.required' => 'Kötelező kitölteni',
+        'zip.digits' => 'Maximum 4 számjegy',
+        'city.required' => 'Kötelező kitölteni',
+        'address.required' => 'Kötelező kitölteni',
+        'email.required' => 'Kötelező kitölteni',
+        'email.email' => 'Nem megfelelő formátum'
+      ];
+    }
+
+    $validator = Validator::make($request->all(), $validationRules, $validationMessages);
+
+    $request->session()->put('shippingData', $request->all());
+    $request->session()->put('shippingData.shipping_method_text', $shippingMethodText);
+
+    if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator);
+    } else {
+      return redirect(route('order.payment'));
+    }
   }
 
   public function payment() {
-    return view('page.order.payment', [ 'step' => 3 ]);
+    return view('page.order.payment', [ 'step' => 3, 'paymentData' => session()->get('paymentData') ]);
+  }
+
+  public function paymentPost(Request $request) {
+    switch ($request->input('payment_method')) {
+      case 0: $paymentMethodText = 'Személyesen, készpénzzel'; break;
+      case 1: $paymentMethodText = 'Utánvétellel futárnak'; break;
+      case 2: $paymentMethodText = 'Bankkártyás fizetés'; break;
+    }
+
+
+    $request->session()->put('paymentData', $request->all());
+    $request->session()->put('paymentData.payment_method_text', $paymentMethodText);
+
+    return redirect(route('order.finalize'));
   }
 
   public function finalize() {
-    return view('page.order.finalize', [ 'step' => 4 ]);
+    return view('page.order.finalize', [
+      'step' => 4,
+      'billingData' => session()->get('billingData'),
+      'shippingData' => session()->get('shippingData'),
+      'paymentData' => session()->get('paymentData'),
+      'cart' => Cart::get(),
+      'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ')
+    ]);
+  }
+
+  public function success() {
+    return view('page.order.success');
+  }
+
+  public function error() {
+    return view('page.order.error');
   }
 }

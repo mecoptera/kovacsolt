@@ -25,11 +25,11 @@
       </table>
     </div>
 
-    <div class="l-form__field u-text-right">
+    <div class="l-form__field u-align-right">
       <div class="q-cart-summary__total">Összesen: <b>{{ $priceTotal }} Ft</b></div>
     </div>
 
-    <div class="l-form__field u-text-center">
+    <div class="l-form__field u-align-center">
       <a href="{{ route('order.profile') }}" class="c-button">Tovább a pénztárhoz</a>
     </div>
   </form>

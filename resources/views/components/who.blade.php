@@ -1,6 +1,6 @@
 @if (Auth::guard('web')->check())
     <p class="text-success">You are logged in as <b>User</b></p>
-    <p><a href="{{ route('user.home') }}">HOME</a></p>
+    <p><a href="{{ route('user.profile') }}">HOME</a></p>
     <p><a href="{{ route('user.logout') }}">Logout as USER</a></p>
 @else
     <p class="text-danger">You are logged out as <b>User</b></p>

@@ -4,6 +4,7 @@
   &__popup {
     background: #fff;
     bottom: -16px;
+    box-shadow: var(--shadow-level-2);
     cursor: default;
     display: none;
     outline: 2px solid #fff;
@@ -13,6 +14,7 @@
     right: 0;
     transform: translateY(100%);
     width: 300px;
+    z-index: 1;
 
     &:before {
       border: 8px solid transparent;

@@ -1,24 +1,32 @@
-@extends('layouts.panel')
+@extends('layouts.page')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('USER Verify Your Email Address') }}</div>
+  <div class="l-grid">
+    <div class="l-grid__row l-grid__row--center">
+      <div class="l-grid__col-sm-6 c-panel">
+        <h1 class="c-panel__title">Nem aktivált fiók</h1>
 
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
-                        </div>
-                    @endif
-
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
-                </div>
-            </div>
+      @if (session('resent'))
+        <div class="l-grid__row l-grid__row--center">
+          <div class="l-grid__col-sm-8">
+            <div class="c-panel__notification">Az aktiváló linket sikeresen újraküldtük, ellenőrizd a beérkezett leveleid!</div>
+          </div>
         </div>
+      @endif
+
+        <div class="c-panel__content">
+          <div class="l-grid__row l-grid__row--center">
+            <div class="l-grid__col-sm-8">
+              <p class="u-align-center">Mielőtt új megerősítést kérnél, kérlek ellenőrizd újra az e-mailjeid!<br>Amennyiben nem kaptál levelet, <a href="{{ route('user.verification.resend') }}">kattints erre a linkre</a>!</p>
+            </div>
+          </div>
+          <div class="l-grid__row l-grid__row--center">
+            <div class="l-grid__col-sm-8 u-align-center">
+              <a class="c-button c-button--outline" href="{{ route('page.welcome') }}">Vissza a kezdőoldalra</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 @endsection

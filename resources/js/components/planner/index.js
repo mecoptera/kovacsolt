@@ -42,9 +42,9 @@ export default class KPlanner extends SmartComponent {
     };
   }
 
-  static get template() {
-    return (html, component) => {
-      const state = component._state.get();
+  get template() {
+    return html => {
+      const state = this._state.get();
       const zoneStyle = `width: ${state.zoneWidth}%; height: ${state.zoneHeight}%; left: ${state.zoneLeft}%; top: ${state.zoneTop}%;`;
 
       return html`
@@ -70,7 +70,7 @@ export default class KPlanner extends SmartComponent {
 
               <div class="q-planner-settings__title">Minta</div>
               <div class="q-planner-settings__content">
-                <button data-handler="selectDesign" onclick="${component}" class="c-button">Katalógus megnyitása</button>
+                <button data-handler="selectDesign" onclick="${this}" class="c-button">Katalógus megnyitása</button>
               </div>
             </div>
           </div>

@@ -64,9 +64,9 @@ export default class KResizer extends SmartComponent {
     }
   }
 
-  static get template() {
-    return (html, component) => {
-      const state = component._state.get();
+  get template() {
+    return html => {
+      const state = this._state.get();
       const width = state.elementWidth;
       const left = state.elementLeft;
       const top = state.elementTop;
@@ -77,11 +77,11 @@ export default class KResizer extends SmartComponent {
 
       return html`
         <div class="q-resizer__element" style="${elementStyle}">
-          <div data-handler="control" data-id="move" onmousedown="${component}" class="q-resizer__background" style="${backgroundStyle}"></div>
-          <div data-handler="control" data-id="topLeft" onmousedown="${component}" class="q-resizer__control q-resizer__control--top-left"></div>
-          <div data-handler="control" data-id="topRight" onmousedown="${component}" class="q-resizer__control q-resizer__control--top-right"></div>
-          <div data-handler="control" data-id="bottomRight" onmousedown="${component}" class="q-resizer__control q-resizer__control--bottom-right"></div>
-          <div data-handler="control" data-id="bottomLeft" onmousedown="${component}" class="q-resizer__control q-resizer__control--bottom-left"></div>
+          <div data-handler="control" data-id="move" onmousedown="${this}" class="q-resizer__background" style="${backgroundStyle}"></div>
+          <div data-handler="control" data-id="topLeft" onmousedown="${this}" class="q-resizer__control q-resizer__control--top-left"></div>
+          <div data-handler="control" data-id="topRight" onmousedown="${this}" class="q-resizer__control q-resizer__control--top-right"></div>
+          <div data-handler="control" data-id="bottomRight" onmousedown="${this}" class="q-resizer__control q-resizer__control--bottom-right"></div>
+          <div data-handler="control" data-id="bottomLeft" onmousedown="${this}" class="q-resizer__control q-resizer__control--bottom-left"></div>
         </div>
       `;
     };

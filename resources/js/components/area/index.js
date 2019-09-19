@@ -3,14 +3,7 @@ import SmartComponent from '../../libs/smartcomponent';
 
 export default class KArea extends SmartComponent {
   init() {
-    this._container = this.constructor._parseHTML('<div class="c-area__container"></div>');
-
-    super.init({
-      className: 'c-area',
-      render: {
-        container: this._container
-      }
-    });
+    super.init({ className: 'c-area' });
   }
 
   static get observedAttributes() {
@@ -24,8 +17,13 @@ export default class KArea extends SmartComponent {
     ];
   }
 
-  static get template() {
-    return (html, component) => html`<div class="c-area__loading">Loading...</div>`;
+  get template() {
+    return [{
+      name: 'area',
+      markup: html => html`<div class="c-area__loading">Loading...</div>`,
+      container: this._templater.parseHTML('<div class="c-area__container"></div>'),
+      autoAppendContainer: true
+    }];
   }
 
   connectedCallback() {
@@ -38,6 +36,6 @@ export default class KArea extends SmartComponent {
     const name = this._state.get('name');
     const endpoint = this._state.get('endpoint');
 
-    axios.get(endpoint + name).then(response => this._container.innerHTML = response.data.content);
+    axios.get(endpoint + name).then(response => this._templater.getContainer('area').innerHTML = response.data.content);
   }
 }

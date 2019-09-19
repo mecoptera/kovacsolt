@@ -2,8 +2,12 @@
   display: flex;
   flex-direction: column;
   min-height: 106px;
-  padding: 38px 16px 32px;
+  padding: 30px 16px 24px;
   width: 344px;
+
+  &--fluid {
+    width: 100%;
+  }
 
   &__field {
     border-bottom: 2px solid var(--color-form-element);
@@ -11,8 +15,14 @@
     position: relative;
     transition: border .2s;
 
+    .c-input--textarea & {
+      height: auto;
+      min-height: 48px;
+    }
+
     .c-input--disabled & {
       background: var(--color-form-element-disabled-background);
+      cursor: not-allowed;
     }
 
     .c-input--hover & {
@@ -33,7 +43,19 @@
     border: 0;
     height: 46px;
     padding: 0 8px;
+    vertical-align: top;
     width: 100%;
+
+    .c-input--textarea & {
+      max-height: 188px;
+      min-height: 46px;
+      padding-top: 15px;
+      resize: none;
+    }
+
+    .c-input--type-password & {
+      padding: 0 54px 0 8px;
+    }
 
     .c-input--focus & {
       outline: 0;
@@ -55,16 +77,17 @@
       }
     }
 
-    &:not(:placeholder-shown) {
+    .c-input--has-content & {
       color: var(--color-text-body);
       font-weight: bold;
     }
 
-    .c-input--disabled &:not(:placeholder-shown) {
+    .c-input--disabled.c-input--has-content & {
       color: var(--color-form-element-hover);
+      cursor: not-allowed;
     }
 
-    .c-input--error &:not(:placeholder-shown) {
+    .c-input--error.c-input--has-content & {
       color: var(--color-primary-mid);
     }
 
@@ -116,25 +139,31 @@
     }
 
     .c-input--focus &,
-    .c-input__input:not(:placeholder-shown) + & {
+    .c-input--has-content .c-input__input + & {
       color: var(--color-text-primary);
       pointer-events: all;
       transform: translate(0, calc(-100% - 4px));
     }
 
-    .c-input--disabled .c-input__input:not(:placeholder-shown) + & {
+    .c-input--disabled.c-input--has-content .c-input__input + & {
       color: var(--color-form-element-hover);
     }
 
     .c-input--error &,
-    .c-input--error .c-input__input:not(:placeholder-shown) + & {
+    .c-input--error.c-input--has-content .c-input__input + & {
       color: var(--color-primary);
     }
   }
 
+  &__password {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
   &__helper,
   &__error {
-    color: var(--color-text-body);
+    color: var(--color-form-element-hover);
     font-size: 12px;
     margin-top: 8px;
     padding-left: 8px;
