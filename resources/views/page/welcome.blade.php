@@ -57,9 +57,8 @@
     <p>Amennyiben a későbbiekben szeretnél értesülni a legújabb akciókról, ne habozz, add meg a címed lent.</p>
 
     <div class="q-contact__form">
-      <div class="c-input c-input--inverse q-contact__email">
-        <input type="text" placeholder="E-mail cím" class="c-input__field">
-        <div class="c-input__label" data-label="E-mail cím"></div>
+      <div class="q-contact__email">
+        <k-input data-label="E-mail cím"></k-input>
       </div>
 
       <a href="javascript:void(0)" class="c-button c-button--outline q-contact__button">Feliratkozás</a>

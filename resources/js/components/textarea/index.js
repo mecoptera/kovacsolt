@@ -8,6 +8,7 @@ export default class KTextarea extends SmartComponent {
 
     this._state.set('uuid', uuidv4());
     this._state.set('lineHeight', this._getLineHeight());
+    this._state.set('preparing', true);
   }
 
   static get eventHandlers() {
@@ -42,6 +43,7 @@ export default class KTextarea extends SmartComponent {
       this.classList.toggle('c-input--focus', !this._state.get('disabled') && this._state.get('isFocused') || false);
       this.classList.toggle('c-input--disabled', this._state.get('disabled') || false);
       this.classList.toggle('c-input--error', this._state.get('error') || false);
+      this.classList.toggle('c-input--has-content', this._state.get('hasContent') || false);
 
       return html`
         <div class="c-input__field">
@@ -56,18 +58,28 @@ export default class KTextarea extends SmartComponent {
 
   connectedCallback() {
     super.connectedCallback();
+    this._setHeight();
   }
 
-  _textareaInputHandler(event) {
-    event.target.removeAttribute('style');
+  renderCallback() {
+    super.renderCallback();
 
-    const padding = 28;
-    const lineHeight = this._state.get('lineHeight');
-    const currentRow = Math.ceil((event.target.scrollHeight - padding) / lineHeight);
+    if (this.querySelector('textarea')) {
+      this._state.set('hasContent', this.querySelector('textarea').value !== '');
 
-    if (event.target.clientHeight < event.target.scrollHeight) {
-      event.target.style.height = `${padding + lineHeight * currentRow}px`;
+      if (this._state.get('preparing')) {
+        setTimeout(() => this._state.set('preparing', false));
+      }
     }
+  }
+
+  contentChangedCallback() {
+    this._templater.renderAll();
+  }
+
+  _textareaInputHandler() {
+    this._setHeight();
+    this.renderCallback();
   }
 
   _textareaMouseEnterHandler() {
@@ -97,5 +109,18 @@ export default class KTextarea extends SmartComponent {
     document.body.removeChild(testElement);
 
     return lineHeight;
+  }
+
+  _setHeight() {
+    const element = this.querySelector('textarea');
+    element.removeAttribute('style');
+
+    const padding = 28;
+    const lineHeight = this._state.get('lineHeight');
+    const currentRow = Math.ceil((element.scrollHeight - padding) / lineHeight);
+
+    if (element.clientHeight < element.scrollHeight) {
+      element.style.height = `${padding + lineHeight * currentRow}px`;
+    }
   }
 }

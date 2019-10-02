@@ -17,6 +17,7 @@ import KCartButton from './components/cart-button';
 import KProductCard from './components/product-card';
 import KSelect from './components/select';
 import KSelectOption from './components/select-option';
+import KNotification from './components/notification';
 
 defineElement(KMenu, [KMenuItem]);
 defineElement(KPlanner);
@@ -28,6 +29,7 @@ defineElement(KTextarea);
 defineElement(KCartButton);
 defineElement(KProductCard);
 defineElement(KSelect, [KSelectOption]);
+defineElement(KNotification);
 
 (() => {
   const isTouchDevice = (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));

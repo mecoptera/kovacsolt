@@ -7,6 +7,10 @@
     background: var(--color-background-secondary);
   }
 
+  &__row {
+    vertical-align: top;
+  }
+
   &__cell {
     padding: var(--grid-gap);
     width: 1%;

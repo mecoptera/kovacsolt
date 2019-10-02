@@ -1,13 +1,16 @@
 .c-icon {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 24px;
-  cursor: pointer;
+  background-size: 87.5%;
   display: inline-block;
   height: 46px;
   position: relative;
   text-decoration: none;
   width: 46px;
+
+  &--small {
+    background-size: 60%;
+  }
 
   &--cart {
     background-image: url('../images/icons/cart.svg');
@@ -62,6 +65,22 @@
 
     &.c-icon--white {
       background-image: url('../images/icons/eye-white.svg');
+    }
+  }
+
+  &--error {
+    background-image: url('../images/icons/error.svg');
+
+    &.c-icon--white {
+      background-image: url('../images/icons/error-white.svg');
+    }
+  }
+
+  &--success {
+    background-image: url('../images/icons/success.svg');
+
+    &.c-icon--white {
+      background-image: url('../images/icons/success-white.svg');
     }
   }
 

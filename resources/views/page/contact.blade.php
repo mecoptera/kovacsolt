@@ -3,37 +3,49 @@
 @section('title', 'Kapcsolat')
 
 @section('content')
-<div class="l-container l-container--smaller l-container--padding">
-  <h2 class="u-text-center">Hagyjon üzenetet!</h2>
-  <p class="u-text-center">Amennyiben kérdése van, ajánlatot kérne, vagy visszajelzést szeretne adni, küldjön üzenetet a <a href="mailto: hello@kovacsoltpolo.hu">hello@kovacsoltpolo.hu</a> címre. Az alábbi űrlap segítségével gyorsabban is üzenhet.</p>
+  <div class="l-container">
+    <div class="c-panel">
+      <div class="c-panel__content">
+        <h1 class="c-panel__title">Hagyjon üzenetet!</h1>
 
-  <form class="l-form">
-    <div class="l-form__field c-input">
-      <input type="text" placeholder="Név" class="c-input__field">
-      <div class="c-input__label" data-label="Név"></div>
-    </div>
+        <div class="l-grid">
+          <form class="l-form l-grid__col--6 l-grid__col--offset-" method="post" action="{{ route('user.login') }}">
+            @csrf
 
-    <div class="l-form__field c-input">
-      <input type="text" placeholder="E-mail cím" class="c-input__field">
-      <div class="c-input__label" data-label="E-mail cím"></div>
-    </div>
+            <p class="u-text-center">Amennyiben kérdésed van, ajánlatot kérnél, vagy visszajelzést szeretnél adni, írj a <a href="mailto: hello@kovacsoltpolo.hu">hello@kovacsoltpolo.hu</a> címre, vagy hagyj üzenetet az űrlap kitöltésével.</p>
 
-    <div class="l-form__field c-input">
-      <k-textarea data-placeholder="Üzenet"></k-textarea>
-    </div>
+            <k-input
+              data-name="name"
+              data-label="Név"
+              @if (old('name'))data-value="{{ old('name') }}"@endif
+              @error('name')data-error @enderror
+            ></k-input>
 
-    <div class="l-form__field">
-      <label class="c-checkbox">
-        <input type="checkbox">
-        <div class="c-checkbox__label">
-          <span>Megértettem és elfogadom az <a href="{{ route('page.privacy') }}" target="_blank">Adatkezelési tájékoztató</a>ban leírtakat</span>
+            <k-input
+              data-name="email"
+              data-label="E-mail cím"
+              @if (old('email'))data-value="{{ old('email') }}"@endif
+              @error('email')data-error @enderror
+            ></k-input>
+
+            <k-textarea
+              data-name="message"
+              data-label="Üzenet"
+              @if (old('message'))data-value="{{ old('message') }}"@endif
+              @error('message')data-error @enderror
+            ></k-textarea>
+
+            <k-checkbox
+              data-name="remember"
+            >
+              <template data-label><div>Megértettem és elfogadom az <a href="{{ route('page.privacy') }}" target="_blank">Adatkezelési tájékoztató</a>ban leírtakat</div></template>
+            </k-checkbox>
+
+            <div class="l-form__field u-align-center">
+              <a href="javascript:void(0)" class="c-button">Küldés</a>
+            </div>
+          </form>
         </div>
-      </label>
+      </div>
     </div>
-
-    <div class="l-form__field u-text-center">
-      <a href="javascript:void(0)" class="c-button">Küldés</a>
-    </div>
-  </form>
-</div>
 @endsection

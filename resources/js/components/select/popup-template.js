@@ -5,8 +5,10 @@ const optionTemplate = function(html, option) {
 };
 
 export default function(html) {
+  const width = `min-width: ${this.querySelector('.c-select__opener').offsetWidth}px`;
+
   return html`
-    <div class="c-select__popup">
+    <div class="c-select__popup" style="${width}">
       ${this._state.get('options').map(option => optionTemplate.call(this, html, option))}
     </div>
   `;

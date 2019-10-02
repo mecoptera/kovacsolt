@@ -31,13 +31,13 @@ class UserController extends Controller {
       'name' => 'required',
       'email' => 'required|email'
     ], [
-      'name.required' => 'Kötelező kitölteni',
-      'email.required' => 'Kötelező kitölteni',
+      'name.required' => 'Nem hagyhatod üresen',
+      'email.required' => 'Nem hagyhatod üresen',
       'email.email' => 'Nem megfelelő formátum'
     ]);
 
     if ($validator->fails()) {
-      return redirect()->back()->withErrors($validator);
+      return redirect()->back()->withErrors($validator)->with('error', 'Nem tudtuk menteni a változtatásokat, mert a megadott adatokban hiba van. Ellenőrizd a pirossal jelzett mezőket és próbáld újra!');
     } else {
       $userData = Auth::user();
 
@@ -46,7 +46,7 @@ class UserController extends Controller {
         DB::table('email_resets')->insert(['user_id' => $userData->id, 'email' => $request->input('email'), 'token' => str_random(32)]);
       }
 
-      return redirect()->back()->with('success', 'A változtatésokat sikeresen mentettük!');
+      return redirect()->back()->with('success', 'A változtatásokat sikeresen mentettük!');
     }
   }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.page')
 
 @section('content')
-  <div class="l-container l-container--smaller">
+  <div class="l-container">
     <div class="q-order-steps">
       <a
         class="q-order-steps__step {{ $step === 0 ? 'q-order-steps__step--current' : 'q-order-steps__step--done' }}"

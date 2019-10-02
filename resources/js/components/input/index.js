@@ -16,19 +16,19 @@ export default class KInput extends SmartComponent {
       'input:mouseleave': '_inputMouseLeaveHandler',
       'input:focus': '_inputFocusHandler',
       'input:blur': '_inputBlurHandler',
+      'input:input': '_inputInputHandler',
       'password:click': '_passwordClickHandler'
     };
   }
 
   static get stateOptions() {
     return {
-      disabled: { type: 'boolean' },
-      fluid: { type: 'boolean' }
+      disabled: { type: 'boolean' }
     };
   }
 
   static get observedAttributes() {
-    return ['data-type', 'data-name', 'data-value', 'data-placeholder', 'data-label', 'data-helper', 'data-disabled', 'data-error', 'data-fluid'];
+    return ['data-type', 'data-name', 'data-value', 'data-placeholder', 'data-label', 'data-helper', 'data-disabled', 'data-error'];
   }
 
   static get boundProperties() {
@@ -40,8 +40,7 @@ export default class KInput extends SmartComponent {
       { name: 'dataLabel', as: 'label' },
       { name: 'dataHelper', as: 'helper' },
       { name: 'dataDisabled', as: 'disabled' },
-      { name: 'dataError', as: 'error' },
-      { name: 'dataFluid', as: 'fluid' }
+      { name: 'dataError', as: 'error' }
     ];
   }
 
@@ -58,14 +57,13 @@ export default class KInput extends SmartComponent {
           this.classList.toggle('c-input--focus', !this._state.get('disabled') && this._state.get('isFocused') || false);
           this.classList.toggle('c-input--disabled', this._state.get('disabled') || false);
           this.classList.toggle('c-input--error', this._state.get('error') || this._state.get('error') === '' || false);
-          this.classList.toggle('c-input--fluid', this._state.get('fluid') || false);
           this.classList.toggle('c-input--has-content', this._state.get('hasContent') || false);
 
           return html`
             <div class="c-input__field">
-              <input readonly="${isReadOnly}" class="c-input__input" type="${inputType}" name="${this._state.get('name')}" id="${this._state.get('uuid')}" value="${this._state.get('value')}" disabled="${this._state.get('disabled') ? 'disabled' : null}" placeholder="${this._state.get('placeholder') || ' '}" data-handler="input" onmouseenter="${this}" onmouseleave="${this}" onfocus="${this}" onblur="${this}">
+              <input readonly="${isReadOnly}" class="c-input__input" type="${inputType}" name="${this._state.get('name')}" id="${this._state.get('uuid')}" value="${this._state.get('value')}" disabled="${this._state.get('disabled') ? 'disabled' : null}" placeholder="${this._state.get('placeholder') || ' '}" data-handler="input" onmouseenter="${this}" onmouseleave="${this}" onfocus="${this}" onblur="${this}" oninput="${this}">
               ${this._state.get('label') ? html`<label class="c-input__label" for="${this._state.get('uuid')}">${this._state.get('label')}</label>` : ''}
-              ${inputType === 'password' ? html`<div class="c-input__password c-icon c-icon--eye" data-handler="password" onclick=${this}></div>` : ''}
+              ${this._state.get('type') === 'password' ? html`<div class="c-input__password c-icon c-icon--small c-icon--eye" data-handler="password" onclick=${this}></div>` : ''}
             </div>
             ${!this._state.get('error') && this._state.get('helper') ? html`<div class="c-input__helper">${this._state.get('helper')}</div>` : ''}
             ${!this._state.get('error') && this._templater.has('helper') ? html`<div class="c-input__helper">${this._templater.getContainer('helper')}</div>` : ''}
@@ -118,6 +116,10 @@ export default class KInput extends SmartComponent {
 
   _inputBlurHandler() {
     this._state.set('isFocused', false);
+  }
+
+  _inputInputHandler() {
+    this.renderCallback();
   }
 
   _passwordClickHandler() {

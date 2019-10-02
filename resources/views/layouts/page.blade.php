@@ -34,8 +34,8 @@
           </k-menu>
         </div>
         <div class="q-menu__right">
-          <a class="c-icon c-icon--person {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" href="{{ route('user.profile') }}"></a>
-          <k-cart-button class="c-icon c-icon--cart {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" data-cart-url="{{ route('cart') }}">
+          <a class="c-icon c-icon--small c-icon--person {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" href="{{ route('user.profile') }}"></a>
+          <k-cart-button class="c-icon c-icon--small c-icon--cart {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" data-cart-url="{{ route('cart') }}">
             <div class="c-icon__badge">{{ Webacked\Cart\Helpers::itemsCount() }}</div>
           </k-cart-button>
         </div>

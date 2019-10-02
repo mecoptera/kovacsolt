@@ -1,0 +1,19 @@
+.c-notification {
+  border: 2px solid var(--color-primary);
+  display: block;
+  font-weight: bold;
+  padding: 24px 24px 24px 104px;
+  position: relative;
+
+  &__status {
+    align-items: center;
+    background-color: var(--color-primary);
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 76px;
+  }
+}

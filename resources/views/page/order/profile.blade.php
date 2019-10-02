@@ -3,48 +3,47 @@
 @section('title', 'Rendelés leadása')
 
 @section('order-step')
-  <h2 class="u-align-center">Felhasználói fiók</h2>
+  <div class="c-panel">
+    <div class="c-panel__content">
+      <h1 class="c-panel__title">Felhasználói fiók</h1>
 
-  <div class="l-grid">
-    <div class="l-grid l-grid__col l-grid__col-sm-6 l-grid__center-sm l-grid__middle-sm">
-      <form method="post" action="{{ route('login', [ 'from' => 'order' ]) }}">
-        @csrf
+      <div class="l-grid">
+        <form class="l-form l-grid__col--6 l-grid__col--offset-3 u-flex u-flex--column" method="post" action="{{ route('login', [ 'from' => 'order' ]) }}">
+          @csrf
 
-        <div class="l-form__field">
           <k-input
             data-name="email"
             data-label="E-mail cím"
             data-value="{{ old('email') }}"
             @error('email')data-error="{{ $message }}"@enderror
           ></k-input>
-        </div>
 
-        <div class="l-form__field">
           <k-input
             data-type="password"
             data-name="password"
             data-label="Jelszó"
             @error('password')data-error="{{ $message }}"@enderror
-          ></k-input>
-        </div>
+          >
+            <template data-helper><a href="{{ route('user.password.email', [ 'from' => 'order' ]) }}">Elfelejtettem a jelszavam</a></template>
+          </k-input>
 
-        <div class="l-form__field">
-          <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-          <label class="form-check-label" for="remember">{{ __('Remember Me') }}</label>
-        </div>
+          <k-checkbox data-label="Emlékezz rám ezen a gépen" data-name="remember" data-checked="{{ old('remember') ? 'checked' : '' }}"></k-checkbox>
 
-        <div class="l-form__field">
-          <button type="submit" class="c-button">{{ __('Login') }}</button>
-        </div>
-
-      @if (Route::has('password.request'))
-        <a class="btn btn-link" href="{{ route('password.request', [ 'from' => 'order' ]) }}">{{ __('Forgot Your Password?') }}</a>
-      @endif
-      </form>
+          <div class="l-form__field u-align-center">
+            <button type="submit" class="c-button">Bejelentkezek</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 
-    <div class="l-grid l-grid__col l-grid__col-sm-6 l-grid__center-sm l-grid__middle-sm">
-      <a class="c-button c-button--outline" href="{{ route('order.billing') }}">Vendégként folytatom</a>
+  <div class="q-login-helper">
+    <div class="q-login-helper__content">
+      <div class="q-login-helper__text">Ha nem szeretnél regisztrálni</div>
+
+      <div class="q-login-helper__action">
+        <a class="c-button c-button--primary" href="{{ route('order.billing') }}">Vendégként folytatom</a>
+      </div>
     </div>
   </div>
 @endsection
