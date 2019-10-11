@@ -1,7 +1,7 @@
 import axios from 'axios';
-import SmartComponent from '../../libs/smartcomponent';
+import Bamboo from '@dkocsis-emarsys/bamboo';
 
-export default class KCartButton extends SmartComponent {
+export default class KCartButton extends Bamboo {
   init() {
     super.init({
       className: 'q-cart-button',

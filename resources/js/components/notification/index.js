@@ -1,6 +1,6 @@
-import SmartComponent from '../../libs/smartcomponent';
+import Bamboo from '@dkocsis-emarsys/bamboo';
 
-export default class KNotification extends SmartComponent {
+export default class KNotification extends Bamboo {
   init() {
     super.init({ className: 'c-notification' });
   }

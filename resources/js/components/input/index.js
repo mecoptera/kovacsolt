@@ -1,8 +1,8 @@
-import SmartComponent from '../../libs/smartcomponent';
+import Bamboo from '../../../../../bamboo';
 
 const uuidv4 = () => ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
 
-export default class KInput extends SmartComponent {
+export default class KInput extends Bamboo {
   init() {
     super.init({ className: 'c-input' });
 
@@ -51,6 +51,7 @@ export default class KInput extends SmartComponent {
         markup: html => {
           const inputType = this._state.get('type') === 'password' && this._state.get('showPassword') ? 'text' : (this._state.get('type') || 'text');
           const isReadOnly = this._state.get('preparing') ? 'readonly' : null;
+          const showPasswordClass = `c-input__password c-icon c-icon--eye ${this._state.get('showPassword') ? 'c-icon--brand' : ''} c-icon--small`;
 
           this.classList.add(`c-input--type-${inputType}`);
           this.classList.toggle('c-input--hover', !this._state.get('disabled') && !this._state.get('isFocused') && this._state.get('isHovered') || false);
@@ -63,10 +64,10 @@ export default class KInput extends SmartComponent {
             <div class="c-input__field">
               <input readonly="${isReadOnly}" class="c-input__input" type="${inputType}" name="${this._state.get('name')}" id="${this._state.get('uuid')}" value="${this._state.get('value')}" disabled="${this._state.get('disabled') ? 'disabled' : null}" placeholder="${this._state.get('placeholder') || ' '}" data-handler="input" onmouseenter="${this}" onmouseleave="${this}" onfocus="${this}" onblur="${this}" oninput="${this}">
               ${this._state.get('label') ? html`<label class="c-input__label" for="${this._state.get('uuid')}">${this._state.get('label')}</label>` : ''}
-              ${this._state.get('type') === 'password' ? html`<div class="c-input__password c-icon c-icon--small c-icon--eye" data-handler="password" onclick=${this}></div>` : ''}
+              ${this._state.get('type') === 'password' ? html`<div class="${showPasswordClass}" data-handler="password" onclick=${this}></div>` : ''}
             </div>
             ${!this._state.get('error') && this._state.get('helper') ? html`<div class="c-input__helper">${this._state.get('helper')}</div>` : ''}
-            ${!this._state.get('error') && this._templater.has('helper') ? html`<div class="c-input__helper">${this._templater.getContainer('helper')}</div>` : ''}
+            ${!this._state.get('error') && this._templater.hasMarkup('helper') ? html`<div class="c-input__helper">${this._templater.render('helper')}</div>` : ''}
             ${this._state.get('error') ? html`<div class="c-input__error">${this._state.get('error')}</div>` : ''}
           `;
         },
@@ -75,8 +76,7 @@ export default class KInput extends SmartComponent {
       },
       {
         name: 'helper',
-        markup: this.querySelector('[data-helper]'),
-        container: document.createElement('div')
+        markup: this.querySelector('[data-helper]')
       }
     ];
   }

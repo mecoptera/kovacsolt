@@ -1,11 +1,11 @@
 <?php
 
-namespace Webacked\Cart\Facades;
+namespace Webacked\SimplePay\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Cart extends Facade {
+class SimplePay extends Facade {
   protected static function getFacadeAccessor() {
-    return 'cart';
+    return 'simplePay';
   }
 }

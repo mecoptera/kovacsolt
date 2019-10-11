@@ -1,6 +1,6 @@
-import SmartComponent from '../../libs/smartcomponent';
+import Bamboo from '@dkocsis-emarsys/bamboo';
 
-export default class KMenuItem extends SmartComponent {
+export default class KMenuItem extends Bamboo {
   init() {
     super.init({ notifyParent: true });
   }

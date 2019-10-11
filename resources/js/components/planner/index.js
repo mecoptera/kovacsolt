@@ -1,12 +1,11 @@
 import tingle from 'tingle.js';
-import { html } from 'lighterhtml';
-import SmartComponent from '../../libs/smartcomponent';
+import Bamboo from '@dkocsis-emarsys/bamboo';
 
 const designTemplate = data => {
   return html`<k-resizer><img src="${data.url}"></k-resizer>`
 };
 
-export default class KPlanner extends SmartComponent {
+export default class KPlanner extends Bamboo {
   init() {
     super.init({
       className: 'q-planner'

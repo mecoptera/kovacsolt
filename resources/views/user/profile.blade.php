@@ -18,7 +18,7 @@
 
     <div class="c-panel">
       <div class="c-panel__content">
-        <h2 class="u-align-center">Fiók beállításai</h2>
+        <h1 class="c-panel__title">Fiók beállításai</h1>
 
         <form class="l-form" method="post" action="{{ route('user.profile.save') }}">
           @csrf

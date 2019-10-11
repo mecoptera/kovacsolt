@@ -3,8 +3,6 @@ import '../sass/app.scss';
 import 'document-register-element';
 import 'classlist-polyfill';
 
-import defineElement from './libs/define-element';
-
 import KMenu from './components/menu';
 import KMenuItem from './components/menu-item';
 import KPlanner from './components/planner';
@@ -19,17 +17,19 @@ import KSelect from './components/select';
 import KSelectOption from './components/select-option';
 import KNotification from './components/notification';
 
-defineElement(KMenu, [KMenuItem]);
-defineElement(KPlanner);
-defineElement(KArea);
-defineElement(KResizer);
-defineElement(KInput);
-defineElement(KCheckbox);
-defineElement(KTextarea);
-defineElement(KCartButton);
-defineElement(KProductCard);
-defineElement(KSelect, [KSelectOption]);
-defineElement(KNotification);
+customElements.define('k-menu', KMenu);
+customElements.define('k-menu-item', KMenuItem);
+customElements.define('k-planner', KPlanner);
+customElements.define('k-area', KArea);
+customElements.define('k-resizer', KResizer);
+customElements.define('k-input', KInput);
+customElements.define('k-checkbox', KCheckbox);
+customElements.define('k-textarea', KTextarea);
+customElements.define('k-cart-button', KCartButton);
+customElements.define('k-product-card', KProductCard);
+customElements.define('k-select', KSelect);
+customElements.define('k-select-option', KSelectOption);
+customElements.define('k-notification', KNotification);
 
 (() => {
   const isTouchDevice = (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));

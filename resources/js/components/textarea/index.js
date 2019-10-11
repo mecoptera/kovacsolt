@@ -1,8 +1,8 @@
-import SmartComponent from '../../libs/smartcomponent';
+import Bamboo from '@dkocsis-emarsys/bamboo';
 
 const uuidv4 = () => ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
 
-export default class KTextarea extends SmartComponent {
+export default class KTextarea extends Bamboo {
   init() {
     super.init({ className: 'c-input c-input--textarea' });
 

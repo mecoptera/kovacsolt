@@ -1,6 +1,6 @@
-import SmartComponent from '../../libs/smartcomponent';
+import Bamboo from '@dkocsis-emarsys/bamboo';
 
-export default class SampleNumberInput extends SmartComponent {
+export default class SampleNumberInput extends Bamboo {
   init() {
     super.init();
 

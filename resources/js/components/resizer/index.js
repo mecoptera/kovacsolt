@@ -1,5 +1,4 @@
-import { html } from 'lighterhtml';
-import SmartComponent from '../../libs/smartcomponent';
+import Bamboo from '@dkocsis-emarsys/bamboo';
 
 const patternTemplate = data => {
   return html`<div class="q-planner__pattern"><img src="${data.url}"></div>`
@@ -9,7 +8,7 @@ const between = (value, min, max) => {
   return Math.max(min, Math.min(value, max));
 };
 
-export default class KResizer extends SmartComponent {
+export default class KResizer extends Bamboo {
   init() {
     this._container = this.constructor._parseHTML('<div class="q-resizer__container"></div>');
 

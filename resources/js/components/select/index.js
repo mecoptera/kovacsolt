@@ -1,8 +1,8 @@
 import PopperJs from 'popper.js';
-import SmartComponent from '../../libs/smartcomponent';
+import Bamboo from '@dkocsis-emarsys/bamboo';
 import popupTemplate from './popup-template';
 
-export default class KSelect extends SmartComponent {
+export default class KSelect extends Bamboo {
   init() {
     super.init({
       className: 'c-select',

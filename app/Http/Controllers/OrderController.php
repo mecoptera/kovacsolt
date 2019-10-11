@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Webacked\Cart\Facades\Cart;
+use Webacked\SimplePay\Facades\SimplePay;
 
 class OrderController extends Controller {
   public function profile() {
@@ -112,10 +113,24 @@ class OrderController extends Controller {
       'billingData' => session()->get('billingData'),
       'shippingData' => session()->get('shippingData'),
       'paymentData' => session()->get('paymentData'),
+      'finalizeData' => session()->get('finalizeData'),
       'cart' => Cart::get(),
-      'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ')
+      'shippingPrice' => number_format(1200, 0, ',', ' '),
+      'priceTotal' => number_format(Cart::priceTotal() + 1200, 0, ',', ' ')
     ]);
   }
+
+  public function finalizePost(Request $request) {
+    $request->session()->put('finalizeData', $request->all());
+
+    if ($request->session()->get('paymentData')['payment_method'] === '2') {
+      $url = SimplePay::test();
+      return redirect()->to($url);
+    } else {
+      return view('page.order.success');
+    }
+  }
+
 
   public function success() {
     return view('page.order.success');

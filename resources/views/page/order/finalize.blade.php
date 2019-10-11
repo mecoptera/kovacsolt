@@ -28,6 +28,7 @@
           </table>
 
           <div class="l-form__field u-align-right">
+            <div>Szállítás: <b>{{ $shippingPrice }} Ft</b></div>
             <div class="q-cart-summary__total">Összesen: <b>{{ $priceTotal }} Ft</b></div>
           </div>
         </div>
@@ -117,14 +118,14 @@
 
       <div class="l-grid">
         <div class="l-grid__col--6 l-grid__col--offset-3">
-          <form class="l-form" method="post" action="{{ route('order.shipping') }}">
+          <form class="l-form" method="post" action="{{ route('order.finalize') }}">
             @csrf
 
             <k-textarea
               data-name="comment"
-              data-label="Megjegyzés"
+              data-label="Egyéb megjegyzés"
               data-helper="Nem kötelező kitölteni"
-              @if (isset($billingData['comment']))data-value="{{ $billingData['comment'] }}"@endif
+              @if (isset($finalizeData['comment']))data-value="{{ $finalizeData['comment'] }}"@endif
             ></k-textarea>
 
             <div class="l-form__field u-align-center">

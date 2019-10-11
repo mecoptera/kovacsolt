@@ -48,6 +48,7 @@ Route::prefix('order')->group(function() {
   Route::get('/payment', 'OrderController@payment')->name('order.payment');
   Route::post('/payment', 'OrderController@paymentPost')->name('order.payment');
   Route::get('/finalize', 'OrderController@finalize')->name('order.finalize');
+  Route::post('/finalize', 'OrderController@finalizePost')->name('order.finalize');
   Route::get('/success', 'OrderController@success')->name('order.success');
   Route::get('/error', 'OrderController@error')->name('order.error');
 });

@@ -6,11 +6,12 @@ use Illuminate\Support\ServiceProvider;
 
 class SimplePayServiceProvider extends ServiceProvider {
   public function register() {
-    $this->app->make('Webacked\SimplePay\SimplePayController');
-    $this->loadViewsFrom(__DIR__.'/views', 'simplepay');
+    $this->app->bind('simplePay', 'Webacked\SimplePay\SimplePay');
   }
 
   public function boot() {
-    include __DIR__.'/routes.php';
+    $this->mergeConfigFrom(__DIR__ . '/config/simple-pay.php', 'simplePay');
+
+    $this->publishes([__DIR__ . '/config/simple-pay.php' => config_path('simple-pay.php')], 'config');
   }
 }

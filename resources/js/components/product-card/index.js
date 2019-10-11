@@ -1,6 +1,6 @@
-import SmartComponent from '../../libs/smartcomponent';
+import Bamboo from '@dkocsis-emarsys/bamboo';
 
-export default class KProductCard extends SmartComponent {
+export default class KProductCard extends Bamboo {
   init() {
     super.init({ className: 'c-product' });
   }

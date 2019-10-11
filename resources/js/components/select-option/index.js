@@ -1,6 +1,6 @@
-import SmartComponent from '../../libs/smartcomponent';
+import Bamboo from '@dkocsis-emarsys/bamboo';
 
-export default class KSelectOption extends SmartComponent {
+export default class KSelectOption extends Bamboo {
   init() {
     super.init({
       className: 'c-select-option',
