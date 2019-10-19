@@ -49,10 +49,12 @@ export default class KProductCard extends Bamboo {
           <div class="c-product__info">
             <div class="c-product__name">${data.name}</div>
             <div class="c-product__price c-product__price--discount">
-              <div class="c-product__price-original">${data.price} Ft</div>
-              ${data.discountPrice} Ft
+              <div class="c-product__price-original">${data.priceFormatted} Ft</div>
+              ${data.discountPriceFormatted} Ft
             </div>
           </div>
+
+          <div class="c-product__discount" data-discount="${'-' + (100 - Math.round(data.discountPrice / data.price * 100)) + '%'}"></div>
 
           <div class="c-product__actions">
             <a class="c-product__action" href="${plannerUrl}"><span class="c-icon c-icon--white c-icon--brush"></span></a>

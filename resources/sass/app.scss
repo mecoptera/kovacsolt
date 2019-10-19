@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import '01_variables/color';
 @import '01_variables/grid';
 @import '01_variables/layout';
@@ -18,7 +22,7 @@
 @import '04_components/panel';
 @import '04_components/button';
 @import '04_components/icon';
-@import '04_components/patterns';
+@import '04_components/designs';
 @import '04_components/product';
 @import '04_components/input';
 @import '04_components/checkbox';
@@ -32,7 +36,7 @@
 @import '05_uniques/logo';
 @import '05_uniques/welcome';
 @import '05_uniques/products';
-@import '05_uniques/planner';
+@import '05_uniques/planner-design';
 @import '05_uniques/resizer';
 @import '05_uniques/contact';
 @import '05_uniques/footer';

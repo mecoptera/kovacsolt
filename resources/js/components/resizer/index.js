@@ -10,28 +10,66 @@ const between = (value, min, max) => {
 
 export default class KResizer extends Bamboo {
   init() {
-    this._container = this.constructor._parseHTML('<div class="q-resizer__container"></div>');
-
     super.init({
       className: 'q-resizer',
-      render: {
-        container: this._container
-      }
+      notifyParent: true
     });
-
-    const observerConfig = { childList: true };
-    const callback = (mutationsList, observer) => {
-      for(var mutation of mutationsList) {
-        if (mutation.type === 'childList' && mutation.addedNodes.length && mutation.addedNodes[0].nodeName === 'IMG') {
-          this._handleImage();
-        }
-      }
-    };
-    const observer = new MutationObserver(callback);
-    observer.observe(this, observerConfig);
 
     this._mouseMoveHandler = this._mouseMoveHandler.bind(this);
     this._mouseUpHandler = this._mouseUpHandler.bind(this);
+  }
+
+  static get defaultState() {
+    return {
+      elementWidth: 100,
+      elementLeft: 0,
+      elementTop: 0
+    };
+  }
+
+  static get observedAttributes() {
+    return ['data-design-id', 'data-design-url'];
+  }
+
+  static get boundProperties() {
+    return [
+      { name: 'dataDesignId', as: 'designId' },
+      { name: 'dataDesignUrl', as: 'designUrl' }
+    ];
+  }
+
+  static get eventHandlers() {
+    return {
+      'control:mousedown': '_controlMousedownHandler',
+    }
+  }
+
+  get template() {
+    return [{
+      name: 'resizer',
+      markup: html => {
+        const state = this._state.get();
+        const width = state.elementWidth;
+        const left = state.elementLeft;
+        const top = state.elementTop;
+        const height = width * state.elementRatio * state.resizerRatio;
+
+        const elementStyle = `width: ${width}%; height: ${height}%; left: ${left}%; top: ${top}%;`;
+        const backgroundStyle = `background-image: url('${state.designUrl}')`;
+
+        return html`
+          <div class="q-resizer__element" style="${elementStyle}">
+            <div data-handler="control" data-id="move" onmousedown="${this}" class="q-resizer__background" style="${backgroundStyle}"></div>
+            <div data-handler="control" data-id="topLeft" onmousedown="${this}" class="q-resizer__control q-resizer__control--top-left"></div>
+            <div data-handler="control" data-id="topRight" onmousedown="${this}" class="q-resizer__control q-resizer__control--top-right"></div>
+            <div data-handler="control" data-id="bottomRight" onmousedown="${this}" class="q-resizer__control q-resizer__control--bottom-right"></div>
+            <div data-handler="control" data-id="bottomLeft" onmousedown="${this}" class="q-resizer__control q-resizer__control--bottom-left"></div>
+          </div>
+        `;
+      },
+      container: this._templater.parseHTML('<div class="q-resizer__container"></div>'),
+      autoAppendContainer: true
+    }];
   }
 
   connectedCallback() {
@@ -49,54 +87,21 @@ export default class KResizer extends Bamboo {
     this._handleImage();
   }
 
-  static get defaultState() {
-    return {
-      elementWidth: 100,
-      elementLeft: 0,
-      elementTop: 0
-    };
-  }
-
-  static get eventHandlers() {
-    return {
-      'control:mousedown': '_controlMousedownHandler',
-    }
-  }
-
-  get template() {
-    return html => {
-      const state = this._state.get();
-      const width = state.elementWidth;
-      const left = state.elementLeft;
-      const top = state.elementTop;
-      const height = width * state.elementRatio * state.resizerRatio;
-
-      const elementStyle = `width: ${width}%; height: ${height}%; left: ${left}%; top: ${top}%;`;
-      const backgroundStyle = `background-image: url('${state.url}')`;
-
-      return html`
-        <div class="q-resizer__element" style="${elementStyle}">
-          <div data-handler="control" data-id="move" onmousedown="${this}" class="q-resizer__background" style="${backgroundStyle}"></div>
-          <div data-handler="control" data-id="topLeft" onmousedown="${this}" class="q-resizer__control q-resizer__control--top-left"></div>
-          <div data-handler="control" data-id="topRight" onmousedown="${this}" class="q-resizer__control q-resizer__control--top-right"></div>
-          <div data-handler="control" data-id="bottomRight" onmousedown="${this}" class="q-resizer__control q-resizer__control--bottom-right"></div>
-          <div data-handler="control" data-id="bottomLeft" onmousedown="${this}" class="q-resizer__control q-resizer__control--bottom-left"></div>
-        </div>
-      `;
-    };
-  }
-
   _handleImage() {
-    const image = this.querySelector('img');
-    image.addEventListener('load', event => {
-      this._state.set('url', image.src);
+    const image = document.createElement('img');
 
+    image.addEventListener('load', event => {
       if (image.naturalHeight > image.naturalWidth) {
         this._state.set('elementRatio', image.naturalWidth / image.naturalHeight);
       } else {
         this._state.set('elementRatio', image.naturalHeight / image.naturalWidth);
       }
     });
+
+    image.src = this._state.get('designUrl');
+
+    this.appendChild(image);
+    this.removeChild(image);
   }
 
   _controlMousedownHandler(event) {

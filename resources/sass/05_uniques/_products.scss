@@ -1,6 +1,7 @@
 .q-products {
   display: flex;
   flex-wrap: wrap;
+  margin: calc(-1 * var(--grid-gap));
 
   &__more {
     align-items: center;

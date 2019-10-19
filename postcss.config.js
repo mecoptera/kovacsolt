@@ -1,5 +1,6 @@
 module.exports = {
   plugins: [
+    require('tailwindcss'),
     require('postcss-clean')({
       level : {
         1: {

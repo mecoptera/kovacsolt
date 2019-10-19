@@ -1,6 +1,5 @@
-.q-planner {
+.q-planner-design {
   &__product {
-    background-image: url('../images/products/shirt-white-front.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -10,7 +9,7 @@
 
   &__zone {
     position: absolute;
-    border: 4px dashed var(--color-secondary);
+    border: 2px dashed var(--color-secondary);
   }
 }
 

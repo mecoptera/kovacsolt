@@ -19,7 +19,7 @@ export default class KSelect extends Bamboo {
     return {
       name: '',
       value: null,
-      content: '',
+      markup: '',
       options: [],
       isOpen: false
     };
@@ -75,9 +75,12 @@ export default class KSelect extends Bamboo {
           return html`
             <input type="hidden" name="${this._state.get('name')}" value="${this._state.get('value')}">
             ${this._state.get('label') ? html`<label class="c-select__label" data-handler="label" onclick="${this}">${this._state.get('label')}</label>` : ''}
-            <div class="c-select__opener" tabindex="0" data-handler="opener" onmouseenter="${this}" onmouseleave="${this}" onfocus="${this}" onblur="${this}" onclick="${this}" onkeypress="${this}" onkeydown="${this}">${this._state.get('content') || this._state.get('placeholder')}</div>
+            <div class="c-select__opener" tabindex="0" data-handler="opener" onmouseenter="${this}" onmouseleave="${this}" onfocus="${this}" onblur="${this}" onclick="${this}" onkeypress="${this}" onkeydown="${this}">
+              <div class="u-pointer-events-none">${(this._state.get('markup') ? this._state.get('markup')() : false) || this._state.get('placeholder')}</div>
+            </div>
 
             ${!this._state.get('error') && this._state.get('helper') ? html`<div class="c-input__helper">${this._state.get('helper')}</div>` : ''}
+            ${!this._state.get('error') && this._templater.hasMarkup('helper') ? html`<div class="c-input__helper">${this._templater.render('helper')()}</div>` : ''}
             ${this._state.get('error') ? html`<div class="c-select__error">${this._state.get('error')}</div>` : ''}
           `;
         },
@@ -88,6 +91,10 @@ export default class KSelect extends Bamboo {
         name: 'popup',
         markup: popupTemplate,
         container: document.createElement('div')
+      },
+      {
+        name: 'helper',
+        markup: this.querySelector('[data-helper]')
       }
     ];
   }
@@ -98,7 +105,7 @@ export default class KSelect extends Bamboo {
 
     childrenList.forEach(child => {
       if (this._state.get('value') !== null && child.state.value === this._state.get('value')) {
-        this._state.set('content', child.state.content);
+        this._state.set('markup', child.state.markup, { storeFunction: true });
       }
     });
   }
@@ -150,8 +157,11 @@ export default class KSelect extends Bamboo {
 
     if (!option) { return; }
 
-    this._state.set('content', option.state.content);
+    this._state.set('markup', option.state.markup, { storeFunction: true });
     this._state.set('isOpen', false);
+
+    const event = new CustomEvent('change');
+    this.dispatchEvent(event);
   }
 
   _labelClickHandler() {

@@ -9,11 +9,18 @@ use App\Http\Controllers\Controller;
 
 class CartController extends Controller {
   public function index() {
-    return view('cart::index', [ 'cart' => Cart::get(), 'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ') ]);
+    return view('cart::index', [
+      'cart' => Cart::get(),
+      'shippingPrice' => number_format(1200, 0, ',', ' '),
+      'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ') ]
+    );
   }
 
   public function list() {
-    return response()->json([ 'cart' => Cart::get(), 'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ') ]);
+    return response()->json([
+      'cart' => Cart::get(),
+      'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ')
+    ]);
   }
 
   public function add(Request $request) {

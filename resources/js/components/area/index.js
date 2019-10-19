@@ -36,6 +36,6 @@ export default class KArea extends Bamboo {
     const name = this._state.get('name');
     const endpoint = this._state.get('endpoint');
 
-    axios.get(endpoint + name).then(response => this._templater.getContainer('area').innerHTML = response.data.content);
+    axios.get(`${endpoint}/${name}`).then(response => this._templater.getContainer('area').innerHTML = response.data.content);
   }
 }
