@@ -40,9 +40,11 @@
 <div class="l-container l-container--padding">
   <h2>Termékek</h2>
 
-  <div class="q-products">
+  <div class="q-products l-grid">
     @foreach($products as $product)
-      @component('page.components.product', [ 'product' => $product ]) @endcomponent
+      <div class="l-grid__col--3">
+        @component('page.components.product', [ 'product' => $product ]) @endcomponent
+      </div>
     @endforeach
 
     <div class="q-products__more">

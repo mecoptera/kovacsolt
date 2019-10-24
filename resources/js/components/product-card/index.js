@@ -7,9 +7,10 @@ export default class KProductCard extends Bamboo {
 
   static get eventHandlers() {
     return {
-      ':click': '_onClick',
-      ':mouseleave': '_onMouseLeave',
-      'cartAdd:click': '_onCartAddClick'
+      ':click': '_clickHandler',
+      ':mouseenter': '_mouseEnterHandler',
+      ':mouseleave': '_mouseLeaveHandler',
+      'cartAdd:click': '_cartAddClickHandler'
     };
   }
 
@@ -39,12 +40,22 @@ export default class KProductCard extends Bamboo {
       const plannerUrl = this._state.get('plannerUrl');
       const cartUrl = this._state.get('cartUrl');
 
-      this.classList.add(`c-product--variant-${data.variant}`);
+      const zoneStyle = this._state.get('hover') ? '' : `width: ${data.productViewDefault.baseProductView.zoneWidth}%; height: ${data.productViewDefault.baseProductView.zoneHeight}%; left: ${data.productViewDefault.baseProductView.zoneLeft}%; top: ${data.productViewDefault.baseProductView.zoneTop}%;`;
+      const designStyle = this._state.get('hover') ? `` : `width: ${data.productViewDefault.designWidth}%; left: ${data.productViewDefault.designLeft}%; top: ${data.productViewDefault.designTop}%;`;
+
+      this.classList.toggle('c-product--active', !!this._state.get('active'));
+      this.classList.toggle('c-product--hover', !!this._state.get('hover'));
 
       return html`
         <div class="c-product__container">
-          <div class="c-product__shirt c-product__shirt--shirt"></div>
-          <img class="c-product__image" src="${data.design}" alt="${data.name}">
+          <div class="c-product__product-layer">
+            <div class="c-product__image" style="${'background-image: url(' + data.productViewDefault.productImage + ');'}"></div>
+
+            <div class="c-product__zone" style="${zoneStyle}">
+              <div class="c-product__design-full" style="${'background-image: url(' + data.productViewDefault.design + ');'}"></div>
+              <img class="c-product__design" src="${data.productViewDefault.design}" style="${designStyle}">
+            </div>
+          </div>
 
           <div class="c-product__info">
             <div class="c-product__name">${data.name}</div>
@@ -70,15 +81,20 @@ export default class KProductCard extends Bamboo {
     };
   }
 
-  _onClick() {
-    this.classList.add('c-product--active');
+  _clickHandler() {
+    this._state.set('active', true);
   }
 
-  _onMouseLeave() {
-    this.classList.remove('c-product--active');
+  _mouseEnterHandler() {
+    this._state.set('hover', true);
   }
 
-  _onCartAddClick(event) {
+  _mouseLeaveHandler() {
+    this._state.set('active', false);
+    this._state.set('hover', false);
+  }
+
+  _cartAddClickHandler(event) {
     event.currentTarget.submit();
   }
 }

@@ -7,9 +7,9 @@
   <h2>Termékek</h2>
 
   <div class="q-products">
-      @foreach($products as $product)
-          @component('page.components.product', [ 'product' => $product ]) @endcomponent
-      @endforeach
+    @foreach($products as $product)
+      @component('page.components.product', [ 'product' => $product ]) @endcomponent
+    @endforeach
   </div>
 </div>
 @endsection

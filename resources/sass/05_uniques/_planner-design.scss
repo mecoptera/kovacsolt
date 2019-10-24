@@ -1,4 +1,6 @@
 .q-planner-design {
+  display: block;
+
   &__product {
     background-position: center;
     background-repeat: no-repeat;
@@ -11,6 +13,15 @@
     position: absolute;
     border: 2px dashed var(--color-secondary);
   }
+}
+
+.q-planner-overlay {
+  background: #fff;
+  box-shadow: var(--shadow-level-2);
+  left: var(--grid-gap);
+  position: absolute;
+  top: 0;
+  width: calc(100% - var(--grid-gap) * 2);
 }
 
 .q-planner-settings {

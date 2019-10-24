@@ -9,7 +9,7 @@ export default class KPlannerDesign extends Bamboo {
   }
 
   static get observedAttributes() {
-    return ['data-name', 'data-zone-width', 'data-zone-height', 'data-zone-left', 'data-zone-top', 'data-design-url', 'data-product-image'];
+    return ['data-name', 'data-zone-width', 'data-zone-height', 'data-zone-left', 'data-zone-top', 'data-design-url'];
   }
 
   static get boundProperties() {
@@ -20,7 +20,7 @@ export default class KPlannerDesign extends Bamboo {
       { name: 'dataZoneLeft', as: 'zoneLeft' },
       { name: 'dataZoneTop', as: 'zoneTop' },
       { name: 'dataDesignUrl', as: 'designUrl' },
-      { name: 'dataProductImage', as: 'productImage' },
+      { name: 'productImage' },
       { name: 'designs' }
     ];
   }
@@ -32,7 +32,7 @@ export default class KPlannerDesign extends Bamboo {
   get template() {
     return html => {
       const state = this._state.get();
-      const productStyle = `background-image: url(${state.designUrl}/${state.productImage});`;
+      const productStyle = state.productImage ? `background-image: url(${state.designUrl}/${state.productImage});` : '';
       const zoneStyle = `width: ${state.zoneWidth}%; height: ${state.zoneHeight}%; left: ${state.zoneLeft}%; top: ${state.zoneTop}%;`;
 
       return html`
@@ -42,9 +42,8 @@ export default class KPlannerDesign extends Bamboo {
           </div>
         </div>
         ${state.resizers && state.resizers.map((resizer, index) => html`
-          <input type="hidden" name="${state.name + '[' + index + '][design]'}" value="${resizer.state.designId}">
+          <input type="hidden" name="${state.name + '[' + index + '][id]'}" value="${resizer.state.designId}">
           <input type="hidden" name="${state.name + '[' + index + '][width]'}" value="${resizer.state.elementWidth}">
-          <input type="hidden" name="${state.name + '[' + index + '][height]'}" value="${resizer.state.elementWidth * resizer.state.elementRatio * resizer.state.resizerRatio}">
           <input type="hidden" name="${state.name + '[' + index + '][left]'}" value="${resizer.state.elementLeft}">
           <input type="hidden" name="${state.name + '[' + index + '][top]'}" value="${resizer.state.elementTop}">
         `)}

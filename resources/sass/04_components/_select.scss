@@ -106,11 +106,13 @@
 
   &__option {
     align-items: center;
+    background: #fff;
     border-bottom: 1px solid var(--color-background-secondary);
     cursor: pointer;
     display: flex;
     height: 48px;
     padding-left: 24px;
+    position: relative;
 
     @include hover {
       background: var(--color-form-element-disabled-background);
@@ -141,6 +143,7 @@
       border: 12px solid transparent;
       border-bottom-color: #fff;
       content: '';
+      filter: drop-shadow(0 0 4px rgba(var(--color-secondary-rgb), .1));
       left: 50%;
       position: absolute;
       top: 0;

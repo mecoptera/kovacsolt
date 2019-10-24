@@ -9,6 +9,11 @@
     justify-content: center;
     margin: var(--grid-gap);
     width: calc(25% - var(--grid-gap) * 2);
+
+    &:before {
+      content: '';
+      padding-bottom: 100%;
+    }
   }
 }
 

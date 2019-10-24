@@ -9,7 +9,7 @@ const optionTemplate = function(html, option) {
 };
 
 export default function(html) {
-  const width = `min-width: ${this.querySelector('.c-select__opener').offsetWidth}px`;
+  const width = `min-width: ${this.querySelector('.c-select__opener') ? this.querySelector('.c-select__opener').offsetWidth : 0}px`;
 
   return html`
     <div class="c-select__popup" style="${width}">

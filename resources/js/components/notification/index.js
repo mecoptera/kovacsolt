@@ -6,12 +6,13 @@ export default class KNotification extends Bamboo {
   }
 
   static get observedAttributes() {
-    return ['data-status'];
+    return ['data-status', 'data-message'];
   }
 
   static get boundProperties() {
     return [
-      { name: 'dataStatus', as: 'status' }
+      { name: 'dataStatus', as: 'status' },
+      { name: 'dataMessage', as: 'message' }
     ];
   }
 
@@ -20,11 +21,17 @@ export default class KNotification extends Bamboo {
       {
         name: 'status',
         markup: html => {
-          const className = `c-icon c-icon--white c-icon--${this._state.get('status')}`;
+          const className = `c-icon c-icon--small c-icon--white c-icon--${this._state.get('status')}`;
 
           return html`<div class="${className}"></div>`;
         },
         container: this._templater.parseHTML('<div class="c-notification__status"></div>'),
+        autoAppendContainer: true
+      },
+      {
+        name: 'content',
+        markup: html => html`${this._state.get('message')}`,
+        container: this._templater.parseHTML('<div class="c-notification__message"></div>'),
         autoAppendContainer: true
       }
     ];

@@ -5,11 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model {
-  protected $hidden = [ 'design_id' ];
-  protected $appends = [ 'design', 'price_formatted', 'discount_price', 'discount_price_formatted' ];
+  protected $appends = [ 'product_views', 'product_view_default', 'price_formatted', 'discount_price', 'discount_price_formatted' ];
 
-  public function getDesignAttribute() {
-    return url(Design::where('id', $this->design_id)->first()->getFirstMediaUrl('design'));
+  public function getProductViewsAttribute() {
+    return ProductView::where('product_id', $this->id)->get()->toArray();
+  }
+
+  public function getProductViewDefaultAttribute() {
+    $productView = ProductView::where('product_id', $this->id)->where('default', 1)->first();
+    return $productView ? $productView->toArray() : null;
   }
 
   public function getPriceFormattedAttribute() {

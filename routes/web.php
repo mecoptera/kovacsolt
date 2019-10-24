@@ -17,6 +17,8 @@ Route::get('/products', 'PageController@products')->name('page.products');
 Route::get('/planner', 'PageController@step1')->name('page.planner.step1');
 Route::get('/planner/{product}', 'PageController@step2')->name('page.planner.step2');
 Route::get('/planner/area/{area?}', 'PageController@step2Area')->name('page.planner.area');
+Route::post('/planner/save', 'PageController@save')->name('page.planner.save');
+Route::post('/planner/upload', 'PageController@upload')->name('page.planner.upload');
 
 Route::get('/contact', 'PageController@contact')->name('page.contact');
 Route::get('/about', 'PageController@about')->name('page.about');
@@ -73,6 +75,11 @@ Route::prefix('panel')->group(function() {
   Route::get('/designs/feature/{id}', 'Panel\DesignController@feature')->name('panel.designs.feature');
   Route::get('/designs/delete/{id}', 'Panel\DesignController@remove')->name('panel.designs.delete');
   Route::post('/designs/rename/{id}', 'Panel\DesignController@rename')->name('panel.designs.rename');
+
+  Route::get('/views', 'Panel\BaseProductViewController@index')->name('panel.views');
+  Route::post('/views', 'Panel\BaseProductViewController@store')->name('panel.views.upload');
+  Route::get('/views/delete/{id}', 'Panel\BaseProductViewController@remove')->name('panel.views.delete');
+  Route::post('/views/rename/{id}', 'Panel\BaseProductViewController@rename')->name('panel.views.rename');
 });
 
 Route::get('/sandbox/{name}', 'PageController@sandbox');

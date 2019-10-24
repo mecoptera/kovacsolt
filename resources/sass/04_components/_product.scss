@@ -1,45 +1,29 @@
 .c-product {
-  backface-visibility: hidden;
   background: var(--color-background-gray);
   display: flex;
-  margin: var(--grid-gap);
   position: relative;
-  flex: 0 1 auto;
-  width: calc(25% - var(--grid-gap) * 2);
 
   &--active,
-  html:not(.u-has-touch) &:hover {
+  &--hover {
     background: #fff;
     cursor: pointer;
 
-    &.c-product--variant-red {
-      background: #f00;
-    }
-
-    &.c-product--variant-yellow {
-      background: #ff0;
-    }
-
-    &.c-product--variant-blue {
-      background: #00f;
-    }
-
-    &.c-product--variant-green {
-      background: #0f0;
-    }
-
     .c-product__discount,
-    .c-product__shirt,
-    .c-product__info {
+    .c-product__info,
+    .c-product__image {
       display: none;
     }
 
-    .c-product__image {
-      left: 50%;
-      max-height: calc(100% - var(--grid-gap) * 2);
-      max-width: calc(100% - var(--grid-gap) * 2);
-      top: 50%;
-      transform: translate(-50%, -50%);
+    .c-product__zone {
+      position: static;
+    }
+
+    .c-product__design {
+      display: none;
+    }
+
+    .c-product__design-full {
+      display: block;
     }
   }
 
@@ -51,6 +35,14 @@
 
   &__container {
     flex: 1 0 100%;
+  }
+
+  &__product-layer {
+    bottom: var(--grid-gap);
+    left: var(--grid-gap);
+    position: absolute;
+    right: var(--grid-gap);
+    top: var(--grid-gap);
   }
 
   &__discount {
@@ -87,41 +79,30 @@
     }
   }
 
-  &__shirt {
-    background-origin: content-box;
-    background-repeat: no-repeat;
+  &__image {
+    background-position: center;
     background-size: cover;
-    height: 80%;
-    margin: 0 auto;
-    width: 80%;
-
-    .c-product--variant-white & {
-      background-image: url('../images/shirt-white.png');
-    }
-
-    .c-product--variant-red & {
-      background-image: url('../images/shirt-red.png');
-    }
-
-    .c-product--variant-yellow & {
-      background-image: url('../images/shirt-yellow.png');
-    }
-
-    .c-product--variant-blue & {
-      background-image: url('../images/shirt-blue.png');
-    }
-
-    .c-product--variant-green & {
-      background-image: url('../images/shirt-green.png');
-    }
+    height: 100%;
+    width: 100%;
   }
 
-  &__image {
-    left: 35%;
-    max-height: 50%;
-    max-width: 30%;
+  &__zone {
     position: absolute;
-    top: 18%;
+  }
+
+  &__design {
+    position: absolute;
+    width: 100%;
+  }
+
+  &__design-full {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: none;
+    height: 100%;
+    position: absolute;
+    width: 100%;
   }
 
   &__info {

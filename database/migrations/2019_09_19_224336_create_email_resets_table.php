@@ -14,7 +14,7 @@ class CreateEmailResetsTable extends Migration
     public function up()
     {
         Schema::create('email_resets', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('email')->index();
             $table->string('token');

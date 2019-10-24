@@ -1,43 +1,26 @@
 .c-tabs {
-  display: flex;
-  padding: 0;
+  &__tab-container {
+    display: flex;
+  }
+
+  &__tab {
+    border-bottom: 4px solid transparent;
+    cursor: pointer;
+    flex: 1 1 0;
+    font-weight: bold;
+    padding: 16px 0;
+    text-align: center;
+
+    &--active {
+      border-bottom-color: var(--color-primary);
+    }
+  }
 }
 
-.c-tab {
-  border-top: 4px solid transparent;
-  color: var(--color-primary);
-  cursor: pointer;
-  display: flex;
-  flex: 1 1 0;
-  font-weight: bold;
-  height: 64px;
-  text-decoration: none;
-  transition: background .2s;
-
-  @include hover() {
-    background: var(--color-background-secondary);
-    color: var(--color-primary);
-  }
+.c-tab-content {
+  display: none;
 
   &--active {
-    background-color: var(--color-background-white);
-    border-top: 4px solid var(--color-primary);
-    cursor: default;
-
-    @include hover() {
-      background: var(--color-background-white);
-    }
-  }
-
-  &__content {
-    align-items: center;
-    border-right: 1px solid var(--color-background-secondary);
-    display: flex;
-    justify-content: center;
-    width: 100%;
-
-    .c-tab:last-of-type & {
-      border-right: 1px solid transparent;
-    }
+    display: block;
   }
 }

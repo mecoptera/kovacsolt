@@ -1,5 +1,7 @@
 <tr class="c-table__row">
-  <td class="c-table__cell"><img src="{{ $item['product']->design }}" class="q-cart-summary__image"></td>
+  <td class="c-table__cell">
+    <k-product-card class="u-w-64 u-h-64" data-detail="{{ $item['product'] }}"></k-product-card>
+  </td>
   <td class="c-table__cell c-table__cell--large">{{ $item['product']->name }}</td>
   <td class="c-table__cell c-table__cell--medium">
     <div class="q-cart-summary__price q-cart-summary__price--discount">

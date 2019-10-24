@@ -1,9 +1,5 @@
 import Bamboo from '@dkocsis-emarsys/bamboo';
 
-const patternTemplate = data => {
-  return html`<div class="q-planner__pattern"><img src="${data.url}"></div>`
-};
-
 const between = (value, min, max) => {
   return Math.max(min, Math.min(value, max));
 };
@@ -91,11 +87,7 @@ export default class KResizer extends Bamboo {
     const image = document.createElement('img');
 
     image.addEventListener('load', event => {
-      if (image.naturalHeight > image.naturalWidth) {
-        this._state.set('elementRatio', image.naturalWidth / image.naturalHeight);
-      } else {
-        this._state.set('elementRatio', image.naturalHeight / image.naturalWidth);
-      }
+      this._state.set('elementRatio', image.naturalHeight / image.naturalWidth);
     });
 
     image.src = this._state.get('designUrl');

@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import '01_variables/color';
 @import '01_variables/grid';
 @import '01_variables/layout';
@@ -51,3 +47,7 @@
 @import '99_utilities/align';
 @import '99_utilities/helper';
 @import '99_utilities/flex';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -42,9 +42,9 @@ class OrderController extends Controller {
 
     if ($validator->fails()) {
       return redirect()->back()->withErrors($validator);
-    } else {
-      return redirect(route('order.shipping'));
     }
+
+    return redirect(route('order.shipping'));
   }
 
   public function shipping() {
@@ -84,9 +84,9 @@ class OrderController extends Controller {
 
     if ($validator->fails()) {
       return redirect()->back()->withErrors($validator);
-    } else {
-      return redirect(route('order.payment'));
     }
+
+    return redirect(route('order.payment'));
   }
 
   public function payment() {
@@ -126,9 +126,9 @@ class OrderController extends Controller {
     if ($request->session()->get('paymentData')['payment_method'] === '2') {
       $url = SimplePay::test();
       return redirect()->to($url);
-    } else {
-      return view('page.order.success');
     }
+
+    return view('page.order.success');
   }
 
 
