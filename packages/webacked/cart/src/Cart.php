@@ -65,14 +65,22 @@ class Cart {
     return $this->items;
   }
 
-  public function priceTotal() {
+  public function price() {
     $priceTotal = 0;
 
     foreach ($this->items as $item) {
-      $priceTotal += $item['product']->discountPrice * $item['quantity'];
+      $priceTotal += ($item['product']->discount ? $item['product']->discountPrice : $item['product']->price) * $item['quantity'];
     }
 
     return $priceTotal;
+  }
+
+  public function shippingPrice() {
+    return 1200;
+  }
+
+  public function priceTotal() {
+    return $this->price() + $this->shippingPrice();
   }
 
   public function empty() {

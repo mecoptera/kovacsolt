@@ -16,6 +16,7 @@ import KCheckbox from './components/checkbox';
 import KTextarea from './components/textarea';
 import KCartButton from './components/cart-button';
 import KProductCard from './components/product-card';
+import KProductCardAction from './components/product-card-action';
 import KSelect from './components/select';
 import KSelectOption from './components/select-option';
 import KNotification from './components/notification';
@@ -32,6 +33,7 @@ customElements.define('k-checkbox', KCheckbox);
 customElements.define('k-textarea', KTextarea);
 customElements.define('k-cart-button', KCartButton);
 customElements.define('k-product-card', KProductCard);
+customElements.define('k-product-card-action', KProductCardAction);
 customElements.define('k-select', KSelect);
 customElements.define('k-select-option', KSelectOption);
 customElements.define('k-notification', KNotification);
@@ -52,9 +54,9 @@ customElements.define('k-tab-content', KTabContent);
 
   const addDesignToZone = () => {
     const input = modal.modalBoxContent.querySelector('input:checked');
-    const designs = [{ id: input.value, url: input.getAttribute('url') }];
 
-    document.querySelector('#js-planner-design').designs = designs;
+    document.querySelector('#js-planner-design').designId = input.value;
+    document.querySelector('#js-planner-design').designUrl = input.getAttribute('url');
     document.querySelector('#js-planner-design-selector').classList.add('u-hidden');
 
     modal.close();
@@ -100,9 +102,8 @@ customElements.define('k-tab-content', KTabContent);
     axios.post(inputElement.dataset.url, formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     }).then(response => {
-      const designs = [{ id: response.data.id, url: response.data.url }];
-
-      document.querySelector('#js-planner-design').designs = designs;
+      document.querySelector('#js-planner-design').designId = response.data.id;
+      document.querySelector('#js-planner-design').designUrl = response.data.url;
       document.querySelector('#js-planner-design-selector').classList.add('u-hidden');
     });
   });
@@ -169,7 +170,7 @@ customElements.define('k-tab-content', KTabContent);
           <h1 class="c-panel__title">Nevezd el a terved</h1>
           <div class="l-form l-grid">
             <div class="l-grid__col--6 l-grid__col--offset-3">
-              <p class="u-text-center u-mb-8">Kosárba helyezéskor a terveket rendszerünk automatikusan menti, így azok később újra megrendelhetők, illetve szerkeszthetők. Amennyiben nem szeretnéd most elnevezni, hagyd üresen a mezőt.</p>
+              <p class="u-text-center u-mb-8">A termék az itt megadott néven jelenik majd meg a számlán. Amennyiben nem szeretnéd elnevezni, hagyd üresen a mezőt.</p>
               <k-input data-value="${lastUsedName}" data-name="name" data-label="Alkotásod neve" data-placeholder="Példa: Szuper design"></k-area>
             </div>
           </div>
@@ -179,3 +180,6 @@ customElements.define('k-tab-content', KTabContent);
     modal.open();
   });
 })();
+
+// <p class="u-text-center u-mb-8">Kosárba helyezéskor a terveket rendszerünk automatikusan menti, így azok később újra megrendelhetők, illetve szerkeszthetők. Amennyiben nem szeretnéd most elnevezni, hagyd üresen a mezőt.</p>
+// <k-input data-value="${lastUsedName}" data-name="name" data-label="Alkotásod neve" data-placeholder="Példa: Szuper design"></k-area>

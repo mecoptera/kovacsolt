@@ -11,7 +11,8 @@ class CartController extends Controller {
   public function index() {
     return view('cart::index', [
       'cart' => Cart::get(),
-      'shippingPrice' => number_format(1200, 0, ',', ' '),
+      'price' => number_format(Cart::price(), 0, ',', ' '),
+      'shippingPrice' => number_format(Cart::shippingPrice(), 0, ',', ' '),
       'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ') ]
     );
   }
@@ -23,8 +24,8 @@ class CartController extends Controller {
     ]);
   }
 
-  public function add(Request $request) {
-    Cart::add($request->product_id);
+  public function add($productId) {
+    Cart::add($productId);
     return redirect()->back();
   }
 

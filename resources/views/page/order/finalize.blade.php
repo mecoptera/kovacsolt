@@ -28,8 +28,9 @@
           </table>
 
           <div class="l-form__field u-align-right">
-            <div class="u-py-4">Szállítás: <b>{{ $shippingPrice }} Ft</b></div>
-            <div class="q-cart-summary__total u-py-4">Összesen: <b>{{ $priceTotal }} Ft</b></div>
+              <div>Termékek: <b>{{ $price }} Ft</b></div>
+              <div class="u-py-4">Szállítás: <b>{{ $shippingPrice }} Ft</b></div>
+              <div class="q-cart-summary__total u-py-4">Összesen: <b>{{ $priceTotal }} Ft</b></div>
           </div>
         </div>
       </div>

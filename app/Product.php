@@ -21,11 +21,11 @@ class Product extends Model {
   }
 
   public function getDiscountPriceAttribute() {
-    return $this->ceiling($this->price * 0.75, 10);
+    return $this->discount ? $this->ceiling($this->price * ((100 - $this->discount) / 100), 10) : false;
   }
 
   public function getDiscountPriceFormattedAttribute() {
-    return number_format($this->ceiling($this->price * 0.75, 10), 0, ',', ' ');
+    return $this->discount ? number_format($this->ceiling($this->price * ((100 - $this->discount) / 100), 10), 0, ',', ' ') : false;
   }
 
   private function ceiling($number, $significance = 1) {

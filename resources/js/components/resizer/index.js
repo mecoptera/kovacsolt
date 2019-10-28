@@ -24,13 +24,12 @@ export default class KResizer extends Bamboo {
   }
 
   static get observedAttributes() {
-    return ['data-design-id', 'data-design-url'];
+    return ['data-design'];
   }
 
   static get boundProperties() {
     return [
-      { name: 'dataDesignId', as: 'designId' },
-      { name: 'dataDesignUrl', as: 'designUrl' }
+      { name: 'dataDesign', as: 'design' }
     ];
   }
 
@@ -51,7 +50,7 @@ export default class KResizer extends Bamboo {
         const height = width * state.elementRatio * state.resizerRatio;
 
         const elementStyle = `width: ${width}%; height: ${height}%; left: ${left}%; top: ${top}%;`;
-        const backgroundStyle = `background-image: url('${state.designUrl}')`;
+        const backgroundStyle = `background-image: url('${state.design}')`;
 
         return html`
           <div class="q-resizer__element" style="${elementStyle}">
@@ -90,7 +89,7 @@ export default class KResizer extends Bamboo {
       this._state.set('elementRatio', image.naturalHeight / image.naturalWidth);
     });
 
-    image.src = this._state.get('designUrl');
+    image.src = this._state.get('design');
 
     this.appendChild(image);
     this.removeChild(image);

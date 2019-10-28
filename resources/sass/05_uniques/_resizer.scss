@@ -20,8 +20,8 @@
   }
 
   &__element {
-    border: 2px solid rgba(var(--color-primary-rgb), .5);
     left: 0;
+    outline: 2px solid rgba(var(--color-primary-rgb), .5);
     position: absolute;
     top: 0;
     user-select: none;

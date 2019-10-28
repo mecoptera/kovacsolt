@@ -115,8 +115,9 @@ class OrderController extends Controller {
       'paymentData' => session()->get('paymentData'),
       'finalizeData' => session()->get('finalizeData'),
       'cart' => Cart::get(),
-      'shippingPrice' => number_format(1200, 0, ',', ' '),
-      'priceTotal' => number_format(Cart::priceTotal() + 1200, 0, ',', ' ')
+      'price' => number_format(Cart::price(), 0, ',', ' '),
+      'shippingPrice' => number_format(Cart::shippingPrice(), 0, ',', ' '),
+      'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ')
     ]);
   }
 

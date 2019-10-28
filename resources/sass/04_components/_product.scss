@@ -1,15 +1,14 @@
 .c-product {
   background: var(--color-background-gray);
   display: flex;
+  flex-direction: column;
   position: relative;
 
   &--active,
   &--hover {
-    background: #fff;
     cursor: pointer;
 
     .c-product__discount,
-    .c-product__info,
     .c-product__image {
       display: none;
     }
@@ -27,14 +26,9 @@
     }
   }
 
-  &:before {
-    content: '';
-    flex: 0 0 0;
-    padding-bottom: 100%;
-  }
-
   &__container {
-    flex: 1 0 100%;
+    padding-bottom: 100%;
+    position: relative;
   }
 
   &__product-layer {
@@ -106,14 +100,12 @@
   }
 
   &__info {
-    align-items: flex-end;
-    bottom: 0;
+    align-items: center;
+    background-color: var(--color-background-white);
     display: flex;
     font-size: 14px;
     justify-content: space-between;
-    left: 0;
     padding: 16px;
-    position: absolute;
     width: 100%;
   }
 
@@ -137,10 +129,13 @@
 
   &__price-original {
     color: var(--color-secondary);
-    font-size: 12px;
-    font-weight: normal;
-    margin-bottom: 4px;
-    text-decoration: line-through;
+
+    .c-product__price--discount & {
+      font-size: 12px;
+      font-weight: normal;
+      margin-bottom: 4px;
+      text-decoration: line-through;
+    }
   }
 
   &__actions {
@@ -160,16 +155,6 @@
     .c-product--active & {
       opacity: 1;
       pointer-events: all;
-    }
-  }
-
-  &__action {
-    background: var(--color-secondary);
-    border-radius: 100%;
-    display: inline-flex;
-
-    &:first-child {
-      margin-right: 16px;
     }
   }
 }

@@ -43,12 +43,16 @@
   <div class="q-products l-grid">
     @foreach($products as $product)
       <div class="l-grid__col--3">
-        @component('page.components.product', [ 'product' => $product ]) @endcomponent
+        <k-product-card class="u-m-4" data-detail="{{ $product }}">
+          <k-product-card-action data-label="Kosárhoz adás" data-url="{{ route('cart.add', [ 'productId' => $product->id]) }}"></k-product-card-action>
+        </k-product-card>
       </div>
     @endforeach
 
-    <div class="q-products__more">
-      <a href="{{ route('page.products') }}" class="c-button c-button--outline c-button--fluid">Tovább a többi termékhez</a>
+    <div class="l-grid__col--3">
+      <div class="u-m-4 q-products__more">
+        <a href="{{ route('page.products') }}" class="c-button c-button--small">Összes termék megtekintése</a>
+      </div>
     </div>
   </div>
 </div>
@@ -63,7 +67,7 @@
         <k-input data-label="E-mail cím"></k-input>
       </div>
 
-      <a href="javascript:void(0)" class="c-button c-button--outline q-contact__button">Feliratkozás</a>
+      <a href="javascript:void(0)" class="c-button q-contact__button">Feliratkozás</a>
     </div>
   </div>
 </div>

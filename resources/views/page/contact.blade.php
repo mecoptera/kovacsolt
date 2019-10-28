@@ -6,7 +6,7 @@
   <div class="l-container">
     <div class="c-panel">
       <div class="c-panel__content">
-        <h1 class="c-panel__title">Hagyjon üzenetet!</h1>
+        <h1 class="c-panel__title">Hagyj üzenetet!</h1>
 
         <div class="l-grid">
           <form class="l-form l-grid__col--6 l-grid__col--offset-" method="post" action="{{ route('user.login') }}">
