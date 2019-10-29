@@ -13,8 +13,8 @@ class CartController extends Controller {
       'cart' => Cart::get(),
       'price' => number_format(Cart::price(), 0, ',', ' '),
       'shippingPrice' => number_format(Cart::shippingPrice(), 0, ',', ' '),
-      'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ') ]
-    );
+      'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ')
+    ]);
   }
 
   public function list() {
@@ -32,5 +32,18 @@ class CartController extends Controller {
   public function empty() {
     Cart::empty();
     return redirect()->back();
+  }
+
+  public function area($area) {
+    return response()->json($this->{'area' . ucfirst($area)}(), 200);
+  }
+
+  private function areaCartButton() {
+    return [ 'content' => view('cart::area', [
+      'cart' => Cart::get(),
+      'price' => number_format(Cart::price(), 0, ',', ' '),
+      'shippingPrice' => number_format(Cart::shippingPrice(), 0, ',', ' '),
+      'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ')
+    ])->render() ];
   }
 }

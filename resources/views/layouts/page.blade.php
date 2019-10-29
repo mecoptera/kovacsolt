@@ -16,6 +16,12 @@
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700&display=swap&subset=latin-ext" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('dist/css/main.css') }}">
+
+  <script>
+    window.kovacsolt = {
+      baseUrl: '{{ url('/') }}/'
+    };
+  </script>
 </head>
 <body>
   <div class="l-layout">
@@ -35,7 +41,7 @@
         </div>
         <div class="q-menu__right">
           <a class="c-icon c-icon--small c-icon--person {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" href="{{ route('user.profile') }}"></a>
-          <k-cart-button class="c-icon c-icon--small c-icon--cart {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" data-cart-url="{{ route('cart') }}">
+          <k-cart-button class="c-icon c-icon--small c-icon--cart {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" data-cart-url="{{ route('cart') }}" data-area-endpoint="{{ route('cart.area') }}">
             <div class="c-icon__badge">{{ Webacked\Cart\Helpers::itemsCount() }}</div>
           </k-cart-button>
         </div>

@@ -20,7 +20,7 @@ export default class KArea extends Bamboo {
   get template() {
     return [{
       name: 'area',
-      markup: html => html`<div class="c-area__loading">Loading...</div>`,
+      markup: html => html`<div class="c-loader"></div>`,
       container: this._templater.parseHTML('<div class="c-area__container"></div>'),
       autoAppendContainer: true
     }];

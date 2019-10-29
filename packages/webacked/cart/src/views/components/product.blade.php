@@ -5,11 +5,9 @@
   <td class="c-table__cell c-table__cell--large">{{ $item['product']->name }}</td>
   <td class="c-table__cell c-table__cell--medium">
     <div>
-      <span class="{{ $item['product']->discount ? 'u-line-through u-text-xs' : 'u-font-bold' }}">{{ $item['product']->priceFormatted }}</span>
+      <span class="{{ $item['product']->discount ? 'u-line-through u-text-xs' : 'u-font-bold' }}">{{ $item['product']->priceFormatted }} Ft</span>
       {!! $item['product']->discount ? '<div class="u-font-bold u-text-brand">' . $item['product']->discountPriceFormatted . ' Ft</div>' : '' !!}
     </div>
   </td>
-  <td class="c-table__cell">
-    <div class="q-cart-summary__quantity">{{ $item['quantity'] }}</div>
-  </td>
+  <td class="c-table__cell">{{ $item['quantity'] }}db</td>
 </tr>

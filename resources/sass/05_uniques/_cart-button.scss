@@ -8,13 +8,13 @@
     box-shadow: var(--shadow-level-2);
     cursor: default;
     display: none;
+    min-width: 300px;
     outline: 2px solid #fff;
     outline-offset: 2px;
     padding: 12px;
     position: absolute;
     right: 0;
     transform: translateY(100%);
-    width: 300px;
     z-index: 1;
 
     &:before {
@@ -30,5 +30,10 @@
     &--visible {
       display: block;
     }
+  }
+
+  &__container {
+    max-height: 320px;
+    overflow: auto;
   }
 }

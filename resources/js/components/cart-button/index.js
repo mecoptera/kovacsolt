@@ -10,12 +10,12 @@ export default class KCartButton extends Bamboo {
   }
 
   static get observedAttributes() {
-    return ['data-cart-url'];
+    return ['data-area-endpoint'];
   }
 
   static get boundProperties() {
     return [
-      { name: 'dataCartUrl', as: 'cartUrl' }
+      { name: 'dataAreaEndpoint', as: 'areaEndpoint' }
     ];
   }
 
@@ -28,14 +28,8 @@ export default class KCartButton extends Bamboo {
   get template() {
     return [{
       name: 'popup',
-      markup: html => html`
-        <div class="c-loader"></div>
-        <div class="u-text-center">
-          <a href="${this._state.get('cartUrl')}" class="c-button c-button--small">Tovább a kosárhoz</a>
-        </div>
-      `,
-      container: this._templater.parseHTML('<div class="q-cart-button__popup"></div>'),
-      autoAppendContainer: true
+      markup: html => html`<k-area data-endpoint="${this._state.get('areaEndpoint')}" data-name="cartButton"></k-area>`,
+      container: this._templater.parseHTML('<div class="q-cart-button__popup"></div>')
     }];
   }
 
@@ -43,6 +37,8 @@ export default class KCartButton extends Bamboo {
     const container = this._templater.getContainer('popup');
 
     if (container === event.target || container.contains(event.target)) { return false; }
+
+    this.appendChild(container);
 
     container.classList.toggle('q-cart-button__popup--visible');
   }

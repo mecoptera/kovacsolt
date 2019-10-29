@@ -13,6 +13,7 @@
 
   &__cell {
     padding: var(--grid-gap);
+    white-space: nowrap;
     width: 1%;
 
     &--head {
