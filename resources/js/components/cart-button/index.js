@@ -10,12 +10,13 @@ export default class KCartButton extends Bamboo {
   }
 
   static get observedAttributes() {
-    return ['data-area-endpoint'];
+    return ['data-area-endpoint', 'data-count'];
   }
 
   static get boundProperties() {
     return [
-      { name: 'dataAreaEndpoint', as: 'areaEndpoint' }
+      { name: 'dataAreaEndpoint', as: 'areaEndpoint' },
+      { name: 'dataCount', as: 'count' }
     ];
   }
 
@@ -26,11 +27,19 @@ export default class KCartButton extends Bamboo {
   }
 
   get template() {
-    return [{
-      name: 'popup',
-      markup: html => html`<k-area data-endpoint="${this._state.get('areaEndpoint')}" data-name="cartButton"></k-area>`,
-      container: this._templater.parseHTML('<div class="q-cart-button__popup"></div>')
-    }];
+    return [
+      {
+        name: 'button',
+        markup: html => this._state.get('count') > 0 ? html`<div class="q-cart-button__badge">${this._state.get('count')}</div>` : html``,
+        container: this._templater.parseHTML('<div></div>'),
+        autoAppendContainer: true
+      },
+      {
+        name: 'popup',
+        markup: html => html`<div class="q-cart-button__panel"><k-area data-endpoint="${this._state.get('areaEndpoint')}" data-name="cartButton"></k-area></div>`,
+        container: this._templater.parseHTML('<div class="q-cart-button__popup"></div>')
+      }
+    ];
   }
 
   _clickHandler(event) {

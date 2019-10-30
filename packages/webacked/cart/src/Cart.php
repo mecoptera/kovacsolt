@@ -31,9 +31,7 @@ class Cart {
       $this->cartId = $this->createDatabase();
     }
 
-    if (Session::has('cart')) {
-     $this->items = Session::get('cart');
-    } elseif ($this->userId) {
+    if ($this->userId) {
       $cartProducts = CartProductModel::with('product')->where('cart_id', $this->cartId)->get();
 
       foreach ($cartProducts as $cartProduct) {
@@ -44,6 +42,8 @@ class Cart {
       }
 
       $this->updateSession();
+    } elseif (Session::has('cart')) {
+      $this->items = Session::get('cart');
     }
   }
 
@@ -59,6 +59,31 @@ class Cart {
 
     $this->updateDatabase($productId);
     $this->updateSession();
+  }
+
+  public function remove($productId) {
+    unset($this->items[$productId]);
+
+    $this->updateDatabase($productId);
+    $this->updateSession();
+  }
+
+  public function setQuantity($productId, $quantity) {
+    $product = ProductModel::where('id', $productId)->first();
+
+    if (!$product) { return 'error'; }
+
+    if (intval($quantity) === 0) {
+      $this->remove($productId);
+    } else {
+      $this->items[$productId] = [
+        'product' => $product,
+        'quantity' => $quantity
+      ];
+
+      $this->updateDatabase($productId);
+      $this->updateSession();
+    }
   }
 
   public function get() {
@@ -97,13 +122,16 @@ class Cart {
   private function updateDatabase($productId) {
     if (!$this->userId) { return; }
 
-    CartProductModel::updateOrCreate([
-      'product_id' => $productId,
-    ],[
-      'cart_id' => $this->cartId,
-      'product_id' => $productId,
-      'quantity' => \DB::raw('quantity + 1')
-    ]);
+    if (isset($this->items[$productId])) {
+      CartProductModel::updateOrCreate([
+        'product_id' => $productId
+      ],[
+        'cart_id' => $this->cartId,
+        'quantity' => $this->items[$productId]['quantity']
+      ]);
+    } else {
+      CartProductModel::where('cart_id', $this->cartId)->where('product_id', $productId)->delete();
+    }
   }
 
   private function updateSession() {

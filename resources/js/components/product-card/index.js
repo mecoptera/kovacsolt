@@ -77,17 +77,17 @@ export default class KProductCard extends Bamboo {
           const hideInfo = this._state.get('hideInfo');
           const priceClass = `c-product__price ${data.discount && 'c-product__price--discount'}`;
 
-          return html`
-            ${!hideInfo ? html`
+          return !hideInfo ? html`
+            <div class="c-product__info">
               <div class="c-product__name">${data.name}</div>
               <div class="${priceClass}">
-                <div class="c-product__price-original">${data.priceFormatted} Ft</div>
-                ${data.discount ? html`<div>${data.discountPriceFormatted} Ft</div>` : ''}
+                <div class="c-product__price-original">${data.price} Ft</div>
+                ${data.discount ? html`<div>${data.discountPrice} Ft</div>` : ''}
               </div>
-            ` : null}
-          `;
+            </div>
+          ` : null;
         },
-        container: this._templater.parseHTML('<div class="c-product__info"></div>'),
+        container: this._templater.parseHTML('<div></div>'),
         autoAppendContainer: true
       }
     ];

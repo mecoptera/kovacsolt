@@ -11,18 +11,24 @@ class CartController extends Controller {
   public function index() {
     return view('cart::index', [
       'cart' => Cart::get(),
-      'price' => number_format(Cart::price(), 0, ',', ' '),
-      'shippingPrice' => number_format(Cart::shippingPrice(), 0, ',', ' '),
-      'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ')
+      'price' => Cart::price()
     ]);
   }
 
-  public function list() {
-    return response()->json([
-      'cart' => Cart::get(),
-      'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ')
-    ]);
+  public function finalize(Request $request) {
+    foreach($request->get('quantity') as $productId => $quantity) {
+      Cart::setQuantity($productId, $quantity);
+    }
+
+    return redirect()->route('order.profile');
   }
+
+  // public function list() {
+  //   return response()->json([
+  //     'cart' => Cart::get(),
+  //     'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ')
+  //   ]);
+  // }
 
   public function add($productId) {
     Cart::add($productId);
@@ -39,11 +45,6 @@ class CartController extends Controller {
   }
 
   private function areaCartButton() {
-    return [ 'content' => view('cart::area', [
-      'cart' => Cart::get(),
-      'price' => number_format(Cart::price(), 0, ',', ' '),
-      'shippingPrice' => number_format(Cart::shippingPrice(), 0, ',', ' '),
-      'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ')
-    ])->render() ];
+    return [ 'content' => view('cart::area-cart-button', [ 'cart' => Cart::get() ])->render() ];
   }
 }

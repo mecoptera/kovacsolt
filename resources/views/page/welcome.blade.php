@@ -6,7 +6,7 @@
 <div class="l-container l-container--stretch q-welcome">
   <div class="l-container q-welcome__container">
     <div class="q-welcome__headline">
-      <div class="q-welcome__plan"></div>
+      <div class="q-welcome__plan u-my-8"></div>
       <div class="q-welcome__sub">Készítsd el egyedi pólód nálunk</div>
     </div>
 

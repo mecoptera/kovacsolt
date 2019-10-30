@@ -3,37 +3,59 @@
   position: relative;
 
   &__popup {
-    background: #fff;
     bottom: -16px;
     box-shadow: var(--shadow-level-2);
-    cursor: default;
     display: none;
     min-width: 300px;
-    outline: 2px solid #fff;
-    outline-offset: 2px;
-    padding: 12px;
     position: absolute;
-    right: 0;
+    right: 4px;
     transform: translateY(100%);
     z-index: 1;
+
+    &--visible {
+      display: block;
+    }
 
     &:before {
       border: 8px solid transparent;
       border-bottom-color: #fff;
       border-top-width: 0;
       content: '';
-      right: 16px;
+      filter: drop-shadow(0 0 4px rgba(var(--color-secondary-rgb), .1));
       position: absolute;
+      right: 4px;
       top: -12px;
     }
+  }
 
-    &--visible {
-      display: block;
-    }
+  &__panel {
+    background: #fff;
+    cursor: default;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+    padding: 12px;
+    position: relative;
   }
 
   &__container {
     max-height: 320px;
     overflow: auto;
+  }
+
+  &__badge {
+    align-items: center;
+    background: var(--color-primary);
+    border-radius: 10px;
+    color: var(--color-text-body-inverse);
+    display: inline-flex;
+    font-size: 14px;
+    height: 20px;
+    justify-content: center;
+    min-width: 20px;
+    padding: 0 4px;
+    position: absolute;
+    right: 4px;
+    top: -10px;
+    user-select: none;
   }
 }

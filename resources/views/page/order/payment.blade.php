@@ -8,7 +8,7 @@
       <h1 class="c-panel__title">Fizetési mód</h1>
 
       <div class="l-grid">
-        <form class="l-form l-grid__col--6 l-grid__col--offset-3 u-flex u-flex--column" method="post" action="{{ route('order.payment') }}">
+        <form class="l-form l-grid__col--6 l-grid__col--offset-3 u-flex u-flex-col" method="post" action="{{ route('order.payment') }}">
           @csrf
 
           <k-select
@@ -22,7 +22,7 @@
             <k-select-option data-value="2">Bankkártyás fizetés</k-select-option>
           </k-select>
 
-          <div class="l-form__field u-align-center">
+          <div class="l-form__field u-text-center">
             <input type="submit" class="c-button" value="Tovább a rendelés összesítéséhez">
           </div>
         </form>

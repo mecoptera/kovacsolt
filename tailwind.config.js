@@ -3,8 +3,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'brand': '#d53746',
-        'form': '#a7bacc'
+        'color-brand': '#d53746',
+        'color-form': '#a7bacc',
+        'color-text': '#242e42'
       }
     }
   }

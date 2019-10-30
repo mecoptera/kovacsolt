@@ -9,8 +9,8 @@
           <td class="c-table__cell">{{ $item['product']->name }}</td>
           <td class="c-table__cell">
             <div>
-              <span class="{{ $item['product']->discount ? 'u-line-through u-text-xs' : 'u-font-bold' }}">{{ $item['product']->priceFormatted }} Ft</span>
-              {!! $item['product']->discount ? '<div class="u-font-bold u-text-brand">' . $item['product']->discountPriceFormatted . ' Ft</div>' : '' !!}
+              <span class="{{ $item['product']->discount ? 'u-line-through u-text-xs' : 'u-font-bold' }}">{{ $item['product']->price }} Ft</span>
+              {!! $item['product']->discount ? '<div class="u-font-bold u-text-color-brand">' . $item['product']->discountPrice . ' Ft</div>' : '' !!}
             </div>
           </td>
           <td class="c-table__cell">{{ $item['quantity'] }}db</td>
@@ -21,5 +21,5 @@
 </div>
 
 <div class="u-text-center">
-  <a href="{{ route('cart') }}" class="c-button c-button--small">Tovább a fizetéshez</a>
+  <a href="{{ route('cart') }}" class="c-button c-button--small">Tovább a kosárhoz</a>
 </div>

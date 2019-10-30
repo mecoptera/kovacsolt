@@ -8,7 +8,7 @@
       <h1 class="c-panel__title">Számlázási adatok</h1>
 
       <div class="l-grid">
-        <form class="l-form l-grid__col--6 l-grid__col--offset-3 u-flex u-flex--column" method="post" action="{{ route('order.billing') }}">
+        <form class="l-form l-grid__col--6 l-grid__col--offset-3 u-flex u-flex-col" method="post" action="{{ route('order.billing') }}">
           @csrf
 
           <k-input
@@ -57,7 +57,7 @@
             @if (isset($billingData['phone']))data-value="{{ $billingData['phone'] }}"@endif
           ></k-input>
 
-          <div class="l-form__field u-align-center">
+          <div class="l-form__field u-text-center">
             <input type="submit" class="c-button" value="Tovább a szállítási módokhoz">
           </div>
         </form>

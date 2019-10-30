@@ -51,7 +51,6 @@ export default class KInput extends Bamboo {
         markup: html => {
           const inputType = this._state.get('type') === 'password' && this._state.get('showPassword') ? 'text' : (this._state.get('type') || 'text');
           const isReadOnly = this._state.get('preparing') ? 'readonly' : null;
-          const showPasswordClass = `c-input__password c-icon c-icon--eye ${this._state.get('showPassword') ? 'c-icon--brand' : ''} c-icon--small`;
 
           this.classList.add(`c-input--type-${inputType}`);
           this.classList.toggle('c-input--hover', !this._state.get('disabled') && !this._state.get('isFocused') && this._state.get('isHovered') || false);
@@ -62,9 +61,9 @@ export default class KInput extends Bamboo {
 
           return html`
             <div class="c-input__field">
-              <input readonly="${isReadOnly}" class="c-input__input" type="${inputType}" name="${this._state.get('name')}" id="${this._state.get('uuid')}" value="${this._state.get('value')}" disabled="${this._state.get('disabled') ? 'disabled' : null}" placeholder="${this._state.get('placeholder') || ' '}" data-handler="input" onmouseenter="${this}" onmouseleave="${this}" onfocus="${this}" onblur="${this}" oninput="${this}">
+              <input readonly="${isReadOnly}" autocomplete="on" class="c-input__input" type="${inputType}" name="${this._state.get('name')}" id="${this._state.get('uuid')}" value="${this._state.get('value')}" disabled="${this._state.get('disabled') ? 'disabled' : null}" placeholder="${this._state.get('placeholder') || ' '}" data-handler="input" onmouseenter="${this}" onmouseleave="${this}" onfocus="${this}" onblur="${this}" oninput="${this}">
               ${this._state.get('label') ? html`<label class="c-input__label" for="${this._state.get('uuid')}">${this._state.get('label')}</label>` : ''}
-              ${this._state.get('type') === 'password' ? html`<div class="${showPasswordClass}" data-handler="password" onclick=${this}></div>` : ''}
+              ${this._state.get('type') === 'password' ? html`<div class="c-input__password" data-handler="password" onclick=${this}><k-icon data-icon="eye" data-color="${this._state.get('showPassword') ? 'brand' : 'text'}" data-size="8"></k-icon></div>` : ''}
             </div>
             ${!this._state.get('error') && this._state.get('helper') ? html`<div class="c-input__helper">${this._state.get('helper')}</div>` : ''}
             ${!this._state.get('error') && this._templater.hasMarkup('helper') ? html`<div class="c-input__helper">${this._templater.render('helper')}</div>` : ''}
@@ -116,10 +115,12 @@ export default class KInput extends Bamboo {
 
   _inputBlurHandler() {
     this._state.set('isFocused', false);
+    this.dispatchEvent(new CustomEvent('blur'));
   }
 
   _inputInputHandler() {
     this.renderCallback();
+    this.dispatchEvent(new CustomEvent('input'));
   }
 
   _passwordClickHandler() {

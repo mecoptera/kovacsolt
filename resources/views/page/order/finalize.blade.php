@@ -7,7 +7,7 @@
     <div class="c-panel__content">
       <h1 class="c-panel__title">Rendelés összesítése</h1>
 
-      <div class="l-grid">
+      <div class="l-grid u-mb-16">
         <div class="q-cart-summary l-grid__col--8 l-grid__col--offset-2">
           <h3>Termékek</h3>
 
@@ -27,7 +27,7 @@
             </tbody>
           </table>
 
-          <div class="l-form__field u-align-right">
+          <div class="l-form__field u-text-right">
               <div>Termékek: <b>{{ $price }} Ft</b></div>
               <div class="u-py-4">Szállítás: <b>{{ $shippingPrice }} Ft</b></div>
               <div class="q-cart-summary__total u-py-4">Összesen: <b>{{ $priceTotal }} Ft</b></div>
@@ -35,38 +35,29 @@
         </div>
       </div>
 
-      <div class="l-grid">
+      <div class="l-grid u-mb-16">
         <div class="l-grid__col--8 l-grid__col--offset-2">
           <h3>Számlázási adatok</h3>
 
-          <table class="c-table">
-            <tbody class="c-table__body">
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Név:</b></td>
-                <td class="c-table__cell">{{ $billingData['name'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Irányítószám:</b></td>
-                <td class="c-table__cell">{{ $billingData['zip'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Város:</b></td>
-                <td class="c-table__cell">{{ $billingData['city'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Cím:</b></td>
-                <td class="c-table__cell">{{ $billingData['address'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>E-mail cím:</b></td>
-                <td class="c-table__cell">{{ $billingData['email'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Telefonszám:</b></td>
-                <td class="c-table__cell">{{ $billingData['phone'] ? $billingData['phone'] : '---' }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="l-grid">
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Név:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $billingData['name'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Irányítószám:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $billingData['zip'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Város:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $billingData['city'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Cím:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $billingData['address'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>E-mail cím:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $billingData['email'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Telefonszám:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $billingData['phone'] ? $billingData['phone'] : '---' }}</div>
+          </div>
         </div>
       </div>
 
@@ -74,46 +65,34 @@
         <div class="l-grid__col--8 l-grid__col--offset-2">
           <h3>Szállítási adatok</h3>
 
-          <table class="c-table">
-            <tbody class="c-table__body">
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Átvételi mód:</b></td>
-                <td class="c-table__cell">{{ $shippingData['shipping_method_text'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Fizetési mód:</b></td>
-                <td class="c-table__cell">{{ $paymentData['payment_method_text'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Név:</b></td>
-                <td class="c-table__cell">{{ $shippingData['name'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Irányítószám:</b></td>
-                <td class="c-table__cell">{{ $shippingData['zip'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Város:</b></td>
-                <td class="c-table__cell">{{ $shippingData['city'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Cím:</b></td>
-                <td class="c-table__cell">{{ $shippingData['address'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>E-mail cím:</b></td>
-                <td class="c-table__cell">{{ $shippingData['email'] }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Telefonszám:</b></td>
-                <td class="c-table__cell">{{ $shippingData['phone'] ? $shippingData['phone'] : '---' }}</td>
-              </tr>
-              <tr class="c-table__row">
-                <td class="c-table__cell u-align-right"><b>Megjegyzés a szállítással kapcsolatban:</b></td>
-                <td class="c-table__cell">{{ $shippingData['comment'] ? $shippingData['comment'] : '---' }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="l-grid">
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Átvételi mód:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $shippingData['shipping_method_text'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Fizetési mód:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $paymentData['payment_method_text'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Név:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $shippingData['name'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Irányítószám:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $shippingData['zip'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Város:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $shippingData['city'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Cím:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $shippingData['address'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>E-mail cím:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $shippingData['email'] }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Telefonszám:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $shippingData['phone'] ? $shippingData['phone'] : '---' }}</div>
+
+            <div class="l-grid__col--6 u-p-3 u-text-right"><b>Megjegyzés a szállítással kapcsolatban:</b></div>
+            <div class="l-grid__col--6 u-p-3">{{ $shippingData['comment'] ? $shippingData['comment'] : '---' }}</div>
+          </div>
         </div>
       </div>
 
@@ -129,7 +108,7 @@
               @if (isset($finalizeData['comment']))data-value="{{ $finalizeData['comment'] }}"@endif
             ></k-textarea>
 
-            <div class="l-form__field u-align-center">
+            <div class="l-form__field u-text-center">
               <input type="submit" class="c-button" value="Rendelés leadása">
             </div>
           </form>

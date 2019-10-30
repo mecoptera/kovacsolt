@@ -12,6 +12,7 @@ import KPlannerDesign from './components/planner-design';
 import KArea from './components/area';
 import KResizer from './components/resizer';
 import KInput from './components/input';
+import KNumberInput from './components/number-input';
 import KCheckbox from './components/checkbox';
 import KTextarea from './components/textarea';
 import KCartButton from './components/cart-button';
@@ -22,6 +23,8 @@ import KSelectOption from './components/select-option';
 import KNotification from './components/notification';
 import KTabs from './components/tabs';
 import KTabContent from './components/tab-content';
+import KIcon from './components/icon';
+import KFormat from './components/format';
 
 customElements.define('k-menu', KMenu);
 customElements.define('k-menu-item', KMenuItem);
@@ -29,6 +32,7 @@ customElements.define('k-planner-design', KPlannerDesign);
 customElements.define('k-area', KArea);
 customElements.define('k-resizer', KResizer);
 customElements.define('k-input', KInput);
+customElements.define('k-number-input', KNumberInput);
 customElements.define('k-checkbox', KCheckbox);
 customElements.define('k-textarea', KTextarea);
 customElements.define('k-cart-button', KCartButton);
@@ -39,6 +43,34 @@ customElements.define('k-select-option', KSelectOption);
 customElements.define('k-notification', KNotification);
 customElements.define('k-tabs', KTabs);
 customElements.define('k-tab-content', KTabContent);
+customElements.define('k-icon', KIcon);
+customElements.define('k-format', KFormat);
+
+(() => {
+  if (!document.querySelector('[_namespace="cart-index"]')) { return; }
+
+  const priceElement = document.querySelector('[_namespace="cart-index"] #js-price');
+  const productElements = document.querySelectorAll('[_namespace="cart-index"] .js-product');
+
+  const updateTotalPrice = () => {
+    let totalPrice = 0;
+
+    Array.from(productElements).forEach(productElement => {
+      const price = productElement.getAttribute('data-price');
+      const quantity = productElement.querySelector('.js-quantity').value;
+      console.log(price, quantity);
+
+      totalPrice += price * quantity;
+    });
+
+    priceElement.dataValue = totalPrice;
+  };
+
+  const numberInputElements = document.querySelectorAll('[_namespace="cart-index"] .js-quantity');
+  Array.from(numberInputElements).forEach(numberInputElement => numberInputElement.addEventListener('change', updateTotalPrice));
+
+  updateTotalPrice();
+})();
 
 (() => {
   const isTouchDevice = (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));

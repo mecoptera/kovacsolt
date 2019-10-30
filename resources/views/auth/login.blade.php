@@ -1,5 +1,7 @@
 @extends('layouts.page')
 
+@section('title', 'Bejelentkezés')
+
 @section('content')
   <div class="l-container">
     <div class="c-panel">

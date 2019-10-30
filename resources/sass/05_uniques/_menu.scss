@@ -25,6 +25,7 @@
     display: flex;
     height: var(--layout-header-height);
     justify-content: space-between;
+    position: relative;
 
     .q-menu--alternative & {
       height: var(--layout-header-height-tall);

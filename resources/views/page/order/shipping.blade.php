@@ -8,7 +8,7 @@
       <h1 class="c-panel__title">Szállítási adatok</h1>
 
       <div class="l-grid">
-        <form class="l-form l-grid__col--6 l-grid__col--offset-3 u-flex u-flex--column" method="post" action="{{ route('order.shipping') }}">
+        <form class="l-form l-grid__col--6 l-grid__col--offset-3 u-flex u-flex-col" method="post" action="{{ route('order.shipping') }}">
           @csrf
 
           <k-select
@@ -76,7 +76,7 @@
             @if (isset($shippingData['comment']))data-value="{{ $shippingData['comment'] }}"@endif
           ></k-textarea>
 
-          <div class="l-form__field u-align-center">
+          <div class="l-form__field u-text-center">
             <input type="submit" class="c-button" value="Tovább a fizetési módokhoz">
           </div>
         </form>

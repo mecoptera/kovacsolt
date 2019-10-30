@@ -19,7 +19,8 @@
 
   <script>
     window.kovacsolt = {
-      baseUrl: '{{ url('/') }}/'
+      baseUrl: '{{ url('/') }}/',
+      iconUrl: '{{ asset('dist/images/icons') }}/'
     };
   </script>
 </head>
@@ -40,9 +41,11 @@
           </k-menu>
         </div>
         <div class="q-menu__right">
-          <a class="c-icon c-icon--small c-icon--person {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" href="{{ route('user.profile') }}"></a>
-          <k-cart-button class="c-icon c-icon--small c-icon--cart {{ Route::currentRouteName() === 'page.welcome' ? 'c-icon--white' : '' }}" data-cart-url="{{ route('cart') }}" data-area-endpoint="{{ route('cart.area') }}">
-            <div class="c-icon__badge">{{ Webacked\Cart\Helpers::itemsCount() }}</div>
+          <a href="{{ route('user.profile') }}" class="u-mr-4">
+            <k-icon data-icon="person" data-color="{{ Route::currentRouteName() === 'page.welcome' ? 'white' : 'text' }}" data-size="8"></k-icon>
+          </a>
+          <k-cart-button data-count="{{ Webacked\Cart\Helpers::itemsCount() }}" data-cart-url="{{ route('cart') }}" data-area-endpoint="{{ route('cart.area') }}">
+            <k-icon data-icon="cart" data-color="{{ Route::currentRouteName() === 'page.welcome' ? 'white' : 'text' }}" data-size="8"></k-icon>
           </k-cart-button>
         </div>
       </nav>

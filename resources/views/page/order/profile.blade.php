@@ -8,7 +8,7 @@
       <h1 class="c-panel__title">Felhasználói fiók</h1>
 
       <div class="l-grid">
-        <form class="l-form l-grid__col--6 l-grid__col--offset-3 u-flex u-flex--column" method="post" action="{{ route('login', [ 'from' => 'order' ]) }}">
+        <form class="l-form l-grid__col--6 l-grid__col--offset-3 u-flex u-flex-col" method="post" action="{{ route('login', [ 'from' => 'order' ]) }}">
           @csrf
 
           <k-input
@@ -29,7 +29,7 @@
 
           <k-checkbox data-label="Emlékezz rám ezen a gépen" data-name="remember" data-checked="{{ old('remember') ? 'checked' : '' }}"></k-checkbox>
 
-          <div class="l-form__field u-align-center">
+          <div class="l-form__field u-text-center">
             <button type="submit" class="c-button">Bejelentkezek</button>
           </div>
         </form>
