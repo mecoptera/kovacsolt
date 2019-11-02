@@ -17,10 +17,10 @@
             data-placeholder="Válassz átvételi módot"
             @if (isset($shippingData['shipping_method']))data-value="{{ $shippingData['shipping_method'] }}"@endif
           >
-            <k-select-option data-value="0">Személyes átvétel</k-select-option>
-            <k-select-option data-value="1">Postai átvétel</k-select-option>
-            <k-select-option data-value="2">Házhozszállítás</k-select-option>
-            <k-select-option data-value="3">Átvétel csomagponton</k-select-option>
+            <k-select-option data-value="0">Személyes átvétel (Ingyenes)</k-select-option>
+            <k-select-option data-value="1">Postai átvétel (800 Ft)</k-select-option>
+            <k-select-option data-value="2">Házhozszállítás (1 200 Ft)</k-select-option>
+            <k-select-option data-value="3">Átvétel csomagponton (800 Ft)</k-select-option>
           </k-select>
 
           <k-input

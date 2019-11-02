@@ -58,13 +58,13 @@ export default class KProductCard extends Bamboo {
               </div>
             </div>
 
-            ${!hideInfo && data.discount ? html`<div class="c-product__discount" data-discount="${'-' + data.discount + '%'}"></div>` : null}
+            ${!hideInfo && data.discount ? html`<div class="c-product__discount" data-discount="${'-' + data.discount + '%'}"></div>` : html``}
 
             ${this._state.get('actions') ? html`<div class="c-product__actions">
               ${this._state.get('actions').map(action => {
                 return html`<div class="u-text-center"><a class="c-button c-button--small" href="${action.state.url}">${action.state.label}</a></div>`;
-              }) || null}
-            </div>` : null}
+              }) || html``}
+            </div>` : html``}
           `;
         },
         container: this._templater.parseHTML('<div class="c-product__container"></div>'),
@@ -82,10 +82,10 @@ export default class KProductCard extends Bamboo {
               <div class="c-product__name">${data.name}</div>
               <div class="${priceClass}">
                 <div class="c-product__price-original">${data.price} Ft</div>
-                ${data.discount ? html`<div>${data.discountPrice} Ft</div>` : ''}
+                ${data.discount ? html`<div>${data.discountPrice} Ft</div>` : html``}
               </div>
             </div>
-          ` : null;
+          ` : html``;
         },
         container: this._templater.parseHTML('<div></div>'),
         autoAppendContainer: true

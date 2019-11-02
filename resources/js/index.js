@@ -58,7 +58,6 @@ customElements.define('k-format', KFormat);
     Array.from(productElements).forEach(productElement => {
       const price = productElement.getAttribute('data-price');
       const quantity = productElement.querySelector('.js-quantity').value;
-      console.log(price, quantity);
 
       totalPrice += price * quantity;
     });
