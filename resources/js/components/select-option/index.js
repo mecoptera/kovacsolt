@@ -29,10 +29,12 @@ export default class KSelectOption extends Bamboo {
     super.connectedCallback();
 
     this._state.set('markup', this._templater.render('inside'), { storeFunction: true });
+    this._state.set('content', this.textContent);
   }
 
   contentChangedCallback() {
     this._state.set('markup', this._templater.render('inside'), { storeFunction: true });
+    this._state.set('content', this.textContent);
   }
 
   _setTemplate(value) {
