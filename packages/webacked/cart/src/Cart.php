@@ -68,6 +68,12 @@ class Cart {
     $this->updateSession();
   }
 
+  public function empty() {
+    $this->items = [];
+    $this->emptyDatabase();
+    $this->updateSession();
+  }
+
   public function setQuantity($productId, $quantity) {
     $product = ProductModel::where('id', $productId)->first();
 
@@ -91,26 +97,13 @@ class Cart {
   }
 
   public function price() {
-    $priceTotal = 0;
+    $price = 0;
 
     foreach ($this->items as $item) {
-      $priceTotal += ($item['product']->discount ? $item['product']->discountPrice : $item['product']->price) * $item['quantity'];
+      $price += ($item['product']->discount ? $item['product']->discountPrice : $item['product']->price) * $item['quantity'];
     }
 
-    return $priceTotal;
-  }
-
-  public function shippingPrice() {
-    return 1200;
-  }
-
-  public function priceTotal() {
-    return $this->price() + $this->shippingPrice();
-  }
-
-  public function empty() {
-    $this->items = [];
-    $this->updateSession();
+    return $price;
   }
 
   private function createDatabase() {
@@ -132,6 +125,10 @@ class Cart {
     } else {
       CartProductModel::where('cart_id', $this->cartId)->where('product_id', $productId)->delete();
     }
+  }
+
+  private function emptyDatabase() {
+    CartModel::where('id', $this->cartId)->update([ 'closed' => true ]);
   }
 
   private function updateSession() {

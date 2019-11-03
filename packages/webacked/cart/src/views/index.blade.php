@@ -30,7 +30,10 @@
               </table>
 
               <div class="l-form__field u-text-right">
-                <div class="u-border-solid u-border-t u-border-black u-py-4">Összesen: <b><k-format id="js-price"></k-format> Ft</b></div>
+                <div class="l-grid q-cart-summary__total">
+                  <div class="l-grid__col--2 l-grid__col--offset-8">Összesen:</div>
+                  <div class="l-grid__col--2"><b><k-format  id="js-price"></k-format> Ft</b></div>
+                </div>
               </div>
             </div>
           </div>

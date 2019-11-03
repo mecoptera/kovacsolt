@@ -1,6 +1,6 @@
 @if (!empty($cart))
   <div class="q-cart-button__container u-mb-3">
-    <table class="c-table u-m-0">
+    <table class="c-table">
       <tbody class="c-table__body">
         @foreach($cart as $item)
           <tr class="c-table__row">

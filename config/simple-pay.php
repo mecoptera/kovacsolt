@@ -42,7 +42,11 @@ return [
   'SANDBOX' => true,
 
   //common return URL
-  'URL' => env('APP_URL') . '/kovacsolt/back.php',
+  'URL' => env('APP_URL'),
+  'URL_SUCCESS' => env('APP_URL') . '/order/success',
+  'URL_FAIL' => env('APP_URL') . '/order/error',
+  'URL_CANCEL' => env('APP_URL') . '/order/error',
+  'URL_TIMEOUT' => env('APP_URL') . '/order/error',
 
   //optional uniq URL for events
   /*
