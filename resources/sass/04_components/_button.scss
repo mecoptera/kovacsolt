@@ -54,6 +54,16 @@
       border-color: transparent;
       color: var(--color-text-body-inverse);
     }
+
+    &.c-button--light {
+      border: 2px solid var(--color-form-element);
+      color: var(--color-form-element);
+
+      @include hover {
+        background-color: var(--color-form-element);
+        color: var(--color-text-body);
+      }
+    }
   }
 
   &--link {

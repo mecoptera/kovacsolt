@@ -31,7 +31,9 @@ class Cart {
       $this->cartId = $this->createDatabase();
     }
 
-    if ($this->userId) {
+    if (Session::has('cart')) {
+      $this->items = Session::get('cart');
+    } elseif ($this->userId) {
       $cartProducts = CartProductModel::with('product')->where('cart_id', $this->cartId)->get();
 
       foreach ($cartProducts as $cartProduct) {
@@ -42,8 +44,6 @@ class Cart {
       }
 
       $this->updateSession();
-    } elseif (Session::has('cart')) {
-      $this->items = Session::get('cart');
     }
   }
 

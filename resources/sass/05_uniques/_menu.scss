@@ -25,11 +25,8 @@
     display: flex;
     height: var(--layout-header-height);
     justify-content: space-between;
+    margin-bottom: 0;
     position: relative;
-
-    .q-menu--alternative & {
-      height: var(--layout-header-height-tall);
-    }
   }
 
   &__bar {

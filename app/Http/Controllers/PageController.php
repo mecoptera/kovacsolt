@@ -25,10 +25,13 @@ class PageController extends Controller {
   }
 
   public function step1() {
-    return view('page.planner-step1');
+    $baseProducts = BaseProduct::all();
+
+    return view('page.planner-step1', [ 'baseProducts' => $baseProducts ]);
   }
 
-  public function step2($productId) {
+  public function step2($baseProductId) {
+    $baseProduct = BaseProduct::find($baseProductId);
     $baseProducts = BaseProduct::all();
 
     if (Auth::guard('web')->check()) {
@@ -38,7 +41,7 @@ class PageController extends Controller {
     }
 
     return view('page.planner-step2', [
-      'productId' => $productId,
+      'baseProduct' => $baseProduct,
       'baseProducts' => $baseProducts,
       'userProducts' => $userProducts
     ]);

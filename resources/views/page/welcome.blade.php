@@ -57,18 +57,18 @@
   </div>
 </div>
 
-<div class="q-contact">
-  <div class="l-container l-container--smaller l-container--padding q-contact__content">
-    <h2>Feliratkozás hírlevélre</h2>
+<div class="q-contact c-panel">
+  <div class="l-container l-container--smaller l-container--padding c-panel__content u-mb-0">
+    <h2 class="c-panel__title u-text-white">Feliratkozás hírlevélre</h2>
     <p>Amennyiben a későbbiekben szeretnél értesülni a legújabb akciókról, ne habozz, add meg a címed lent.</p>
 
-    <div class="q-contact__form">
+    <form class="q-contact__form l-form l-grid__col--6">
       <div class="q-contact__email">
-        <k-input data-label="E-mail cím"></k-input>
+        <k-input data-label="E-mail cím" data-light></k-input>
       </div>
 
-      <a href="javascript:void(0)" class="c-button q-contact__button">Feliratkozás</a>
-    </div>
+      <a href="javascript:void(0)" class="c-button c-button--outline c-button--light">Feliratkozás</a>
+    </form>
   </div>
 </div>
 

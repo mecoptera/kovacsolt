@@ -15,7 +15,7 @@ Route::get('/', 'PageController@index')->name('page.welcome');
 Route::get('/products', 'PageController@products')->name('page.products');
 
 Route::get('/planner', 'PageController@step1')->name('page.planner.step1');
-Route::get('/planner/{product}', 'PageController@step2')->name('page.planner.step2');
+Route::get('/planner/{baseProduct}', 'PageController@step2')->name('page.planner.step2');
 Route::get('/planner/area/{area?}', 'PageController@step2Area')->name('page.planner.area');
 Route::post('/planner/save', 'PageController@save')->name('page.planner.save');
 Route::post('/planner/upload', 'PageController@upload')->name('page.planner.upload');
@@ -76,10 +76,16 @@ Route::prefix('panel')->group(function() {
   Route::get('/designs/delete/{id}', 'Panel\DesignController@remove')->name('panel.designs.delete');
   Route::post('/designs/rename/{id}', 'Panel\DesignController@rename')->name('panel.designs.rename');
 
-  Route::get('/views', 'Panel\BaseProductViewController@index')->name('panel.views');
-  Route::post('/views', 'Panel\BaseProductViewController@store')->name('panel.views.upload');
-  Route::get('/views/delete/{id}', 'Panel\BaseProductViewController@remove')->name('panel.views.delete');
-  Route::post('/views/rename/{id}', 'Panel\BaseProductViewController@rename')->name('panel.views.rename');
+  Route::get('/base-products', 'Panel\BaseProductController@index')->name('panel.baseproducts');
+  Route::post('/base-products', 'Panel\BaseProductController@store')->name('panel.baseproducts.upload');
+  Route::get('/base-products/delete/{id}', 'Panel\BaseProductController@remove')->name('panel.baseproducts.delete');
+  Route::post('/base-products/rename/{id}', 'Panel\BaseProductController@rename')->name('panel.baseproducts.rename');
+
+  Route::get('/base-product-views', 'Panel\BaseProductViewController@index')->name('panel.baseproductviews');
+  Route::post('/base-product-views', 'Panel\BaseProductViewController@store')->name('panel.baseproductviews.upload');
+  Route::get('/designs/default/{id}', 'Panel\BaseProductViewController@default')->name('panel.baseproductviews.default');
+  Route::get('/base-product-views/delete/{id}', 'Panel\BaseProductViewController@remove')->name('panel.baseproductviews.delete');
+  Route::post('/base-product-views/rename/{id}', 'Panel\BaseProductViewController@rename')->name('panel.baseproductviews.rename');
 });
 
 Route::get('/sandbox/{name}', 'PageController@sandbox');

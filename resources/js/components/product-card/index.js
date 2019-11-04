@@ -17,7 +17,7 @@ export default class KProductCard extends Bamboo {
   }
 
   static get observedAttributes() {
-    return ['data-csrf', 'data-detail', 'data-hide-info'];
+    return ['data-detail', 'data-hide-info'];
   }
 
   static get stateOptions() {

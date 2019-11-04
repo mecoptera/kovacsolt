@@ -11,4 +11,9 @@ class BaseProductView extends Model implements HasMedia {
 
   protected $attributes = [ 'name' => '' ];
   protected $fillable = [ 'name' ];
+  protected $appends = [ 'base_product_image' ];
+
+  public function getBaseProductImageAttribute() {
+    return url(BaseProductView::where('id', $this->id)->first()->getFirstMediaUrl('product'));
+  }
 }

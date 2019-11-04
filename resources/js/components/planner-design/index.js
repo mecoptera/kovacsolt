@@ -9,7 +9,7 @@ export default class KPlannerDesign extends Bamboo {
   }
 
   static get observedAttributes() {
-    return ['data-name', 'data-zone-width', 'data-zone-height', 'data-zone-left', 'data-zone-top', 'data-product-url'];
+    return ['data-name', 'data-zone-width', 'data-zone-height', 'data-zone-left', 'data-zone-top', 'data-base-product-url'];
   }
 
   static get boundProperties() {
@@ -19,8 +19,7 @@ export default class KPlannerDesign extends Bamboo {
       { name: 'dataZoneHeight', as: 'zoneHeight' },
       { name: 'dataZoneLeft', as: 'zoneLeft' },
       { name: 'dataZoneTop', as: 'zoneTop' },
-      { name: 'dataProductUrl', as: 'productUrl' },
-      { name: 'productImage' },
+      { name: 'dataBaseProductUrl', as: 'baseProductUrl' },
       { name: 'designId' },
       { name: 'designUrl' }
     ];
@@ -33,7 +32,7 @@ export default class KPlannerDesign extends Bamboo {
   get template() {
     return html => {
       const state = this._state.get();
-      const productStyle = state.productImage ? `background-image: url(${state.productUrl}/${state.productImage});` : '';
+      const productStyle = state.baseProductUrl ? `background-image: url(${state.baseProductUrl});` : '';
       const zoneStyle = `width: ${state.zoneWidth}%; height: ${state.zoneHeight}%; left: ${state.zoneLeft}%; top: ${state.zoneTop}%;`;
 
       return html`

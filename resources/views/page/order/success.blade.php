@@ -5,11 +5,11 @@
 @section('content')
   <div class="l-container">
     <div class="c-panel">
-      <div class="c-panel__content">
+      <div class="c-panel__content u-text-center">
         <h1 class="c-panel__title">Rendelés sikeres!</h1>
 
-        <p class="u-text-center">Rendelésed azonosítója: <strong>{{ $orderId }}</strong></p>
-      </div>
+        <p>A rendelésed sikeresen leadtuk, hamarosan értesítünk.<br>Rendelésed azonosítója:</p>
+      <div class="u-inline-block u-text-5xl">{{ $orderId }}</div></div>
     </div>
   </div>
 @endsection

@@ -11,6 +11,8 @@
 </head>
 <body>
   <a href="{{ route('panel.designs') }}">Designs</a>
+  <a href="{{ route('panel.baseproducts') }}">Base Products</a>
+  <a href="{{ route('panel.baseproductviews') }}">Base Product Views</a>
   @yield('content')
 </body>
 </html>

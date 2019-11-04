@@ -138,7 +138,7 @@ class OrderController extends Controller {
     $request->session()->put('finalizeData', $request->all());
 
     $order = new Order;
-    $order->order_id = uniqid();
+    $order->order_id = number_format(mt_rand(100000, 999999), 0, ',', '-');
     $order->user_id = Auth::guard('web')->check() ? Auth::guard('web')->user()->id : null;
     $order->user_name = session()->get('billingData')['name'];
     $order->user_billing_address = session()->get('billingData')['zip'] . ' ' .

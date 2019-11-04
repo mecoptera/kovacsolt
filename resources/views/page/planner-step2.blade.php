@@ -7,14 +7,14 @@
     <form id="js-plan-form" method="post" action="{{ route('page.planner.save') }}" class="l-grid">
       @csrf
 
-      <input type="hidden" name="product_id" value="{{ $productId }}">
+      <input type="hidden" name="base_product_id" value="{{ $baseProduct->id }}">
 
       <div class="u-hidden">
         <input type="file" id="js-upload-input" name="fileInput" data-url="{{ route('page.planner.upload') }}">
       </div>
 
       <div class="l-grid__col--7 u-relative">
-        <k-planner-design id="js-planner-design" data-name="design" data-zone-width="40" data-zone-height="60" data-zone-left="30.5" data-zone-top="20" data-product-url="{{ asset('products') }}"></k-planner-design>
+        <k-planner-design id="js-planner-design" data-name="design" data-zone-width="40" data-zone-height="60" data-zone-left="30.5" data-zone-top="20" data-base-product-url="{{ $baseProduct->base_product_view_default['base_product_image'] }}"></k-planner-design>
 
         <div class="q-planner-overlay u-p-8 u-align-center" id="js-planner-design-selector">
           <button type="button" class="c-button c-button--outline js-design-modal-open" data-area="{{ route('page.planner.area') }}">Katalógus megnyitása</button>

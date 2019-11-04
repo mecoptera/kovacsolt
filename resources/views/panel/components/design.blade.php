@@ -3,9 +3,9 @@
     <img src="{{ url($design->getFirstMediaUrl('design')) }}" alt="{{ $design->name }}" width="200">
     <a href="{{ route('panel.designs.delete', $design->id) }}">Delete</a>
 
-    <form method="POST" action="{{ route('panel.designs.rename', $design->id) }}">
+    <form method="post" action="{{ route('panel.designs.rename', $design->id) }}">
         @csrf
-        <input type="text" name="name">
+        <input type="text" name="name" value="{{ $design->name }}">
         <input type="submit">
     </form>
 </div>

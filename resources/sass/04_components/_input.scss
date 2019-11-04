@@ -78,6 +78,10 @@
       font-weight: bold;
     }
 
+    .c-input--light & {
+      color: var(--color-text-body-inverse);
+    }
+
     .c-input--disabled.c-input--has-content & {
       color: var(--color-form-element-hover);
       cursor: not-allowed;

@@ -23,12 +23,13 @@ export default class KInput extends Bamboo {
 
   static get stateOptions() {
     return {
-      disabled: { type: 'boolean' }
+      disabled: { type: 'boolean' },
+      light: { type: 'boolean' }
     };
   }
 
   static get observedAttributes() {
-    return ['data-type', 'data-name', 'data-value', 'data-placeholder', 'data-label', 'data-helper', 'data-disabled', 'data-error'];
+    return ['data-type', 'data-name', 'data-value', 'data-placeholder', 'data-label', 'data-helper', 'data-disabled', 'data-error', 'data-light'];
   }
 
   static get boundProperties() {
@@ -40,7 +41,8 @@ export default class KInput extends Bamboo {
       { name: 'dataLabel', as: 'label' },
       { name: 'dataHelper', as: 'helper' },
       { name: 'dataDisabled', as: 'disabled' },
-      { name: 'dataError', as: 'error' }
+      { name: 'dataError', as: 'error' },
+      { name: 'dataLight', as: 'light' }
     ];
   }
 
@@ -58,6 +60,7 @@ export default class KInput extends Bamboo {
           this.classList.toggle('c-input--disabled', this._state.get('disabled') || false);
           this.classList.toggle('c-input--error', this._state.get('error') || this._state.get('error') === '' || false);
           this.classList.toggle('c-input--has-content', this._state.get('hasContent') || false);
+          this.classList.toggle('c-input--light', this._state.get('light') || false);
 
           return html`
             <div class="c-input__field">

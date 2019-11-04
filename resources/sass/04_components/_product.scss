@@ -1,13 +1,12 @@
 .c-product {
   background: var(--color-background-gray);
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   position: relative;
 
   &--active,
   &--hover {
-    cursor: pointer;
-
     .c-product__discount,
     .c-product__image {
       display: none;
@@ -110,12 +109,12 @@
   }
 
   &__name {
-    color: var(--color-secondary);
+    color: var(--color-text-body);
     word-break: break-word;
   }
 
   &__price {
-    color: var(--color-secondary);
+    color: var(--color-text-body);
     font-size: 16px;
     font-weight: bold;
     min-width: 104px;
@@ -128,7 +127,7 @@
   }
 
   &__price-original {
-    color: var(--color-secondary);
+    color: var(--color-text-body);
 
     .c-product__price--discount & {
       font-size: 12px;

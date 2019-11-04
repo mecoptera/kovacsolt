@@ -23,7 +23,7 @@ class DesignController extends Controller {
 
     foreach ($files as $file) {
       $design = new Design;
-      $design->name = uniqid() . '_' . trim($file->getClientOriginalName());
+      $design->name = $request->name !== '' ? $request->name : uniqid() . '_' . trim($file->getClientOriginalName());
       $design->addMedia($file)->toMediaCollection('design');
       $design->save();
     }
@@ -32,13 +32,13 @@ class DesignController extends Controller {
   }
 
   public function remove($id) {
-    Design::findOrFail($id)->delete();
+    Design::where('id', $id)->delete();
 
     return redirect(route('panel.designs'));
   }
 
   public function rename($id, Request $request) {
-    Design::findOrFail($id)->update([ 'name' => $request->name ]);
+    Design::where('id', $id)->update([ 'name' => $request->name ]);
 
     return redirect(route('panel.designs'));
   }
