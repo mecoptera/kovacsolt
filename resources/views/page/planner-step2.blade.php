@@ -8,6 +8,7 @@
       @csrf
 
       <input type="hidden" name="base_product_id" value="{{ $baseProduct->id }}">
+      <input type="hidden" name="base_product_view_id" value="{{ $baseProduct->base_product_view_default['id'] }}">
 
       <div class="u-hidden">
         <input type="file" id="js-upload-input" name="fileInput" data-url="{{ route('page.planner.upload') }}">
@@ -23,7 +24,7 @@
         </div>
       </div>
 
-      <div class="l-grid__col--5">
+      <div class="l-grid__col--5 u-relative">
         <div class="q-planner-settings">
           {{-- <k-tabs> --}}
             {{-- <k-tab-content data-label="Tervezés"> --}}
@@ -35,7 +36,7 @@
 
               <div class="q-planner-settings__title">Beállítások</div>
               <div class="q-planner-settings__content u-p-8">
-                <k-select id="js-select-product" data-label="Termék" data-name="base_product" data-value="1">
+                <k-select id="js-select-product" data-label="Termék" data-name="base_product" data-value="{{ $baseProduct->id }}">
                   @foreach($baseProducts as $baseProduct)
                     <k-select-option data-value="{{ $baseProduct->id }}">{{ $baseProduct->name }}</k-select-option>
                   @endforeach

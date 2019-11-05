@@ -17,6 +17,7 @@ Route::get('/products', 'PageController@products')->name('page.products');
 Route::get('/planner', 'PageController@step1')->name('page.planner.step1');
 Route::get('/planner/{baseProduct}', 'PageController@step2')->name('page.planner.step2');
 Route::get('/planner/area/{area?}', 'PageController@step2Area')->name('page.planner.area');
+Route::get('/planner/baseproduct/{baseProductId?}', 'PageController@step2BaseProduct')->name('page.planner.baseproduct');
 Route::post('/planner/save', 'PageController@save')->name('page.planner.save');
 Route::post('/planner/upload', 'PageController@upload')->name('page.planner.upload');
 

@@ -108,22 +108,19 @@ customElements.define('k-format', KFormat);
 })();
 
 (() => {
+  const baseProductInputElement = document.querySelector('input[name="base_product_id"]');
   const designElement = document.querySelector('#js-planner-design');
   const productElement = document.querySelector('#js-select-product');
   const colorElement = document.querySelector('#js-select-color');
 
-  const setProductImage = () => {
-    const type = productElement.value;
-    const color = colorElement.value;
-    const view = 'front';
-
-    designElement.productImage = `${type}-${color}-${view}.jpg`;
+  const setBaseProductImage = () => {
+    axios.get(`${window.kovacsolt.baseUrl}planner/baseproduct/${productElement.value}`).then(response => {
+      designElement.dataBaseProductUrl = response.data.baseProduct.base_product_view_default.base_product_image;
+      baseProductInputElement.value = response.data.baseProduct.id;
+    });
   };
 
-  setProductImage();
-
-  productElement.addEventListener('change', setProductImage);
-  colorElement.addEventListener('change', setProductImage);
+  productElement.addEventListener('change', setBaseProductImage);
 })();
 
 (() => {

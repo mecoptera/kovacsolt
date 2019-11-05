@@ -51,11 +51,13 @@ class PageController extends Controller {
     return response()->json($this->{'area' . ucfirst($area)}(), 200);
   }
 
-  public function save(Request $request) {
-    if (!Auth::guard('web')->check()) {
-      return response()->json([ 'status' => 'error', 'message' => 'User has not logged in!' ], 200);
-    }
+  public function step2BaseProduct($baseProductId) {
+    $baseProduct = BaseProduct::find($baseProductId);
 
+    return response()->json([ 'baseProduct' => $baseProduct ], 200);
+  }
+
+  public function save(Request $request) {
     $postData = $request->all();
 
     $validator = Validator::make($postData, [
@@ -69,8 +71,8 @@ class PageController extends Controller {
     }
 
     $product = new Product;
-    $product->base_product_id = $postData['base_product'];
-    $product->user_id = Auth::guard('web')->user()->id;
+    $product->base_product_id = $postData['base_product_id'];
+    $product->user_id = Auth::guard('web')->check() ? Auth::guard('web')->user()->id : null;
     $product->variant = $postData['color'];
     $product->name = $postData['name'];
     $product->price = 4990;
@@ -79,7 +81,7 @@ class PageController extends Controller {
 
     $productView = new ProductView;
     $productView->product_id = $product->id;
-    $productView->base_product_view_id = 1;
+    $productView->base_product_view_id = $postData['base_product_view_id'];
     $productView->design_id = $postData['design'][0]['id'];
     $productView->design_width = $postData['design'][0]['width'];
     $productView->design_left = $postData['design'][0]['left'];

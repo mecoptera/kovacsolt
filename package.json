@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "start": "cross-env WATCH=true webpack --mode development",
-    "build:site": "webpack --mode production"
+    "build": "webpack --mode production"
   },
   "devDependencies": {
     "@babel/core": "7.6.4",
@@ -24,7 +24,6 @@
     "postcss-loader": "3.0.0",
     "sass-loader": "8.0.0",
     "style-loader": "1.0.0",
-    "uglifyjs-webpack-plugin": "2.2.0",
     "webpack": "4.41.2",
     "webpack-cli": "3.3.9"
   },

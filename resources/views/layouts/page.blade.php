@@ -15,12 +15,12 @@
   <link rel="manifest" href="{{ asset('site.webmanifest') }}">
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700&display=swap&subset=latin-ext" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('dist/css/main.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
   <script>
     window.kovacsolt = {
       baseUrl: '{{ url('/') }}/',
-      iconUrl: '{{ asset('dist/images/icons') }}/'
+      iconUrl: '{{ asset('images/icons') }}/'
     };
   </script>
 </head>
@@ -87,6 +87,6 @@
     </nav>
   </div>
 
-  <script src="{{ asset('dist/js/main.js') }}"></script>
+  <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
