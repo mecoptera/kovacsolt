@@ -63,7 +63,7 @@ export default class KResizer extends Bamboo {
         `;
       },
       container: this._templater.parseHTML('<div class="q-resizer__container"></div>'),
-      autoAppendContainer: true
+      autoAppend: true
     }];
   }
 

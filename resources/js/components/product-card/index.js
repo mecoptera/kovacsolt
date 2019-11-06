@@ -68,7 +68,7 @@ export default class KProductCard extends Bamboo {
           `;
         },
         container: this._templater.parseHTML('<div class="c-product__container"></div>'),
-        autoAppendContainer: true
+        autoAppend: true
       },
       {
         name: 'info',
@@ -88,7 +88,7 @@ export default class KProductCard extends Bamboo {
           ` : html``;
         },
         container: this._templater.parseHTML('<div></div>'),
-        autoAppendContainer: true
+        autoAppend: true
       }
     ];
   }

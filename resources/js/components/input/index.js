@@ -74,7 +74,7 @@ export default class KInput extends Bamboo {
           `;
         },
         container: document.createElement('div'),
-        autoAppendContainer: true
+        autoAppend: true
       },
       {
         name: 'helper',

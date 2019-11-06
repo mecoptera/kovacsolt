@@ -22,7 +22,7 @@ export default class KArea extends Bamboo {
       name: 'area',
       markup: html => html`<div class="c-loader"></div>`,
       container: this._templater.parseHTML('<div class="c-area__container"></div>'),
-      autoAppendContainer: true
+      autoAppend: true
     }];
   }
 

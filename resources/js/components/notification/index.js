@@ -26,13 +26,13 @@ export default class KNotification extends Bamboo {
           return html`<div class="${className}"></div>`;
         },
         container: this._templater.parseHTML('<div class="c-notification__status"></div>'),
-        autoAppendContainer: true
+        autoAppend: true
       },
       {
         name: 'content',
         markup: html => html`${this._state.get('message')}`,
         container: this._templater.parseHTML('<div class="c-notification__message"></div>'),
-        autoAppendContainer: true
+        autoAppend: true
       }
     ];
   }

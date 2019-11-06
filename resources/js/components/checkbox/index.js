@@ -61,7 +61,7 @@ export default class KCheckbox extends Bamboo {
           `;
         },
         container: document.createElement('div'),
-        autoAppendContainer: true
+        autoAppend: true
       },
       {
         name: 'label',

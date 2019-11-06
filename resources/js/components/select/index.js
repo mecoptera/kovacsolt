@@ -85,7 +85,7 @@ export default class KSelect extends Bamboo {
           `;
         },
         container: document.createElement('div'),
-        autoAppendContainer: true
+        autoAppend: true
       },
       {
         name: 'popup',

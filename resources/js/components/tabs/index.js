@@ -28,7 +28,7 @@ export default class KTabs extends Bamboo {
           }</div>`;
         },
         container: this._templater.parseHTML('<div class="c-notification__message"></div>'),
-        autoAppendContainer: true,
+        autoAppend: true,
         prepend: true
       }
     ];

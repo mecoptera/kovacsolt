@@ -32,7 +32,7 @@ export default class KCartButton extends Bamboo {
         name: 'button',
         markup: html => this._state.get('count') > 0 ? html`<div class="q-cart-button__badge">${this._state.get('count')}</div>` : html``,
         container: this._templater.parseHTML('<div></div>'),
-        autoAppendContainer: true
+        autoAppend: true
       },
       {
         name: 'popup',
