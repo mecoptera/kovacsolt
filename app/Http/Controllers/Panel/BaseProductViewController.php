@@ -15,7 +15,7 @@ class BaseProductViewController extends Controller {
 
   public function index() {
     $baseProducts = BaseProduct::all();
-    $views = BaseProductView::all();
+    $views = BaseProductView::all()->sortByDesc('default')->sortByDesc('base_product_id');
 
     return view('panel.baseproductviews', [
       'views' => $views,
