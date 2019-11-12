@@ -3,21 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class BaseProductView extends Model implements HasMedia {
   use HasMediaTrait;
 
-  protected $attributes = [ 'name' => '' ];
-  protected $fillable = [ 'name' ];
-  protected $appends = [ 'base_product_name', 'base_product_image' ];
+  protected $appends = [ 'base_product_color', 'base_product_view_image' ];
 
-  public function getBaseProductNameAttribute() {
-    return BaseProduct::where('id', $this->base_product_id)->first()->name;
+  public function registerMediaConversions(Media $media = null) {
+    $this->addMediaConversion('thumb')->keepOriginalImageFormat()->fit('max', 800, 800);
+    $this->addMediaConversion('planner')->keepOriginalImageFormat()->fit('max', 1600, 1600);
   }
 
-  public function getBaseProductImageAttribute() {
-    return url(BaseProductView::where('id', $this->id)->first()->getFirstMediaUrl('product'));
+  public function getBaseProductColorAttribute() {
+    return BaseProductColor::find($this->base_product_color_id);
   }
 }

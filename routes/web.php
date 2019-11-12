@@ -78,15 +78,18 @@ Route::prefix('panel')->group(function() {
   Route::post('/designs/rename/{id}', 'Panel\DesignController@rename')->name('panel.designs.rename');
 
   Route::get('/base-products', 'Panel\BaseProductController@index')->name('panel.baseproducts');
-  Route::post('/base-products', 'Panel\BaseProductController@store')->name('panel.baseproducts.upload');
+  Route::post('/base-products', 'Panel\BaseProductController@create')->name('panel.baseproducts.create');
+  Route::get('/base-products/edit/{id}', 'Panel\BaseProductController@edit')->name('panel.baseproducts.edit');
+  Route::post('/base-products/edit/{id}', 'Panel\BaseProductController@update')->name('panel.baseproducts.update');
   Route::get('/base-products/delete/{id}', 'Panel\BaseProductController@remove')->name('panel.baseproducts.delete');
-  Route::post('/base-products/rename/{id}', 'Panel\BaseProductController@rename')->name('panel.baseproducts.rename');
+  Route::post('/base-products/view/{id}', 'Panel\BaseProductController@addView')->name('panel.baseproducts.views.create');
+  Route::post('/base-products/color/{id}', 'Panel\BaseProductController@addColor')->name('panel.baseproducts.colors.create');
 
-  Route::get('/base-product-views', 'Panel\BaseProductViewController@index')->name('panel.baseproductviews');
-  Route::post('/base-product-views', 'Panel\BaseProductViewController@store')->name('panel.baseproductviews.upload');
-  Route::get('/designs/default/{id}', 'Panel\BaseProductViewController@default')->name('panel.baseproductviews.default');
-  Route::get('/base-product-views/delete/{id}', 'Panel\BaseProductViewController@remove')->name('panel.baseproductviews.delete');
-  Route::post('/base-product-views/rename/{id}', 'Panel\BaseProductViewController@rename')->name('panel.baseproductviews.rename');
+  Route::get('/views', 'Panel\ViewController@index')->name('panel.views');
+  Route::post('/views', 'Panel\ViewController@create')->name('panel.views.create');
+  Route::get('/views/edit/{id}', 'Panel\ViewController@edit')->name('panel.views.edit');
+  Route::post('/views/edit/{id}', 'Panel\ViewController@update')->name('panel.views.update');
+  Route::get('/views/delete/{id}', 'Panel\ViewController@remove')->name('panel.views.delete');
 });
 
 Route::get('/sandbox/{name}', 'PageController@sandbox');

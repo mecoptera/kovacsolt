@@ -3,7 +3,7 @@
 @section('title', 'Tervező')
 
 @section('content')
-  <section class="l-container">
+  <section class="l-container l-container--stretch u-px-0">
     <form id="js-plan-form" method="post" action="{{ route('page.planner.save') }}" class="l-grid">
       @csrf
 
@@ -14,7 +14,7 @@
         <input type="file" id="js-upload-input" name="fileInput" data-url="{{ route('page.planner.upload') }}">
       </div>
 
-      <div class="l-grid__col--7 u-relative">
+      <div class="l-grid__col--8 u-relative">
         <k-planner-design id="js-planner-design" data-name="design" data-zone-width="40" data-zone-height="60" data-zone-left="30.5" data-zone-top="20" data-base-product-url="{{ $baseProduct->base_product_view_default['base_product_image'] }}"></k-planner-design>
 
         <div class="q-planner-overlay u-p-8 u-align-center" id="js-planner-design-selector">
@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <div class="l-grid__col--5 u-relative">
+      <div class="l-grid__col--4 u-relative">
         <div class="q-planner-settings">
           {{-- <k-tabs> --}}
             {{-- <k-tab-content data-label="Tervezés"> --}}
@@ -82,10 +82,8 @@
               </div>
             </k-tab-content> --}}
           {{-- </k-tabs> --}}
-        </div>
 
-        <div class="q-planner-settings u-mt-16 u-p-8 u-align-center">
-          <div class="q-planner-settings__content">
+          <div class="u-mt-16 u-p-8 u-text-center">
             <p class="u-mb-0">Nem adtunk elég teret a kreativitásodnak? <a href="{{ route('page.contact') }}">Vedd fel velünk a kapcsolatot</a> és segítünk megvalósítani!</p>
           </div>
         </div>

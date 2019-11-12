@@ -1,5 +1,7 @@
 .q-planner-design {
   display: block;
+  margin: auto;
+  max-width: 912px;
   padding: 0 var(--grid-gap);
 
   &__product {
