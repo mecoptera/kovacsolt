@@ -26,9 +26,9 @@
         <div class="q-welcome__copyright">© {{ date('Y') }} Kovácsolt Póló</div>
 
         <div class="q-welcome__social">
-          <a href="{{ route('page.planner.step1') }}" class="c-icon c-icon--facebook c-icon--white"></a>
-          <a href="{{ route('page.planner.step1') }}" class="c-icon c-icon--instagram c-icon--white"></a>
-          <a href="{{ route('page.planner.step1') }}" class="c-icon c-icon--twitter c-icon--white"></a>
+          <a href="{{ route('page.planner.step1') }}"><k-icon data-icon="twitter" data-color="white" data-size="8"></k-icon></a>
+          <a href="{{ route('page.planner.step1') }}"><k-icon data-icon="facebook" data-color="white" data-size="8"></k-icon></a>
+          <a href="{{ route('page.planner.step1') }}"><k-icon data-icon="instagram" data-color="white" data-size="8"></k-icon></a>
         </div>
 
         <div class="q-welcome__phone">Tel.: +36 12 345 6789</div>
@@ -37,8 +37,8 @@
   </div>
 </div>
 
-<div class="l-container l-container--padding">
-  <h2>Termékek</h2>
+<div class="l-container">
+  <h2>Kiemelt termékek</h2>
 
   <div class="q-products l-grid">
     @foreach($products as $product)
@@ -48,12 +48,10 @@
         </k-product-card>
       </div>
     @endforeach
+  </div>
 
-    <div class="l-grid__col--3">
-      <div class="u-m-4 q-products__more">
-        <a href="{{ route('page.products') }}" class="c-button c-button--small">Összes termék megtekintése</a>
-      </div>
-    </div>
+  <div class="u-m-16 u-text-center">
+    <a href="{{ route('page.products') }}" class="c-button">Többi termék megtekintése</a>
   </div>
 </div>
 

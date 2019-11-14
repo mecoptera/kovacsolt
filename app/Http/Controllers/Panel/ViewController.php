@@ -21,10 +21,6 @@ class ViewController extends Controller {
 
   public function create(Request $request) {
     $view = new View;
-    $view->zone_width = 40;
-    $view->zone_height = 60;
-    $view->zone_left = 30.5;
-    $view->zone_top = 20;
     $view->name = $request->name;
     $view->alias = $request->alias;
     $view->save();
@@ -41,11 +37,7 @@ class ViewController extends Controller {
   public function update($id, Request $request) {
     View::where('id', $id)->update([
       'name' => $request->name,
-      'alias' => $request->alias,
-      'zone_width' => $request->zone_width,
-      'zone_height' => $request->zone_height,
-      'zone_left' => $request->zone_left,
-      'zone_top' => $request->zone_top
+      'alias' => $request->alias
     ]);
 
     return redirect(route('panel.views.edit', [ 'id' => $id ]));

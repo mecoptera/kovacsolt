@@ -22,9 +22,11 @@ class DesignController extends Controller {
     $files = $request->file('images');
 
     foreach ($files as $file) {
+      $filename = md5(uniqid() . time()) . '.' . $file->getClientOriginalExtension();
+
       $design = new Design;
       $design->name = $request->name !== '' ? $request->name : uniqid() . '_' . trim($file->getClientOriginalName());
-      $design->addMedia($file)->toMediaCollection('design');
+      $design->addMedia($file)->usingFileName($filename)->toMediaCollection('design');
       $design->save();
     }
 

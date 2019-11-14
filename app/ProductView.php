@@ -5,17 +5,31 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductView extends Model {
-  protected $appends = [ 'design', 'product_image', 'base_product_view' ];
-
-  public function getDesignAttribute() {
-    return url(Design::where('id', $this->design_id)->first()->getFirstMediaUrl('design', 'thumb'));
-  }
-
-  public function getProductImageAttribute() {
-    return url(BaseProductView::where('id', $this->base_product_view_id)->first()->getFirstMediaUrl('product'));
-  }
+  protected $appends = [
+    'base_product_view',
+    'base_product_view_image',
+    'design_image'
+  ];
 
   public function getBaseProductViewAttribute() {
-    return BaseProductView::where('id', $this->base_product_view_id)->first()->toArray();
+    return BaseProductView::find($this->base_product_view_id);
+  }
+
+  public function getBaseProductViewImageAttribute() {
+    $media = $this->getBaseProductViewAttribute()->getFirstMedia('base_product_view');
+
+    return [
+      'thumb' => $media->getUrl('thumb'),
+      'planner' => $media->getUrl('planner')
+    ];
+  }
+
+  public function getDesignImageAttribute() {
+    $media = Design::find($this->design_id)->getFirstMedia('design');
+
+    return [
+      'thumb' => $media->getUrl('thumb'),
+      'planner' => $media->getUrl('planner')
+    ];
   }
 }

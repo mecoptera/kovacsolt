@@ -90,6 +90,11 @@ Route::prefix('panel')->group(function() {
   Route::get('/views/edit/{id}', 'Panel\ViewController@edit')->name('panel.views.edit');
   Route::post('/views/edit/{id}', 'Panel\ViewController@update')->name('panel.views.update');
   Route::get('/views/delete/{id}', 'Panel\ViewController@remove')->name('panel.views.delete');
+
+  Route::get('/zones', 'Panel\ZoneController@index')->name('panel.zones');
+  Route::get('/zones/edit/{id?}', 'Panel\ZoneController@edit')->name('panel.zones.edit');
+  Route::post('/zones/edit/{id?}', 'Panel\ZoneController@update')->name('panel.zones.update');
+  Route::get('/zones/delete/{id}', 'Panel\ZoneController@remove')->name('panel.zones.delete');
 });
 
 Route::get('/sandbox/{name}', 'PageController@sandbox');

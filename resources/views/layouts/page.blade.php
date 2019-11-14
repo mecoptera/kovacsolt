@@ -54,7 +54,7 @@
     </main>
 
     <nav class="q-footer">
-      <div class="l-container l-container--padding">
+      <div class="l-container l-container--padding u-mb-0">
         <div class="q-footer__content">
           <div class="q-footer__category">
             <b class="q-footer__title">OLDALTÉRKÉP</b>

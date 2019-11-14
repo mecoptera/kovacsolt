@@ -45,7 +45,7 @@
           </div>
           <div class="form-group">
             <label for="value">Value:</label>
-            <input type="color" name="value" id="value" placeholder="Value" class="form-control">
+            <input type="color" name="value" id="value" placeholder="Value" class="form-control" style="width: 128px;">
           </div>
 
           <input type="submit" class="btn btn-primary float-right" value="Add">
@@ -68,7 +68,7 @@
             <label for="view">View:</label>
             <select class="custom-select" id="view" name="view">
               @foreach($views as $view)
-                <option value="{{ $view->id }}">{{ $view->alias }} | {{ $view->name }}</option>
+                <option value="{{ $view->id }}">{{ $view->alias }}</option>
               @endforeach
             </select>
           </div>
@@ -104,7 +104,7 @@
           <table class="table table-bordered" id="dataTableColors" width="100%" cellspacing="0">
             <thead>
               <tr>
-                <th></th>
+                <th>Color</th>
                 <th>Name</th>
                 <th>Value</th>
                 <th>Actions</th>
@@ -140,7 +140,8 @@
           <table class="table table-bordered" id="dataTableViews" width="100%" cellspacing="0">
             <thead>
               <tr>
-                <th></th>
+                <th>Image</th>
+                <th>Name</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -148,6 +149,7 @@
               @foreach($baseProductViews as $baseProductView)
                 <tr>
                   <td><img src="{{ url($baseProductView->getFirstMediaUrl('base_product_view', 'thumb')) }}" style="width: 100px; height: 100px;"></td>
+                  <td>{{ $baseProductView->view->alias }}</td>
                   <td>
                     <a href="{{ route('panel.baseproducts.edit', $baseProduct->id) }}"><i class="fas fa-fw fa-pen"></i> Edit</a>
                     <a href="{{ route('panel.baseproducts.delete', $baseProduct->id) }}"><i class="fas fa-fw fa-trash"></i> Delete</a>

@@ -48,6 +48,11 @@
           <i class="fas fa-fw fa-eye"></i>
           <span>Views</span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ route('panel.zones') }}">
+          <i class="fas fa-fw fa-eye"></i>
+          <span>Zones</span></a>
+      </li>
     </ul>
   @endif
 

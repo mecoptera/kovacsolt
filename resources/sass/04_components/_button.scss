@@ -66,6 +66,10 @@
     }
   }
 
+  &--capsule {
+    border-radius: 32px;
+  }
+
   &--link {
     align-items: flex-end;
     background-color: transparent;

@@ -61,12 +61,13 @@ class BaseProductController extends Controller {
 
   public function addView($id, Request $request) {
     $file = $request->file('image');
+    $filename = md5(uniqid() . time()) . '.' . $request->file('image')->getClientOriginalExtension();
 
     $baseProductView = new BaseProductView;
     $baseProductView->base_product_id = $id;
     $baseProductView->view_id = $request->view;
     $baseProductView->base_product_color_id = $request->color;
-    $baseProductView->addMedia($file)->toMediaCollection('base_product_view');
+    $baseProductView->addMedia($file)->usingFileName($filename)->toMediaCollection('base_product_view');
     $baseProductView->save();
 
     return redirect(route('panel.baseproducts.edit', [ 'id' => $id ]));

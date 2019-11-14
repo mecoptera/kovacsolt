@@ -42,7 +42,7 @@ export default class KProductCard extends Bamboo {
           const data = this._state.get('detail');
           const hideInfo = this._state.get('hideInfo');
 
-          const zoneStyle = this._state.get('hover') ? '' : `width: ${data.productViewDefault.baseProductView.zoneWidth}%; height: ${data.productViewDefault.baseProductView.zoneHeight}%; left: ${data.productViewDefault.baseProductView.zoneLeft}%; top: ${data.productViewDefault.baseProductView.zoneTop}%;`;
+          const zoneStyle = this._state.get('hover') ? '' : `width: ${data.productViewDefault.baseProductView.zone.width}%; height: ${data.productViewDefault.baseProductView.zone.height}%; left: ${data.productViewDefault.baseProductView.zone.left}%; top: ${data.productViewDefault.baseProductView.zone.top}%;`;
           const designStyle = this._state.get('hover') ? '' : `width: ${data.productViewDefault.designWidth}%; left: ${data.productViewDefault.designLeft}%; top: ${data.productViewDefault.designTop}%;`;
 
           this.classList.toggle('c-product--active', !!this._state.get('active'));
@@ -50,11 +50,11 @@ export default class KProductCard extends Bamboo {
 
           return html`
             <div class="c-product__product-layer">
-              <div class="c-product__image" style="${'background-image: url(' + data.productViewDefault.productImage + ');'}"></div>
+              <div class="c-product__image" style="${'background-image: url(' + window.kovacsolt.baseUrl + data.productViewDefault.baseProductViewImage.thumb + ');'}"></div>
 
               <div class="c-product__zone" style="${zoneStyle}">
-                <div class="c-product__design-full" style="${'background-image: url(' + data.productViewDefault.design + ');'}"></div>
-                <img class="c-product__design" src="${data.productViewDefault.design}" style="${designStyle}">
+                <div class="c-product__design-full" style="${'background-image: url(' + window.kovacsolt.baseUrl + data.productViewDefault.designImage.thumb + ');'}"></div>
+                <img class="c-product__design" src="${window.kovacsolt.baseUrl + data.productViewDefault.designImage.thumb}" style="${designStyle}">
               </div>
             </div>
 
@@ -79,10 +79,13 @@ export default class KProductCard extends Bamboo {
 
           return !hideInfo ? html`
             <div class="c-product__info">
-              <div class="c-product__name">${data.name}</div>
+              <div class="c-product__detail">
+                <div class="c-product__name">${data.name}</div>
+                <div class="c-product__type">${data.baseProductName}</div>
+              </div>
               <div class="${priceClass}">
                 <div class="c-product__price-original">${data.price} Ft</div>
-                ${data.discount ? html`<div>${data.discountPrice} Ft</div>` : html``}
+                ${data.discount ? html`${data.discountPrice} Ft` : html``}
               </div>
             </div>
           ` : html``;

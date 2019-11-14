@@ -24,24 +24,6 @@
             <input type="text" name="alias" id="alias" placeholder="Alias" class="form-control" value="{{ $view->alias }}">
           </div>
 
-          <div class="form-group">
-            <label for="zone_width">Zone width:</label>
-            <input type="text" name="zone_width" id="zone_width" placeholder="Zone width" class="form-control" value="{{ $view->zone_width }}">
-          </div>
-          <div class="form-group">
-            <label for="zone_width">Zone height:</label>
-            <input type="text" name="zone_height" id="zone_height" placeholder="Zone height" class="form-control" value="{{ $view->zone_height }}">
-          </div>
-
-          <div class="form-group">
-            <label for="zone_width">Zone left:</label>
-            <input type="text" name="zone_left" id="zone_left" placeholder="Zone left" class="form-control" value="{{ $view->zone_left }}">
-          </div>
-          <div class="form-group">
-            <label for="zone_width">Zone top:</label>
-            <input type="text" name="zone_top" id="zone_top" placeholder="Zone top" class="form-control" value="{{ $view->zone_top }}">
-          </div>
-
           <input type="submit" class="btn btn-primary float-right" value="Save">
         </form>
       </div>
