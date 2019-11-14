@@ -24,6 +24,12 @@ class PageController extends Controller {
     return view('page.products', [ 'products' => $products ]);
   }
 
+  public function product($id) {
+    $product = Product::find($id);
+
+    return view('page.product', [ 'product' => $product ]);
+  }
+
   public function step1() {
     $baseProducts = BaseProduct::all();
 

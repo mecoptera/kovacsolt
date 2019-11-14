@@ -10,8 +10,8 @@
             <td class="c-table__cell">{{ $item['product']->name }}</td>
             <td class="c-table__cell">
               <div>
-                <span class="{{ $item['product']->discount ? 'u-line-through u-text-xs' : 'u-font-bold' }}">{{ $item['product']->price }} Ft</span>
-                {!! $item['product']->discount ? '<div class="u-font-bold u-text-color-brand">' . $item['product']->discountPrice . ' Ft</div>' : '' !!}
+                <span class="{{ $item['product']->discount ? 'u-line-through u-text-xs' : 'u-font-bold' }}"><k-format data-value="{{ $item['product']->price }}" data-postfix="Ft"></k-format></span>
+                {!! $item['product']->discount ? '<div class="u-font-bold u-text-color-brand"><k-format data-value="' . $item['product']->discountPrice . '" data-postfix="Ft"></k-format></div>' : '' !!}
               </div>
             </td>
             <td class="c-table__cell">{{ $item['quantity'] }}db</td>

@@ -6,13 +6,14 @@ export default class KProductCardAction extends Bamboo {
   }
 
   static get observedAttributes() {
-    return ['data-label', 'data-url'];
+    return ['data-label', 'data-url', 'data-icon'];
   }
 
   static get boundProperties() {
     return [
       { name: 'dataLabel', as: 'label' },
-      { name: 'dataUrl', as: 'url' }
+      { name: 'dataUrl', as: 'url' },
+      { name: 'dataIcon', as: 'icon' }
     ];
   }
 }

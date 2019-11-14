@@ -13,6 +13,7 @@
 
 Route::get('/', 'PageController@index')->name('page.welcome');
 Route::get('/products', 'PageController@products')->name('page.products');
+Route::get('/product/{id}', 'PageController@product')->name('page.product');
 
 Route::get('/planner', 'PageController@step1')->name('page.planner.step1');
 Route::get('/planner/{baseProduct}', 'PageController@step2')->name('page.planner.step2');
