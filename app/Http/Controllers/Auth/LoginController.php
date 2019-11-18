@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Session;
 use Auth;
+use Webacked\Cart\Facades\Cart;
 
 class LoginController extends Controller
 {
@@ -40,6 +43,11 @@ class LoginController extends Controller
 
     public function userLogout() {
         Auth::guard('web')->logout();
+        Session::flush('cart');
         return redirect('/');
+    }
+
+    protected function authenticated(Request $request, $user) {
+      Cart::init();
     }
 }

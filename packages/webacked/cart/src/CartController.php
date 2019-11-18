@@ -4,7 +4,6 @@ namespace Webacked\Cart;
 
 use Webacked\Cart\Facades\Cart;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class CartController extends Controller {
@@ -30,8 +29,9 @@ class CartController extends Controller {
   //   ]);
   // }
 
-  public function add($productId) {
-    Cart::add($productId);
+  public function add($productId, Request $request) {
+    Cart::add($productId, $request->get('extra_data'));
+
     return redirect()->back();
   }
 

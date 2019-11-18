@@ -3,26 +3,22 @@
 namespace Webacked\Cart;
 
 use Auth;
-use Closure;
-use Illuminate\Support\Collection;
-use Illuminate\Session\SessionManager;
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Contracts\Events\Dispatcher;
 use Session;
+use Illuminate\Support\Facades\DB;
 use App\Product as ProductModel;
 use Webacked\Cart\Models\Cart as CartModel;
 use Webacked\Cart\Models\CartProduct as CartProductModel;
 
 class Cart {
   private $items = [];
-  private $userId = null;
+  private $userId = false;
   private $cartId = null;
 
   public function __construct() {
     $this->userId = Auth::user() ? Auth::user()->id : false;
     $userCart = $this->userId ? CartModel::where([
-      ['user_id', '=', $this->userId],
-      ['closed', '=', false]
+      [ 'user_id', '=', $this->userId ],
+      [ 'closed', '=', false ]
     ])->first() : null;
 
     $this->cartId = $userCart ? $userCart->id : null;
@@ -37,8 +33,10 @@ class Cart {
       $cartProducts = CartProductModel::with('product')->where('cart_id', $this->cartId)->get();
 
       foreach ($cartProducts as $cartProduct) {
-        $this->items[$cartProduct->product->id] = [
+        $this->items[$cartProduct->unique_id] = [
+          'uniqueId' => $cartProduct->unique_id,
           'product' => $cartProduct->product,
+          'extraData' => json_decode($cartProduct->extra_data, true),
           'quantity' => $cartProduct->quantity
         ];
       }
@@ -47,24 +45,36 @@ class Cart {
     }
   }
 
-  public function add($productId) {
+  public function init() {
+    if (Session::has('cart') && $this->userId) {
+      CartProductModel::where('cart_id', $this->cartId)->delete();
+      $this->fillDatabase();
+    }
+  }
+
+  public function add($productId, $extraData) {
     $product = ProductModel::where('id', $productId)->first();
 
     if (!$product) { return 'error'; }
 
-    $this->items[$productId] = [
+    $uniqueId = md5(uniqid());
+
+    $this->items[] = [
+      'uniqueId' => $uniqueId,
       'product' => $product,
-      'quantity' => array_key_exists($productId, $this->items) ? $this->items[$productId]['quantity'] + 1 : 1
+      'extraData' => $extraData,
+      'quantity' => 1
     ];
 
-    $this->updateDatabase($productId);
+    $this->updateDatabase($uniqueId);
     $this->updateSession();
   }
 
-  public function remove($productId) {
-    unset($this->items[$productId]);
+  public function remove($uniqueId) {
+    $key = array_search($uniqueId, array_column($this->items, 'unique_id'));
+    unset($this->items[$key]);
 
-    $this->updateDatabase($productId);
+    $this->updateDatabase($uniqueId);
     $this->updateSession();
   }
 
@@ -112,18 +122,40 @@ class Cart {
     return $cart->id;
   }
 
-  private function updateDatabase($productId) {
+  private function fillDatabase() {
+    if (!$this->userId || count($this->items) === 0) { return; }
+
+    foreach ($this->items as $item) {
+      $items[] = [
+        'unique_id' => $item['uniqueId'],
+        'product_id' => $item['product']->id,
+        'cart_id' => $this->cartId,
+        'extra_data' => json_encode($item['extraData']),
+        'quantity' => $item['quantity'],
+        'created_at' => \Carbon\Carbon::now(),
+        'updated_at' => \Carbon\Carbon::now()
+      ];
+    }
+
+    DB::table('cart_products')->insert($items);
+  }
+
+  private function updateDatabase($uniqueId) {
     if (!$this->userId) { return; }
 
-    if (isset($this->items[$productId])) {
+    $key = array_search($uniqueId, array_column($this->items, 'unique_id'));
+
+    if (isset($this->items[$key])) {
       CartProductModel::updateOrCreate([
-        'product_id' => $productId
+        'unique_id' => $uniqueId
       ],[
+        'product_id' => $this->items[$key]['product']->id,
         'cart_id' => $this->cartId,
-        'quantity' => $this->items[$productId]['quantity']
+        'extra_data' => json_encode($this->items[$key]['extra_data']),
+        'quantity' => $this->items[$key]['quantity']
       ]);
     } else {
-      CartProductModel::where('cart_id', $this->cartId)->where('product_id', $productId)->delete();
+      CartProductModel::where('cart_id', $this->cartId)->where('unique_id', $uniqueId)->delete();
     }
   }
 

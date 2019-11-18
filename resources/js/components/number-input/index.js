@@ -69,10 +69,10 @@ export default class KNumberInput extends Bamboo {
   }
 
   _onDecreaseClick() {
-    this._state.set('value', value => --value);
+    this._state.set('value', value => --value, { isTransformFunction: true });
   }
 
   _onIncreaseClick() {
-    this._state.set('value', value => ++value);
+    this._state.set('value', value => ++value, { isTransformFunction: true });
   }
 }

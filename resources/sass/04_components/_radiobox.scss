@@ -1,0 +1,36 @@
+.c-radiobox {
+  display: inline-flex;
+  position: relative;
+
+  &__field {
+    align-items: center;
+    border: 2px solid var(--color-form-element);
+    cursor: pointer;
+    display: inline-flex;
+    font-weight: bold;
+    height: 48px;
+    justify-content: center;
+    position: relative;
+    user-select: none;
+    width: 48px;
+
+    .c-radiobox--hover &,
+    .c-radiobox--focus & {
+      border-color: var(--color-form-element-hover);
+    }
+
+    input:checked + & {
+      background-color: var(--color-primary);
+      border-color: transparent;
+      color: var(--color-text-body-inverse);
+    }
+  }
+
+  input {
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+  }
+}

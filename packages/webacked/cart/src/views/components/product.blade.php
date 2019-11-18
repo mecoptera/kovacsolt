@@ -2,7 +2,15 @@
   <td class="c-table__cell">
     <k-product-card class="u-w-48 u-h-48" data-detail="{{ $item['product'] }}" data-hide-info></k-product-card>
   </td>
-  <td class="c-table__cell c-table__cell--large">{{ $item['product']->name }}</td>
+  <td class="c-table__cell c-table__cell--large">
+    <span class="u-font-bold u-uppercase">{{ $item['product']->name }}</span>
+
+    <div class="u-mt-4 u-pt-4 u-border-t u-border-color-form">
+      @if (isset($item['extraData']['size']))
+        <div>Méret: <b>{{ strtoupper($item['extraData']['size']) }}</b></div>
+      @endif
+    </div>
+  </td>
   <td class="c-table__cell c-table__cell--medium">
     <div>
       <span class="{{ $item['product']->discount ? 'u-line-through u-text-xs' : 'u-font-bold' }}">
