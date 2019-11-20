@@ -42,7 +42,7 @@
       <div class="q-login-helper__text">Ha nem szeretnél regisztrálni</div>
 
       <div class="q-login-helper__action">
-        <a class="c-button c-button--primary" href="{{ route('order.billing') }}">Vendégként folytatom</a>
+        <a class="c-button c-button--primary" href="{{ route('order.billing') }}">Folytatás vendégként</a>
       </div>
     </div>
   </div>

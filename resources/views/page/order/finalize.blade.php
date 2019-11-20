@@ -29,13 +29,13 @@
 
           <div class="l-form__field u-text-right">
             <div class="l-grid">
-              <div class="l-grid__col--2 l-grid__col--offset-8">Termékek:</div>
-              <div class="l-grid__col--2"><b><k-format data-value="{{ $price }}"></k-format> Ft</b></div>
+              <div class="l-grid__col--2 l-grid__col--offset-8 u-px-4 u-mb-4">Termékek:</div>
+              <div class="l-grid__col--2 u-px-4 u-mb-4"><b><k-format data-value="{{ $price }}"></k-format> Ft</b></div>
 
-              <div class="l-grid__col--2 l-grid__col--offset-8 u-py-4">Szállítás:</div>
-              <div class="l-grid__col--2 u-py-4"><b><k-format data-value="{{ $shippingPrice }}"></k-format> Ft</b></div>
+              <div class="l-grid__col--2 l-grid__col--offset-8 u-px-4 u-mb-4">Szállítás:</div>
+              <div class="l-grid__col--2 u-px-4 u-mb-4"><b><k-format data-value="{{ $shippingPrice }}"></k-format> Ft</b></div>
             </div>
-            <div class="l-grid q-cart-summary__total u-py-4">
+            <div class="l-grid u-p-4 u-bg-color-background-primary">
               <div class="l-grid__col--2 l-grid__col--offset-8">Összesen:</div>
               <div class="l-grid__col--2"><b><k-format data-value="{{ $priceTotal }}"></k-format> Ft</b></div>
             </div>

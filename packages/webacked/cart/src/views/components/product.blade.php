@@ -5,7 +5,7 @@
   <td class="c-table__cell c-table__cell--large">
     <span class="u-font-bold u-uppercase">{{ $item['product']->name }}</span>
 
-    <div class="u-mt-4 u-pt-4 u-border-t u-border-color-form">
+    <div class="u-mt-4 u-pt-4 u-border-t u-border-color-form u-text-sm">
       @if (isset($item['extraData']['size']))
         <div>Méret: <b>{{ strtoupper($item['extraData']['size']) }}</b></div>
       @endif
@@ -21,7 +21,7 @@
   </td>
   <td class="c-table__cell">
     @if (isset($editable) && $editable)
-      <k-number-input data-name="quantity[{{ $item['product']->id }}]" data-value="{{ $item['quantity'] }}" class="js-quantity"></k-number-input>
+      <k-number-input data-name="quantity[{{ $item['uniqueId'] }}]" data-value="{{ $item['quantity'] }}" class="js-quantity"></k-number-input>
     @else
       {{ $item['quantity'] }} db
     @endif

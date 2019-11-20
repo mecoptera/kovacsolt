@@ -44,15 +44,15 @@ Route::prefix('user')->group(function() {
 });
 
 Route::prefix('order')->group(function() {
-  Route::get('/profile', 'OrderController@profile')->name('order.profile');
-  Route::get('/billing', 'OrderController@billing')->name('order.billing');
-  Route::post('/billing', 'OrderController@billingPost')->name('order.billing');
-  Route::get('/shipping', 'OrderController@shipping')->name('order.shipping');
-  Route::post('/shipping', 'OrderController@shippingPost')->name('order.shipping');
-  Route::get('/payment', 'OrderController@payment')->name('order.payment');
-  Route::post('/payment', 'OrderController@paymentPost')->name('order.payment');
-  Route::get('/finalize', 'OrderController@finalize')->name('order.finalize');
-  Route::post('/finalize', 'OrderController@finalizePost')->name('order.finalize');
+  Route::get('/profile', 'OrderController@profile')->middleware([ 'checkCart' ])->name('order.profile');
+  Route::get('/billing', 'OrderController@billing')->middleware([ 'checkCart' ])->name('order.billing');
+  Route::post('/billing', 'OrderController@billingPost')->middleware([ 'checkCart' ])->name('order.billing');
+  Route::get('/shipping', 'OrderController@shipping')->middleware([ 'checkCart' ])->name('order.shipping');
+  Route::post('/shipping', 'OrderController@shippingPost')->middleware([ 'checkCart' ])->name('order.shipping');
+  Route::get('/payment', 'OrderController@payment')->middleware([ 'checkCart' ])->name('order.payment');
+  Route::post('/payment', 'OrderController@paymentPost')->middleware([ 'checkCart' ])->name('order.payment');
+  Route::get('/finalize', 'OrderController@finalize')->middleware([ 'checkCart' ])->name('order.finalize');
+  Route::post('/finalize', 'OrderController@finalizePost')->middleware([ 'checkCart' ])->name('order.finalize');
   Route::get('/success', 'OrderController@success')->name('order.success');
   Route::get('/error', 'OrderController@error')->name('order.error');
 });

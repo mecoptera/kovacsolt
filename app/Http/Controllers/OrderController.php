@@ -138,21 +138,12 @@ class OrderController extends Controller {
     $request->session()->put('finalizeData', $request->all());
 
     $order = new Order;
-    $order->order_id = number_format(mt_rand(100000, 999999), 0, ',', '-');
+    $order->order_id = md5(uniqid());
+    $order->visible_order_id = number_format(mt_rand(100000, 999999), 0, ',', '-');
     $order->user_id = Auth::guard('web')->check() ? Auth::guard('web')->user()->id : null;
-    $order->user_name = session()->get('billingData')['name'];
-    $order->user_billing_address = session()->get('billingData')['zip'] . ' ' .
-      session()->get('billingData')['city'] . ', ' .
-      session()->get('billingData')['address'];
-    $order->user_shipping_address = session()->get('shippingData')['zip'] . ' ' .
-      session()->get('shippingData')['city'] . ', ' .
-      session()->get('shippingData')['address'];
-    $order->user_email = session()->get('billingData')['email'];
-    $order->user_phone = session()->get('billingData')['phone'];
-    $order->shipping_mode = session()->get('shippingData')['shipping_method'];
-    $order->payment_mode = session()->get('paymentData')['payment_method'];
-    $order->payment_reference = null;
-    $order->payment_status = 'in_progress';
+    $order->billing_data = json_encode(session()->get('billingData'));
+    $order->shipping_data = json_encode(session()->get('shippingData'));
+    $order->payment_data = json_encode(session()->get('paymentData'));
     $order->status = 'new';
     $order->save();
 
@@ -162,17 +153,16 @@ class OrderController extends Controller {
       $orderProduct = new OrderProduct;
       $orderProduct->order_id = $order->id;
       $orderProduct->product_id = $item['product']->id;
+      $orderProduct->extra_data = json_encode($item['extraData']);
       $orderProduct->quantity = $item['quantity'];
       $orderProduct->status = 'in_progress';
       $orderProduct->save();
     }
 
-    Cart::empty();
-
-    session()->put('orderId', $order->order_id);
+    session()->put('orderId', $order->visible_order_id);
 
     if ($request->session()->get('paymentData')['payment_method'] === '2') {
-      $url = SimplePay::test($order->order_id);
+      $url = SimplePay::test($order);
       return redirect()->to($url);
     }
 
@@ -181,6 +171,7 @@ class OrderController extends Controller {
 
 
   public function success() {
+    Cart::empty();
     return view('page.order.success', [ 'orderId' => session()->get('orderId') ]);
   }
 

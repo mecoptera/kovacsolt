@@ -30,7 +30,7 @@
               </table>
 
               <div class="l-form__field u-text-right">
-                <div class="l-grid q-cart-summary__total">
+                <div class="l-grid u-p-4 u-bg-color-background-primary">
                   <div class="l-grid__col--2 l-grid__col--offset-8">Összesen:</div>
                   <div class="l-grid__col--2"><b><k-format  id="js-price"></k-format> Ft</b></div>
                 </div>
@@ -39,6 +39,7 @@
           </div>
 
           <div class="l-form__field u-text-center">
+            <a href="{{ route('page.products') }}" class="c-button c-button--outline u-mr-8">Vásárlás folytatása</a>
             <button class="c-button">Tovább a pénztárhoz</button>
           </div>
         </form>

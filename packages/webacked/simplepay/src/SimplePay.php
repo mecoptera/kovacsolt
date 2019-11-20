@@ -9,7 +9,7 @@ use Webacked\Cart\Facades\Cart;
 require_once 'SimplePayV21.php';
 
 class SimplePay {
-  function test() {
+  function test($order) {
     $config = Config::get('simple-pay');
 
     // new SimplePayStart instance
@@ -17,7 +17,10 @@ class SimplePay {
     //add config data
     $trx->addConfig($config);
 
+    $billingData = json_decode($order->billing_data, true);
+    $shippingData = json_decode($order->shipping_data, true);
     $cart = Cart::get();
+    $timeoutInSec = 600;
 
     foreach ($cart as $item) {
       $trx->addItems(array(
@@ -34,35 +37,35 @@ class SimplePay {
 
     //add transaction data
     $trx->addData('currency', 'HUF');
-    $trx->addData('total', '100');
-    $trx->addData('orderRef', str_replace(array('.', ':', '/'), "", @$_SERVER['SERVER_ADDR']) . @date("U", time()) . rand(1000, 9999));
+    $trx->addData('total', Cart::price());
+    $trx->addData('orderRef', $order->order_id);
     $trx->addData('customer', 'v2 START Tester');
-    $trx->addData('customerEmail', 'sdk_test@otpmobil.com');
+    $trx->addData('customerEmail', $billingData['email']);
     $trx->addData('language', 'HU');
-    $timeoutInSec = 600;
     $trx->addData('timeout ', date("c", time() + $timeoutInSec));
     $trx->addData('methods', array('CARD'));
-    $trx->addData('url', $config['URL']);
+    $trx->addGroupData('urls', 'success', $config['URL_SUCCESS']);
+    $trx->addGroupData('urls', 'fail', $config['URL_FAIL']);
+    $trx->addGroupData('urls', 'cancel', $config['URL_CANCEL']);
+    $trx->addGroupData('urls', 'timeout', $config['URL_TIMEOUT']);
+
     // invoice
-    $trx->addGroupData('invoice', 'name', 'SimplePay V2 Tester');
-    $trx->addGroupData('invoice', 'company', '');
-    $trx->addGroupData('invoice', 'country', 'hu');
-    $trx->addGroupData('invoice', 'state', 'Budapest');
-    $trx->addGroupData('invoice', 'city', 'Budapest');
-    $trx->addGroupData('invoice', 'zip', '1111');
-    $trx->addGroupData('invoice', 'address', 'Address 1');
+    $trx->addGroupData('invoice', 'name', $billingData['name']);
+    $trx->addGroupData('invoice', 'country', 'HU');
+    $trx->addGroupData('invoice', 'city', $billingData['city']);
+    $trx->addGroupData('invoice', 'zip', $billingData['zip']);
+    $trx->addGroupData('invoice', 'address', $billingData['address']);
     $trx->addGroupData('invoice', 'address2', '');
-    $trx->addGroupData('invoice', 'phone', '06203164978');
+    $trx->addGroupData('invoice', 'phone', $billingData['phone']);
+
     // delivery
-    $trx->addGroupData('delivery', 'name', 'SimplePay V2 Tester');
-    $trx->addGroupData('delivery', 'company', '');
-    $trx->addGroupData('delivery', 'country', 'hu');
-    $trx->addGroupData('delivery', 'state', 'Budapest');
-    $trx->addGroupData('delivery', 'city', 'Budapest');
-    $trx->addGroupData('delivery', 'zip', '1111');
-    $trx->addGroupData('delivery', 'address', 'Address 1');
+    $trx->addGroupData('delivery', 'name', $shippingData['name']);
+    $trx->addGroupData('delivery', 'country', 'HU');
+    $trx->addGroupData('delivery', 'city', $shippingData['city']);
+    $trx->addGroupData('delivery', 'zip', $shippingData['zip']);
+    $trx->addGroupData('delivery', 'address', $shippingData['address']);
     $trx->addGroupData('delivery', 'address2', '');
-    $trx->addGroupData('delivery', 'phone', '06203164978');
+    $trx->addGroupData('delivery', 'phone', $shippingData['phone']);
 
     $trx->formDetails['element'] = 'button';
     //create transaction in SimplePay system

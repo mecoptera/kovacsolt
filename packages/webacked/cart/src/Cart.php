@@ -71,7 +71,7 @@ class Cart {
   }
 
   public function remove($uniqueId) {
-    $key = array_search($uniqueId, array_column($this->items, 'unique_id'));
+    $key = array_search($uniqueId, array_column($this->items, 'uniqueId'));
     unset($this->items[$key]);
 
     $this->updateDatabase($uniqueId);
@@ -84,20 +84,17 @@ class Cart {
     $this->updateSession();
   }
 
-  public function setQuantity($productId, $quantity) {
-    $product = ProductModel::where('id', $productId)->first();
+  public function setQuantity($uniqueId, $quantity) {
+    $key = array_search($uniqueId, array_column($this->items, 'uniqueId'));
 
-    if (!$product) { return 'error'; }
+    if ($key === false) { return 'error'; }
 
     if (intval($quantity) === 0) {
-      $this->remove($productId);
+      $this->remove($uniqueId);
     } else {
-      $this->items[$productId] = [
-        'product' => $product,
-        'quantity' => $quantity
-      ];
+      $this->items[$key]['quantity'] = $quantity;
 
-      $this->updateDatabase($productId);
+      $this->updateDatabase($uniqueId);
       $this->updateSession();
     }
   }
@@ -143,7 +140,7 @@ class Cart {
   private function updateDatabase($uniqueId) {
     if (!$this->userId) { return; }
 
-    $key = array_search($uniqueId, array_column($this->items, 'unique_id'));
+    $key = array_search($uniqueId, array_column($this->items, 'uniqueId'));
 
     if (isset($this->items[$key])) {
       CartProductModel::updateOrCreate([

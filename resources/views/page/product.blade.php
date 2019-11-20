@@ -41,11 +41,7 @@
             <k-radiobox data-name="extra_data[size]" data-value="2xl" data-label="2XL"></k-radiobox>
             <k-radiobox data-name="extra_data[size]" data-value="3xl" data-label="3XL"></k-radiobox>
 
-{{--             <div class="u-mb-12 u-mt-2">
-              <a href="#">Méret táblázat</a>
-            </div> --}}
-
-            <div class="u-text-center">
+            <div class="u-mt-12 u-text-left">
               <input type="submit" class="c-button c-button--primary" value="Hozzáadás kosárhoz">
             </div>
           </form>

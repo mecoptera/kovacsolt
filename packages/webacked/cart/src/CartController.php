@@ -15,24 +15,17 @@ class CartController extends Controller {
   }
 
   public function finalize(Request $request) {
-    foreach($request->get('quantity') as $productId => $quantity) {
-      Cart::setQuantity($productId, $quantity);
+    foreach($request->get('quantity') as $uniqueId => $quantity) {
+      Cart::setQuantity($uniqueId, $quantity);
     }
 
     return redirect()->route('order.profile');
   }
 
-  // public function list() {
-  //   return response()->json([
-  //     'cart' => Cart::get(),
-  //     'priceTotal' => number_format(Cart::priceTotal(), 0, ',', ' ')
-  //   ]);
-  // }
-
   public function add($productId, Request $request) {
     Cart::add($productId, $request->get('extra_data'));
 
-    return redirect()->back();
+    return redirect(route('cart'));
   }
 
   public function empty() {
