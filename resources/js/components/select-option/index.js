@@ -11,12 +11,13 @@ export default class KSelectOption extends Bamboo {
   }
 
   static get observedAttributes() {
-    return ['data-value', 'data-template'];
+    return ['data-value', 'data-extra', 'data-template'];
   }
 
   static get boundProperties() {
     return [
       { name: 'dataValue', as: 'value' },
+      { name: 'dataExtra', as: 'extra' },
       { name: 'dataTemplate', as: 'template' }
     ];
   }

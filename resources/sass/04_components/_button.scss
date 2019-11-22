@@ -18,9 +18,16 @@
     outline: 0;
   }
 
+  &[disabled] {
+    cursor: default;
+    opacity: .5;
+  }
+
   @include hover {
-    background-color: var(--color-primary-mid);
-    color: var(--color-text-body-inverse);
+    &:not([disabled]) {
+      background-color: var(--color-primary-mid);
+      color: var(--color-text-body-inverse);
+    }
   }
 
   @include respond('sm') {
@@ -50,9 +57,11 @@
     color: var(--color-primary);
 
     @include hover {
-      background-color: var(--color-primary);
-      border-color: transparent;
-      color: var(--color-text-body-inverse);
+      &:not([disabled]) {
+        background-color: var(--color-primary);
+        border-color: transparent;
+        color: var(--color-text-body-inverse);
+      }
     }
 
     &.c-button--light {
@@ -60,8 +69,10 @@
       color: var(--color-form-element);
 
       @include hover {
-        background-color: var(--color-form-element);
-        color: var(--color-text-body);
+        &:not([disabled]) {
+          background-color: var(--color-form-element);
+          color: var(--color-text-body);
+        }
       }
     }
   }
@@ -82,8 +93,10 @@
     text-transform: uppercase;
 
     @include hover {
-      background-color: transparent;
-      color: var(--color-text-body-inverse);
+      &:not([disabled]) {
+        background-color: transparent;
+        color: var(--color-text-body-inverse);
+      }
     }
   }
 
@@ -97,8 +110,10 @@
     padding-right: 80px;
 
     @include hover {
-      background-color: transparent;
-      color: var(--color-text-body-inverse);
+      &:not([disabled]) {
+        background-color: transparent;
+        color: var(--color-text-body-inverse);
+      }
     }
 
     &:before {

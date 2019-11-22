@@ -76,6 +76,28 @@ customElements.define('k-format', KFormat);
 })();
 
 (() => {
+  if (!document.querySelector('#js-select-color')) { return; }
+
+  const selectElement = document.querySelector('#js-select-color');
+  const plannerElement = document.querySelector('#js-planner-design');
+
+  selectElement.addEventListener('change', event => {
+    plannerElement.dataBaseProductColorId = event.target.value;
+  });
+})();
+
+(() => {
+  if (!document.querySelector('#js-select-view')) { return; }
+
+  const selectElement = document.querySelector('#js-select-view');
+  const plannerElement = document.querySelector('#js-planner-design');
+
+  selectElement.addEventListener('change', event => {
+    plannerElement.dataViewId = event.target.value;
+  });
+})();
+
+(() => {
   const isTouchDevice = (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
   document.documentElement.classList.toggle('u-has-touch', isTouchDevice);
 })();
@@ -92,7 +114,6 @@ customElements.define('k-format', KFormat);
 
     document.querySelector('#js-planner-design').designId = input.value;
     document.querySelector('#js-planner-design').designUrl = input.getAttribute('url');
-    document.querySelector('#js-planner-design-selector').classList.add('u-hidden');
 
     modal.close();
   };
@@ -110,22 +131,6 @@ customElements.define('k-format', KFormat);
 })();
 
 (() => {
-  const baseProductInputElement = document.querySelector('input[name="base_product_id"]');
-  const designElement = document.querySelector('#js-planner-design');
-  const productElement = document.querySelector('#js-select-product');
-  const colorElement = document.querySelector('#js-select-color');
-
-  const setBaseProductImage = () => {
-    axios.get(`${window.kovacsolt.baseUrl}planner/baseproduct/${productElement.value}`).then(response => {
-      designElement.dataBaseProductUrl = response.data.baseProduct.base_product_view_default.base_product_image;
-      baseProductInputElement.value = response.data.baseProduct.id;
-    });
-  };
-
-  productElement.addEventListener('change', setBaseProductImage);
-})();
-
-(() => {
   const inputElement = document.querySelector('#js-upload-input');
   inputElement.addEventListener('change', event => {
     const formData = new FormData();
@@ -136,7 +141,6 @@ customElements.define('k-format', KFormat);
     }).then(response => {
       document.querySelector('#js-planner-design').designId = response.data.id;
       document.querySelector('#js-planner-design').designUrl = response.data.url;
-      document.querySelector('#js-planner-design-selector').classList.add('u-hidden');
     });
   });
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\BaseProduct;
+use App\BaseProductView;
+use App\BaseProductColor;
 use App\Product;
 use App\ProductView;
 use App\Design;
@@ -38,7 +40,8 @@ class PageController extends Controller {
 
   public function step2($baseProductId) {
     $baseProduct = BaseProduct::find($baseProductId);
-    $baseProducts = BaseProduct::all();
+    $views = BaseProductView::where('base_product_id', $baseProductId)->groupBy('view_id')->get();
+    $baseProductColors = BaseProductColor::all()->where('base_product_id', $baseProductId);
 
     if (Auth::guard('web')->check()) {
       $userProducts = Product::all()->where('user_id', Auth::guard('web')->user()->id);
@@ -48,7 +51,8 @@ class PageController extends Controller {
 
     return view('page.planner-step2', [
       'baseProduct' => $baseProduct,
-      'baseProducts' => $baseProducts,
+      'views' => $views,
+      'baseProductColors' => $baseProductColors,
       'userProducts' => $userProducts
     ]);
   }
@@ -57,10 +61,13 @@ class PageController extends Controller {
     return response()->json($this->{'area' . ucfirst($area)}(), 200);
   }
 
-  public function step2BaseProduct($baseProductId) {
-    $baseProduct = BaseProduct::find($baseProductId);
+  public function step2BaseProductView(Request $request) {
+    $baseProductView = BaseProductView::where('base_product_id', $request->get('base_product_id'))
+      ->where('view_id', $request->get('view_id'))
+      ->where('base_product_color_id', $request->get('base_product_color_id'))
+      ->first();
 
-    return response()->json([ 'baseProduct' => $baseProduct ], 200);
+    return response()->json([ 'baseProductViewImage' => $baseProductView->image['planner'] ], 200);
   }
 
   public function save(Request $request) {
@@ -79,8 +86,8 @@ class PageController extends Controller {
     $product = new Product;
     $product->base_product_id = $postData['base_product_id'];
     $product->user_id = Auth::guard('web')->check() ? Auth::guard('web')->user()->id : null;
-    $product->variant = $postData['color'];
     $product->name = $postData['name'];
+    $product->extra_data = json_encode($postData['extra_data']);
     $product->price = 4990;
     $product->show_on_welcome = 0;
     $product->save();

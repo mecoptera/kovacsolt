@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Bamboo from '@dkocsis-emarsys/bamboo';
 
 export default class KPlannerDesign extends Bamboo {
@@ -6,10 +7,12 @@ export default class KPlannerDesign extends Bamboo {
       className: 'q-planner-design',
       listenChildren: true
     });
+
+    this._state.subscribe('baseProduct', this._loadBaseProductView.bind(this));
   }
 
   static get observedAttributes() {
-    return ['data-name', 'data-zone-width', 'data-zone-height', 'data-zone-left', 'data-zone-top', 'data-base-product-url'];
+    return ['data-base-product-id', 'data-view-id', 'data-base-product-color-id', 'data-name', 'data-zone-width', 'data-zone-height', 'data-zone-left', 'data-zone-top', 'data-endpoint'];
   }
 
   static get boundProperties() {
@@ -19,20 +22,20 @@ export default class KPlannerDesign extends Bamboo {
       { name: 'dataZoneHeight', as: 'zoneHeight' },
       { name: 'dataZoneLeft', as: 'zoneLeft' },
       { name: 'dataZoneTop', as: 'zoneTop' },
-      { name: 'dataBaseProductUrl', as: 'baseProductUrl' },
+      { name: 'dataBaseProductId', as: 'baseProduct.id' },
+      { name: 'dataViewId', as: 'baseProduct.view' },
+      { name: 'dataBaseProductColorId', as: 'baseProduct.color' },
+      { name: 'dataEndpoint', as: 'baseProduct.endpoint' },
+      { name: 'baseProductViewImage' },
       { name: 'designId' },
       { name: 'designUrl' }
     ];
   }
 
-  static get eventHandlers() {
-    return { 'selectDesign:click': '_selectDesignHandler' };
-  }
-
   get template() {
     return html => {
       const state = this._state.get();
-      const productStyle = state.baseProductUrl ? `background-image: url(${state.baseProductUrl});` : '';
+      const productStyle = state.baseProductViewImage ? `background-image: url(${window.kovacsolt.baseUrl + state.baseProductViewImage});` : '';
       const zoneStyle = `width: ${state.zoneWidth}%; height: ${state.zoneHeight}%; left: ${state.zoneLeft}%; top: ${state.zoneTop}%;`;
 
       return html`
@@ -54,5 +57,15 @@ export default class KPlannerDesign extends Bamboo {
   childrenChangedCallback(collection) {
     const childrenList = collection.get();
     this._state.set('resizers', childrenList);
+  }
+
+  _loadBaseProductView() {
+    if (!this._state.get('baseProduct.id') || !this._state.get('baseProduct.view') || !this._state.get('baseProduct.color') || !this._state.get('baseProduct.endpoint')) { return; }
+
+    axios.post(this._state.get('baseProduct.endpoint'), {
+      base_product_id: this._state.get('baseProduct.id'),
+      view_id: this._state.get('baseProduct.view'),
+      base_product_color_id: this._state.get('baseProduct.color')
+    }).then(response => this._state.set('baseProductViewImage', response.data.baseProductViewImage));
   }
 }

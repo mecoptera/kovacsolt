@@ -37,7 +37,7 @@ export default class KBaseProductCard extends Bamboo {
 
           return html`
             <div class="c-product__product-layer">
-              <div class="c-product__image" style="${'background-image: url(' + data.baseProductViewDefault.baseProductImage + ');'}"></div>
+              <div class="c-product__image" style="${'background-image: url(' + window.kovacsolt.baseUrl + data.baseProductViewDefault.image.thumb + ');'}"></div>
             </div>
           `;
         },
