@@ -67,6 +67,7 @@
 <script>
 $(document).ready(function() {
   $('#dataTable').DataTable({
+    order: [],
     columnDefs: [
       {
         targets: 2,

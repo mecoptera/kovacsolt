@@ -167,6 +167,7 @@ class OrderController extends Controller {
     $order->billing_data = json_encode(session()->get('billingData'));
     $order->shipping_data = json_encode(session()->get('shippingData'));
     $order->payment_data = json_encode(session()->get('paymentData'));
+    $order->finalize_data = json_encode(session()->get('finalizeData'));
     $order->status = 'new';
     $order->save();
 

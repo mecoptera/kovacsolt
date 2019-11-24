@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="d-sm-flex align-items-center mb-4">
+<div class="d-sm-flex align-items-center mt-4 mb-4">
   <h1 class="h3 mb-0 text-gray-800">List</h1>
 </div>
 
@@ -17,7 +17,6 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th>Name</th>
             <th>Status</th>
             <th>Updated</th>
             <th>Actions</th>
@@ -26,8 +25,7 @@
         <tbody>
           @foreach($orders as $order)
             <tr>
-              <td>{{ $order->name }}</td>
-              <td>{{ $order->status }}</td>
+              <td>{{ $order->status_label }}</td>
               <td>{{ $order->updated_at }}</td>
               <td>
                 <a href="{{ route('panel.orders.edit', $order->id) }}"><i class="fas fa-fw fa-pen"></i> Edit</a>
@@ -48,6 +46,7 @@
 <script>
 $(document).ready(function() {
   $('#dataTable').DataTable({
+    order: [],
     columnDefs: [
       {
         targets: 2,

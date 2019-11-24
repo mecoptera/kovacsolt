@@ -18,6 +18,7 @@ class ProductVariant extends Model {
     $media = Design::find($this->design_id)->getFirstMedia('design');
 
     return [
+      'original' => $media->getUrl(),
       'thumb' => $media->getUrl('thumb'),
       'planner' => $media->getUrl('planner')
     ];
