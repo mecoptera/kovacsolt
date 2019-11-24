@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Base Products')
+@section('title', 'Orders')
 
 @section('head')
 <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">

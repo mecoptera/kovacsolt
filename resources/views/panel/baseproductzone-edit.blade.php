@@ -31,23 +31,23 @@
           </div>
 
           <div class="form-group">
-            <label for="zone_width">Width:</label>
-            <input type="number" step="any" name="width" id="width" placeholder="Zone width" class="form-control" value="{{ $baseProductZone ? $baseProductZone->width : 0 }}">
+            <label for="width">Width:</label>
+            <input type="number" step="any" name="width" id="width" placeholder="Zone width" class="form-control" value="{{ $baseProductZone ? $baseProductZone->width : 0 }}" max="100" min="0">
           </div>
 
           <div class="form-group">
-            <label for="width">Height:</label>
-            <input type="number" name="height" id="height" placeholder="Zone height" class="form-control" value="{{ $baseProductZone ? $baseProductZone->height : 0 }}">
+            <label for="height">Height:</label>
+            <input type="number" name="height" id="height" placeholder="Zone height" class="form-control" value="{{ $baseProductZone ? $baseProductZone->height : 0 }}" max="100" min="0">
           </div>
 
           <div class="form-group">
-            <label for="width">Left:</label>
-            <input type="number" name="left" id="left" placeholder="Zone left" class="form-control" value="{{ $baseProductZone ? $baseProductZone->left : 0 }}">
+            <label for="left">Left:</label>
+            <input type="number" name="left" id="left" placeholder="Zone left" class="form-control" value="{{ $baseProductZone ? $baseProductZone->left : 0 }}" max="100" min="0">
           </div>
 
           <div class="form-group">
-            <label for="width">Top:</label>
-            <input type="number" name="top" id="top" placeholder="Zone top" class="form-control" value="{{ $baseProductZone ? $baseProductZone->top : 0 }}">
+            <label for="top">Top:</label>
+            <input type="number" name="top" id="top" placeholder="Zone top" class="form-control" value="{{ $baseProductZone ? $baseProductZone->top : 0 }}" max="100" min="0">
           </div>
 
           <input type="submit" class="btn btn-primary float-right" value="Save">

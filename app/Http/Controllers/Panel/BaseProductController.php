@@ -7,7 +7,6 @@ use App\BaseProductVariant;
 use App\BaseProductView;
 use App\BaseProductColor;
 use App\BaseProductZone;
-use App\View;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;

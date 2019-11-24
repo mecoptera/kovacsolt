@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title', 'Base Products')
+@section('title', 'Order Details')
 
 @section('head')
 <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
@@ -48,15 +48,15 @@
           <tbody>
             <tr>
               <td>Termékek</td>
-              <td>{{ $order->product_price }} Ft</td>
+              <td>{{ number_format($order->product_price, 0, ',', ' ') }} Ft</td>
             </tr>
             <tr>
               <td>Szállítás</td>
-              <td>{{ $order->shipping_price }} Ft</td>
+              <td>{{ number_format($order->shipping_price, 0, ',', ' ') }} Ft</td>
             </tr>
             <tr>
               <td><b>Összesen</b></td>
-              <td><b>{{ $order->total_price }} Ft</b></td>
+              <td><b>{{ number_format($order->total_price, 0, ',', ' ') }} Ft</b></td>
             </tr>
           </tbody>
         </table>

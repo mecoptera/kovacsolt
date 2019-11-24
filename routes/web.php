@@ -104,6 +104,17 @@ Route::prefix('panel')->group(function() {
   Route::post('/base-product-zones/edit/{id}', 'Panel\BaseProductController@updateZone')->name('panel.baseproductzones.update');
   Route::get('/base-product-zones/delete/{id}', 'Panel\BaseProductController@removeZone')->name('panel.baseproductzones.delete');
 
+  Route::get('/products', 'Panel\ProductController@index')->name('panel.products');
+  Route::post('/products', 'Panel\ProductController@create')->name('panel.products.create');
+  Route::get('/products/edit/{id}', 'Panel\ProductController@edit')->name('panel.products.edit');
+  Route::post('/products/edit/{id}', 'Panel\ProductController@update')->name('panel.products.update');
+  Route::get('/products/delete/{id}', 'Panel\ProductController@remove')->name('panel.products.delete');
+
+  Route::post('/products/variant/{id}', 'Panel\ProductController@addVariant')->name('panel.products.variants.create');
+  Route::get('/product-variants/edit/{id}', 'Panel\ProductController@editVariant')->name('panel.productvariants.edit');
+  Route::post('/product-variants/edit/{id}', 'Panel\ProductController@updateVariant')->name('panel.productvariants.update');
+  Route::get('/product-variants/delete/{id}', 'Panel\ProductController@removeVariant')->name('panel.productvariants.delete');
+
   Route::get('/orders', 'Panel\OrderController@index')->name('panel.orders');
   Route::get('/orders/edit/{id}', 'Panel\OrderController@edit')->name('panel.orders.edit');
   Route::post('/orders/edit/{id}', 'Panel\OrderController@update')->name('panel.orders.update');

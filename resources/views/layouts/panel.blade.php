@@ -44,7 +44,7 @@
           <span>Base Products</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('panel.baseproducts') }}">
+        <a class="nav-link" href="{{ route('panel.products') }}">
           <i class="fas fa-fw fa-tshirt"></i>
           <span>Designed Products</span></a>
       </li>

@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Validator;
 
 class PageController extends Controller {
   public function index() {
-    $products = Product::all()->where('admin_id', '<>', NULL)->where('show_on_welcome', true);
+    $products = Product::all()->where('is_public', true)->where('show_on_welcome', true);
 
     return view('page.welcome', [ 'products' => $products ]);
   }
 
   public function products() {
-    $products = Product::all()->where('admin_id', '<>', NULL);
+    $products = Product::all()->where('is_public', true);
 
     return view('page.products', [ 'products' => $products ]);
   }
