@@ -5,18 +5,18 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model {
-  protected $appends = [ 'base_product_name', 'product_views', 'product_view_default', 'discount_price' ];
+  protected $appends = [ 'base_product_name', 'product_variants', 'product_variant_default', 'discount_price' ];
 
   public function getBaseProductNameAttribute() {
     return BaseProduct::find($this->base_product_id)->name;
   }
 
-  public function getProductViewsAttribute() {
-    return ProductView::where('product_id', $this->id)->get();
+  public function getProductVariantsAttribute() {
+    return ProductVariant::where('product_id', $this->id)->get();
   }
 
-  public function getProductViewDefaultAttribute() {
-    return ProductView::where('product_id', $this->id)->where('default', 1)->first();
+  public function getProductVariantDefaultAttribute() {
+    return ProductVariant::where('product_id', $this->id)->first();
   }
 
   public function getDiscountPriceAttribute() {

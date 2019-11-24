@@ -28,30 +28,30 @@
 
       <hr class="sidebar-divider my-0">
 
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{{ route('panel.dashboard') }}">
           <i class="fas fa-fw fa-home"></i>
           <span>Dashboard</span></a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{{ route('panel.designs') }}">
           <i class="fas fa-fw fa-icons"></i>
           <span>Designs</span></a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{{ route('panel.baseproducts') }}">
           <i class="fas fa-fw fa-tshirt"></i>
-          <span>Products</span></a>
+          <span>Base Products</span></a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ route('panel.views') }}">
-          <i class="fas fa-fw fa-eye"></i>
-          <span>Views</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('panel.baseproducts') }}">
+          <i class="fas fa-fw fa-tshirt"></i>
+          <span>Designed Products</span></a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ route('panel.zones') }}">
-          <i class="fas fa-fw fa-eye"></i>
-          <span>Zones</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('panel.orders') }}">
+          <i class="fas fa-fw fa-tshirt"></i>
+          <span>Orders</span></a>
       </li>
     </ul>
   @endif

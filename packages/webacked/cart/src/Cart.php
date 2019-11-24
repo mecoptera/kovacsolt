@@ -148,7 +148,7 @@ class Cart {
       ],[
         'product_id' => $this->items[$key]['product']->id,
         'cart_id' => $this->cartId,
-        'extra_data' => json_encode($this->items[$key]['extra_data']),
+        'extra_data' => json_encode($this->items[$key]['extraData']),
         'quantity' => $this->items[$key]['quantity']
       ]);
     } else {

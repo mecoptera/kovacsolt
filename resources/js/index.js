@@ -93,7 +93,7 @@ customElements.define('k-format', KFormat);
   const plannerElement = document.querySelector('#js-planner-design');
 
   selectElement.addEventListener('change', event => {
-    plannerElement.dataViewId = event.target.value;
+    plannerElement.dataBaseProductViewId = event.target.value;
   });
 })();
 
@@ -103,6 +103,8 @@ customElements.define('k-format', KFormat);
 })();
 
 (() => {
+  if (!document.querySelector('#js-planner-design')) { return; }
+
   const modal = new tingle.modal({
     footer: true,
     stickyFooter: true,
@@ -131,6 +133,8 @@ customElements.define('k-format', KFormat);
 })();
 
 (() => {
+  if (!document.querySelector('#js-upload-input')) { return; }
+
   const inputElement = document.querySelector('#js-upload-input');
   inputElement.addEventListener('change', event => {
     const formData = new FormData();
@@ -153,6 +157,8 @@ customElements.define('k-format', KFormat);
 })();
 
 (() => {
+  if (!document.querySelector('#js-plan-form')) { return; }
+
   const formElement = document.querySelector('#js-plan-form');
   let lastUsedName = '';
 

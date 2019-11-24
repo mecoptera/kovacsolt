@@ -8,7 +8,7 @@
       <h1 class="c-panel__title">Felhasználói fiók</h1>
 
       <div class="l-grid">
-        <form class="l-form l-grid__col--6 l-grid__col--offset-3 u-flex u-flex-col" method="post" action="{{ route('login', [ 'from' => 'order' ]) }}">
+        <form class="l-form l-grid__col--6 l-grid__col--offset-3 u-flex u-flex-col" method="post" action="{{ route('login', [ 'from' => 'order.profile' ]) }}">
           @csrf
 
           <k-input

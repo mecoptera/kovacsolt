@@ -1,0 +1,19 @@
+.q-design {
+  border: 2px solid var(--color-form-element);
+  cursor: pointer;
+  display: block;
+  padding: 16px;
+
+  input:checked + & {
+    border: 2px solid var(--color-primary);
+  }
+
+  &__image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-bottom: 16px;
+    padding-bottom: 100%;
+    width: 100%;
+  }
+}

@@ -18,7 +18,7 @@ Route::get('/product/{id}', 'PageController@product')->name('page.product');
 Route::get('/planner', 'PageController@step1')->name('page.planner.step1');
 Route::get('/planner/{baseProduct}', 'PageController@step2')->name('page.planner.step2');
 Route::get('/planner/area/{area?}', 'PageController@step2Area')->name('page.planner.area');
-Route::post('/planner/baseproduct', 'PageController@step2BaseProductView')->name('page.planner.baseproductview');
+Route::post('/planner/baseproduct', 'PageController@step2BaseProductVariant')->name('page.planner.baseproductvariant');
 Route::post('/planner/save', 'PageController@save')->name('page.planner.save');
 Route::post('/planner/upload', 'PageController@upload')->name('page.planner.upload');
 
@@ -83,19 +83,31 @@ Route::prefix('panel')->group(function() {
   Route::get('/base-products/edit/{id}', 'Panel\BaseProductController@edit')->name('panel.baseproducts.edit');
   Route::post('/base-products/edit/{id}', 'Panel\BaseProductController@update')->name('panel.baseproducts.update');
   Route::get('/base-products/delete/{id}', 'Panel\BaseProductController@remove')->name('panel.baseproducts.delete');
-  Route::post('/base-products/view/{id}', 'Panel\BaseProductController@addView')->name('panel.baseproducts.views.create');
+
   Route::post('/base-products/color/{id}', 'Panel\BaseProductController@addColor')->name('panel.baseproducts.colors.create');
+  Route::get('/base-product-colors/edit/{id}', 'Panel\BaseProductController@editColor')->name('panel.baseproductcolors.edit');
+  Route::post('/base-product-colors/edit/{id}', 'Panel\BaseProductController@updateColor')->name('panel.baseproductcolors.update');
+  Route::get('/base-product-colors/delete/{id}', 'Panel\BaseProductController@removeColor')->name('panel.baseproductcolors.delete');
 
-  Route::get('/views', 'Panel\ViewController@index')->name('panel.views');
-  Route::post('/views', 'Panel\ViewController@create')->name('panel.views.create');
-  Route::get('/views/edit/{id}', 'Panel\ViewController@edit')->name('panel.views.edit');
-  Route::post('/views/edit/{id}', 'Panel\ViewController@update')->name('panel.views.update');
-  Route::get('/views/delete/{id}', 'Panel\ViewController@remove')->name('panel.views.delete');
+  Route::post('/base-products/view/{id}', 'Panel\BaseProductController@addView')->name('panel.baseproducts.views.create');
+  Route::get('/base-product-views/edit/{id}', 'Panel\BaseProductController@editView')->name('panel.baseproductviews.edit');
+  Route::post('/base-product-views/edit/{id}', 'Panel\BaseProductController@updateView')->name('panel.baseproductviews.update');
+  Route::get('/base-product-views/delete/{id}', 'Panel\BaseProductController@removeView')->name('panel.baseproductviews.delete');
 
-  Route::get('/zones', 'Panel\ZoneController@index')->name('panel.zones');
-  Route::get('/zones/edit/{id?}', 'Panel\ZoneController@edit')->name('panel.zones.edit');
-  Route::post('/zones/edit/{id?}', 'Panel\ZoneController@update')->name('panel.zones.update');
-  Route::get('/zones/delete/{id}', 'Panel\ZoneController@remove')->name('panel.zones.delete');
+  Route::post('/base-products/variant/{id}', 'Panel\BaseProductController@addVariant')->name('panel.baseproducts.variants.create');
+  Route::get('/base-product-variants/edit/{id}', 'Panel\BaseProductController@editVariant')->name('panel.baseproductvariants.edit');
+  Route::post('/base-product-variants/edit/{id}', 'Panel\BaseProductController@updateVariant')->name('panel.baseproductvariants.update');
+  Route::get('/base-product-variants/delete/{id}', 'Panel\BaseProductController@removeVariant')->name('panel.baseproductvariants.delete');
+
+  Route::post('/base-products/zone/{id}', 'Panel\BaseProductController@addZone')->name('panel.baseproducts.zones.create');
+  Route::get('/base-product-zones/edit/{id}', 'Panel\BaseProductController@editZone')->name('panel.baseproductzones.edit');
+  Route::post('/base-product-zones/edit/{id}', 'Panel\BaseProductController@updateZone')->name('panel.baseproductzones.update');
+  Route::get('/base-product-zones/delete/{id}', 'Panel\BaseProductController@removeZone')->name('panel.baseproductzones.delete');
+
+  Route::get('/orders', 'Panel\OrderController@index')->name('panel.orders');
+  Route::get('/orders/edit/{id}', 'Panel\OrderController@edit')->name('panel.orders.edit');
+  Route::post('/orders/edit/{id}', 'Panel\OrderController@update')->name('panel.orders.update');
+  Route::get('/orders/delete/{id}', 'Panel\OrderController@remove')->name('panel.orders.delete');
 });
 
 Route::get('/sandbox/{name}', 'PageController@sandbox');

@@ -45,14 +45,14 @@ export default class KProductCard extends Bamboo {
           const data = this._state.get('detail');
           const hideInfo = this._state.get('hideInfo');
 
-          const zoneStyle = this._state.get('hover') ? '' : `width: ${data.productViewDefault.baseProductView.zone.width}%; height: ${data.productViewDefault.baseProductView.zone.height}%; left: ${data.productViewDefault.baseProductView.zone.left}%; top: ${data.productViewDefault.baseProductView.zone.top}%;`;
-          const designStyle = this._state.get('hover') ? '' : `width: ${data.productViewDefault.designWidth}%; left: ${data.productViewDefault.designLeft}%; top: ${data.productViewDefault.designTop}%;`;
+          const zoneStyle = this._state.get('hover') ? '' : `width: ${data.productVariantDefault.baseProductVariant.baseProductZone.width}%; height: ${data.productVariantDefault.baseProductVariant.baseProductZone.height}%; left: ${data.productVariantDefault.baseProductVariant.baseProductZone.left}%; top: ${data.productVariantDefault.baseProductVariant.baseProductZone.top}%;`;
+          const designStyle = this._state.get('hover') ? '' : `width: ${data.productVariantDefault.designWidth}%; left: ${data.productVariantDefault.designLeft}%; top: ${data.productVariantDefault.designTop}%;`;
 
           this.classList.toggle('c-product--hover', !!this._state.get('hover'));
           this.classList.toggle('c-product--hide-info', hideInfo);
 
-          const productImage = window.kovacsolt.baseUrl + data.productViewDefault.baseProductView.image[this._state.get('hiRes') ? 'planner' : 'thumb'];
-          const designImage = window.kovacsolt.baseUrl + data.productViewDefault.designImage[this._state.get('hiRes') ? 'planner' : 'thumb'];
+          const productImage = window.kovacsolt.baseUrl + data.productVariantDefault.baseProductVariant.image[this._state.get('hiRes') ? 'planner' : 'thumb'];
+          const designImage = window.kovacsolt.baseUrl + data.productVariantDefault.designImage[this._state.get('hiRes') ? 'planner' : 'thumb'];
 
           return html`
             <div class="c-product__product-layer">

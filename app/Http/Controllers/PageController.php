@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\BaseProduct;
+use App\BaseProductVariant;
 use App\BaseProductView;
 use App\BaseProductColor;
 use App\Product;
-use App\ProductView;
+use App\ProductVariant;
 use App\Design;
 use Webacked\Cart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -15,19 +16,23 @@ use Illuminate\Support\Facades\Validator;
 
 class PageController extends Controller {
   public function index() {
-    $products = Product::all()->where('show_on_welcome', true);
+    $products = Product::all()->where('admin_id', '<>', NULL)->where('show_on_welcome', true);
 
     return view('page.welcome', [ 'products' => $products ]);
   }
 
   public function products() {
-    $products = Product::all();
+    $products = Product::all()->where('admin_id', '<>', NULL);
 
     return view('page.products', [ 'products' => $products ]);
   }
 
   public function product($id) {
     $product = Product::find($id);
+
+    if ($product->admin_id === NULL) {
+      return redirect(route('page.welcome'));
+    }
 
     return view('page.product', [ 'product' => $product ]);
   }
@@ -40,7 +45,7 @@ class PageController extends Controller {
 
   public function step2($baseProductId) {
     $baseProduct = BaseProduct::find($baseProductId);
-    $views = BaseProductView::where('base_product_id', $baseProductId)->groupBy('view_id')->get();
+    $baseProductViews = BaseProductView::all()->where('base_product_id', $baseProductId);
     $baseProductColors = BaseProductColor::all()->where('base_product_id', $baseProductId);
 
     if (Auth::guard('web')->check()) {
@@ -51,7 +56,7 @@ class PageController extends Controller {
 
     return view('page.planner-step2', [
       'baseProduct' => $baseProduct,
-      'views' => $views,
+      'baseProductViews' => $baseProductViews,
       'baseProductColors' => $baseProductColors,
       'userProducts' => $userProducts
     ]);
@@ -61,13 +66,19 @@ class PageController extends Controller {
     return response()->json($this->{'area' . ucfirst($area)}(), 200);
   }
 
-  public function step2BaseProductView(Request $request) {
-    $baseProductView = BaseProductView::where('base_product_id', $request->get('base_product_id'))
-      ->where('view_id', $request->get('view_id'))
+  public function step2BaseProductVariant(Request $request) {
+    $baseProductVariant = BaseProductVariant::where('base_product_id', $request->get('base_product_id'))
+      ->where('base_product_view_id', $request->get('base_product_view_id'))
       ->where('base_product_color_id', $request->get('base_product_color_id'))
       ->first();
 
-    return response()->json([ 'baseProductViewImage' => $baseProductView->image['planner'] ], 200);
+    return response()->json([
+      'baseProductVariantImage' => $baseProductVariant->image['planner'],
+      'zoneWidth' => $baseProductVariant->base_product_zone->width,
+      'zoneHeight' => $baseProductVariant->base_product_zone->height,
+      'zoneLeft' => $baseProductVariant->base_product_zone->left,
+      'zoneTop' => $baseProductVariant->base_product_zone->top
+    ], 200);
   }
 
   public function save(Request $request) {
@@ -83,30 +94,33 @@ class PageController extends Controller {
       return response()->json([ 'status' => 'error', 'message' => 'Hiba a megadott adatokban!', 'validation' => $validator->errors() ], 200);
     }
 
+    $baseProductVariant = BaseProductVariant::find($postData['base_product_variant_id']);
+
     $product = new Product;
-    $product->base_product_id = $postData['base_product_id'];
+    $product->base_product_id = $baseProductVariant->base_product_id;
     $product->user_id = Auth::guard('web')->check() ? Auth::guard('web')->user()->id : null;
     $product->name = $postData['name'];
-    $product->extra_data = json_encode($postData['extra_data']);
     $product->price = 4990;
     $product->show_on_welcome = 0;
     $product->save();
 
-    $productView = new ProductView;
-    $productView->product_id = $product->id;
-    $productView->base_product_view_id = $postData['base_product_view_id'];
-    $productView->design_id = $postData['design'][0]['id'];
-    $productView->design_width = $postData['design'][0]['width'];
-    $productView->design_left = $postData['design'][0]['left'];
-    $productView->design_top = $postData['design'][0]['top'];
-    $productView->default = 1;
-    $productView->save();
+    $productVariant = new ProductVariant;
+    $productVariant->product_id = $product->id;
+    $productVariant->base_product_variant_id = $postData['base_product_variant_id'];
+    $productVariant->design_id = $postData['design'][0]['id'];
+    $productVariant->design_width = $postData['design'][0]['width'];
+    $productVariant->design_left = $postData['design'][0]['left'];
+    $productVariant->design_top = $postData['design'][0]['top'];
+    $productVariant->default = 1;
+    $productVariant->save();
 
     $design = Design::find($postData['design'][0]['id']);
     $design->temporary = 0;
     $design->save();
 
-    return response()->json([ 'status' => 'success', 'redirect' => route('page.welcome') ], 200);
+    Cart::add($product->id, $postData['extra_data']);
+
+    return response()->json([ 'status' => 'success', 'redirect' => route('cart') ], 200);
   }
 
   public function upload(Request $request) {

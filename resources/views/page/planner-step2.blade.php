@@ -7,10 +7,21 @@
     <form id="js-plan-form" method="post" action="{{ route('page.planner.save') }}" class="l-grid">
       @csrf
 
-      <input type="hidden" name="base_product_view_id" value="{{ $baseProduct->base_product_view_default['id'] }}">
+      <input type="hidden" name="base_product_variant_id" value="{{ $baseProduct->base_product_variant_default->id }}">
 
       <div class="l-grid__col--8 u-relative">
-        <k-planner-design id="js-planner-design" data-name="design" data-zone-width="40" data-zone-height="60" data-zone-left="30.5" data-zone-top="20" data-base-product-id="{{ $baseProduct->base_product_view_default['base_product_id'] }}" data-view-id="{{ $baseProduct->base_product_view_default['view_id'] }}" data-base-product-color-id="{{ $baseProduct->base_product_view_default['base_product_color_id'] }}" data-endpoint="{{ route('page.planner.baseproductview') }}"></k-planner-design>
+        <k-planner-design
+          id="js-planner-design"
+          data-name="design"
+          data-zone-width="{{ $baseProduct->base_product_variant_default->base_product_zone->width }}"
+          data-zone-height="{{ $baseProduct->base_product_variant_default->base_product_zone->height }}"
+          data-zone-left="{{ $baseProduct->base_product_variant_default->base_product_zone->left }}"
+          data-zone-top="{{ $baseProduct->base_product_variant_default->base_product_zone->top }}"
+          data-base-product-id="{{ $baseProduct->base_product_variant_default->base_product_id }}"
+          data-base-product-view-id="{{ $baseProduct->base_product_variant_default->base_product_view_id }}"
+          data-base-product-color-id="{{ $baseProduct->base_product_variant_default->base_product_color_id }}"
+          data-endpoint="{{ route('page.planner.baseproductvariant') }}"
+        ></k-planner-design>
       </div>
 
       <div class="l-grid__col--4 u-relative">
@@ -28,9 +39,9 @@
                 <div class="u-ml-4 u-mb-4 u-uppercase u-font-bold">Nézet</div>
 
                 <div class="u-mb-12">
-                  <k-select class="u-py-0" id="js-select-view" data-name="view_id" data-value="{{ $views[0]->view_id }}">
-                    @foreach ($views as $view)
-                      <k-select-option data-value="{{ $view->view_id }}">{{ $view->view->name }}</k-select-option>
+                  <k-select class="u-py-0" id="js-select-view" data-name="view_id" data-value="{{ $baseProductViews[0]->id }}">
+                    @foreach ($baseProductViews as $baseProductView)
+                      <k-select-option data-value="{{ $baseProductView->id }}">{{ $baseProductView->name }}</k-select-option>
                     @endforeach
                   </k-select>
                 </div>

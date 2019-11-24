@@ -97,7 +97,30 @@ class OrderController extends Controller {
   }
 
   public function payment() {
-    return view('page.order.payment', [ 'step' => 3, 'paymentData' => session()->get('paymentData') ]);
+    switch (session()->get('shippingData')['shipping_method']) {
+      case 0: $paymentOptions = [
+          '0' => 'Személyesen, készpénzzel',
+          '2' => 'Bankkártyás fizetés'
+        ]; break;
+      case 1: $paymentOptions = [
+          '0' => 'Személyesen, készpénzzel',
+          '2' => 'Bankkártyás fizetés'
+        ]; break;
+      case 2: $paymentOptions = [
+          '1' => 'Utánvétellel futárnak',
+          '2' => 'Bankkártyás fizetés'
+        ]; break;
+      case 3: $paymentOptions = [
+          '0' => 'Személyesen, készpénzzel',
+          '2' => 'Bankkártyás fizetés'
+        ]; break;
+    }
+
+    return view('page.order.payment', [
+      'step' => 3,
+      'paymentData' => session()->get('paymentData'),
+      'paymentOptions' => $paymentOptions
+    ]);
   }
 
   public function paymentPost(Request $request) {

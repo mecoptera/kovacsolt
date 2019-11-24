@@ -17,6 +17,7 @@ class CreateDesignsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->string('name');
+            $table->boolean('temporary')->default(0);
             $table->timestamps();
         });
     }

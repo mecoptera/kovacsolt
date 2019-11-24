@@ -16,7 +16,6 @@ class CreateBaseProductsTable extends Migration
         Schema::create('base_products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->json('variants');
             $table->timestamps();
         });
     }

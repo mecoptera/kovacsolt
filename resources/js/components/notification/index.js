@@ -21,9 +21,7 @@ export default class KNotification extends Bamboo {
       {
         name: 'status',
         markup: html => {
-          const className = `c-icon c-icon--small c-icon--white c-icon--${this._state.get('status')}`;
-
-          return html`<div class="${className}"></div>`;
+          return html`<k-icon data-icon="${this._state.get('status')}" data-color="white" data-size="small"></k-icon>`;
         },
         container: this._templater.parseHTML('<div class="c-notification__status"></div>'),
         autoAppend: true

@@ -17,9 +17,9 @@
             data-placeholder="Válassz fizetési módot"
             @if (isset($paymentData['payment_method']))data-value="{{ $paymentData['payment_method'] }}"@endif
           >
-            <k-select-option data-value="0">Személyesen, készpénzzel</k-select-option>
-            <k-select-option data-value="1">Utánvétellel futárnak</k-select-option>
-            <k-select-option data-value="2">Bankkártyás fizetés</k-select-option>
+            @foreach ($paymentOptions as $value => $label)
+              <k-select-option data-value="{{ $value }}">{{ $label }}</k-select-option>
+            @endforeach
           </k-select>
 
           <div class="l-form__field u-text-center">
