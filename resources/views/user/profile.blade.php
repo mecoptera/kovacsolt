@@ -4,21 +4,13 @@
 
 @section('content')
   <div class="l-container">
-    <div class="c-tabs">
-      <div class="c-tab c-tab--active">
-        <div class="c-tab__content">Fiók</div>
-      </div>
-      <a href="{{ route('user.profile') }}" class="c-tab">
-        <span class="c-tab__content">Számlázás</span>
-      </a>
-      <a href="{{ route('user.profile') }}" class="c-tab">
-        <span class="c-tab__content">Szállítás</span>
-      </a>
-    </div>
-
-    <div class="c-panel">
+    <div class="c-panel u-relative">
       <div class="c-panel__content">
         <h1 class="c-panel__title">Fiók beállításai</h1>
+
+        <div class="u-absolute" style="top: 16px; right: 16px;">
+          <a class="c-button c-button--outline c-button--small" href="{{ route('user.logout') }}">Kijelentkezés</a>
+        </div>
 
         <form class="l-form" method="post" action="{{ route('user.profile.save') }}">
           @csrf
@@ -45,7 +37,7 @@
                 <k-input
                   data-name="email"
                   data-label="E-mail cím"
-                  data-helper="Megerősítő e-mailt fogunk küldeni az új címre"
+                  data-helper="Megváloztatáskor megerősítő e-mailt fogunk küldeni a jelenleg beállított címre"
                   @if (isset($userData['email']))data-value="{{ $userData['email'] }}"@endif
                   @error('email')data-error="{{ $message }}"@enderror
                 ></k-input>
@@ -65,12 +57,8 @@
                 <div class="u-helper">E-mailt fogunk küldeni, melyben egy linket találsz a jelszó megváltoztatásához</div>
               </div>
 
-              <div class="l-form__field u-align-center">
+              <div class="l-form__field u-text-center">
                 <input type="submit" class="c-button" value="Mentés">
-              </div>
-
-              <div class="u-align-center">
-                <a class="c-button c-button--outline" href="{{ route('user.logout') }}">Kijelentkezés</a>
               </div>
             </div>
           </div>

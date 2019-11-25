@@ -17,8 +17,9 @@ class CreateOrderProductsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('order_id');
             $table->unsignedInteger('product_id');
-            $table->json('details');
-            $table->enum('status', [ 'in_progress', 'done' ]);
+            $table->json('extra_data');
+            $table->unsignedInteger('quantity');
+            $table->string('status');
             $table->timestamps();
         });
     }

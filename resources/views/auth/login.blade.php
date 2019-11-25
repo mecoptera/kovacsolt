@@ -9,7 +9,7 @@
         <h1 class="c-panel__title">Bejelentkezés</h1>
 
         <div class="l-grid">
-          <form class="l-form l-grid__col--6 l-grid__col--offset-" method="post" action="{{ route('user.login') }}">
+          <form class="u-mx-auto l-grid__col--6 l-grid__col--offset-" method="post" action="{{ route('user.login') }}">
             @csrf
 
             <k-input
@@ -28,12 +28,9 @@
               <template data-helper><a href="{{ route('user.password.email') }}">Elfelejtettem a jelszavam</a></template>
             </k-input>
 
-            <k-checkbox
-              data-name="remember"
-              data-label="Emlékezz rám ezen a gépen"
-            ></k-checkbox>
+            <k-checkbox data-name="remember" data-label="Emlékezz rám ezen a gépen"></k-checkbox>
 
-            <div class="u-align-center">
+            <div class="u-mt-8 u-text-center">
               <input type="submit" class="c-button" value="Bejelentkezés">
             </div>
           </form>
@@ -46,7 +43,7 @@
         <div class="q-login-helper__text">Még nincs felhasználói fiókod?</div>
 
         <div class="q-login-helper__action">
-          <a class="c-button c-button--primary" href="{{ route('user.register') }}">Regisztrálok</a>
+          <a class="c-button c-button--primary" href="{{ route('user.register') }}">Regisztráció</a>
         </div>
       </div>
     </div>

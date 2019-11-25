@@ -127,7 +127,7 @@ export default class KInput extends Bamboo {
   }
 
   _passwordClickHandler() {
-    this._state.set('showPassword', value => !value);
+    this._state.set('showPassword', value => !value, { isTransformFunction: true });
     this.querySelector('input').focus();
   }
 }

@@ -54,7 +54,7 @@ export default class KCheckbox extends Bamboo {
             <div class="c-checkbox__field" data-handler="input" onmouseenter="${this}" onmouseleave="${this}" onfocus="${this}" onblur="${this}">
               <input type="checkbox" name="${this._state.get('name')}" id="${this._state.get('uuid')}" value="${this._state.get('value')}" disabled="${this._state.get('disabled') ? 'disabled' : null}" placeholder="${this._state.get('placeholder') || ' '}" class="c-checkbox__checkbox">
               ${this._state.get('label') ? html`<label class="c-checkbox__label" for="${this._state.get('uuid')}">${this._state.get('label')}</label>` : ''}
-              ${this._templater.hasMarkup('label') ? html`<label class="c-checkbox__label" for="${this._state.get('uuid')}">${this._templater.render('label')}</label>` : ''}
+              ${this._templater.hasMarkup('label') ? html`<label class="c-checkbox__label" for="${this._state.get('uuid')}">${this._templater.render('label')()}</label>` : ''}
             </div>
             ${!this._state.get('error') && this._state.get('helper') ? html`<div class="c-checkbox__helper">${this._state.get('helper')}</div>` : ''}
             ${this._state.get('error') ? html`<div class="c-checkbox__error">${this._state.get('error')}</div>` : ''}

@@ -18,7 +18,7 @@ class CreateBaseProductVariantsTable extends Migration
             $table->unsignedInteger('base_product_id');
             $table->unsignedInteger('base_product_view_id');
             $table->unsignedInteger('base_product_color_id');
-            $table->unsignedInteger('zone_id')->nullable();
+            $table->unsignedInteger('base_product_zone_id')->nullable();
             $table->boolean('default')->default(0);
             $table->timestamps();
         });
