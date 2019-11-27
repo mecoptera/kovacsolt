@@ -42,6 +42,11 @@
           <a href="{{ route('user.profile') }}" class="u-mr-4">
             <k-icon data-icon="person" data-color="{{ Route::currentRouteName() === 'page.welcome' ? 'white' : 'text' }}" data-size="8"></k-icon>
           </a>
+          @if (Auth::guard('web')->check())
+            <div class="u-inline-block u-mr-8 {{ Route::currentRouteName() === 'page.welcome' ? 'u-text-white' : '' }}">
+              {{ Auth::guard('web')->user()->name }}
+            </div>
+          @endif
           <k-cart-button data-count="{{ Webacked\Cart\Helpers::itemsCount() }}" data-cart-url="{{ route('cart') }}" data-area-endpoint="{{ route('cart.area') }}">
             <k-icon data-icon="cart" data-color="{{ Route::currentRouteName() === 'page.welcome' ? 'white' : 'text' }}" data-size="8"></k-icon>
           </k-cart-button>

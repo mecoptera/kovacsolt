@@ -1,65 +1,47 @@
-@extends('layouts.panel')
+@extends('layouts.page')
+
+@section('title', 'Új jelszó')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('USER Reset Password') }}</div>
+  <div class="l-container">
+    <div class="c-panel">
+      <div class="c-panel__content">
+        <h1 class="c-panel__title">Új jelszó</h1>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
+        <div class="l-grid">
+          <form class="u-mx-auto l-grid__col--6" method="post" action="{{ route('password.update') }}">
+            @csrf
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+            <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+            <k-input
+              data-name="email"
+              data-label="E-mail cím"
+              data-value="{{ $email ?? old('email') }}"
+              @error('email')data-error="{{ $message }}" @enderror
+            ></k-input>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+            <k-input
+              data-type="password"
+              data-name="password"
+              data-label="Jelszó"
+              @error('password')data-error="{{ $message }}" @enderror
+            >
+            </k-input>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+            <k-input
+              data-type="password"
+              data-name="password_confirmation"
+              data-label="Jelszó újra"
+            >
+            </k-input>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="u-mt-8 u-text-center">
+              <input type="submit" class="c-button" value="Mentés">
             </div>
+          </form>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 @endsection

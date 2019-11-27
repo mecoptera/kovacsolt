@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -48,5 +49,13 @@ class UserController extends Controller {
 
       return redirect()->back()->with('success', 'A változtatásokat sikeresen mentettük!');
     }
+  }
+
+  public function resetPassword() {
+    Password::sendResetLink(['email' => Auth::user()->email], function (Illuminate\Mail\Message $message) {
+      $message->subject('Új jelszó beállítása');
+    });
+
+    return redirect()->back();
   }
 }

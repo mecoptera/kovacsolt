@@ -35,11 +35,9 @@
 
               <div>
                 <k-input
-                  data-name="email"
                   data-label="E-mail cím"
-                  data-helper="Megváloztatáskor megerősítő e-mailt fogunk küldeni a jelenleg beállított címre"
-                  @if (isset($userData['email']))data-value="{{ $userData['email'] }}"@endif
-                  @error('email')data-error="{{ $message }}"@enderror
+                  data-value="{{ $userData['email'] }}"
+                  data-disabled
                 ></k-input>
               </div>
 
@@ -53,7 +51,7 @@
               </div>
 
               <div class="l-form__field">
-                <a href="">Jelszó megváltoztatása</a>
+                <a href="{{ route('user.password.reset') }}">Jelszó megváltoztatása</a>
                 <div class="u-helper">E-mailt fogunk küldeni, melyben egy linket találsz a jelszó megváltoztatásához</div>
               </div>
 

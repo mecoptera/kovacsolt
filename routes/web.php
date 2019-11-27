@@ -36,11 +36,13 @@ Route::prefix('user')->group(function() {
   Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('user.register');
   Route::post('/register', 'Auth\RegisterController@register')->name('user.register');
   Route::get('/register/activate', 'UserController@activate')->name('user.register.activate');
+  Route::get('/register/activated/{token}', 'UserController@activated')->name('user.register.activated');
   Route::get('/email/resend', 'Auth\VerificationController@resend')->name('user.verification.resend');
   Route::get('/email/verify', 'Auth\VerificationController@show')->name('user.verification.notice');
   Route::get('/email/verify/{id}', 'Auth\VerificationController@verify')->name('user.verification.verify');
   Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-  Route::get('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('user.password.email');
+  Route::get('/password/reset', 'UserController@resetPassword')->name('user.password.reset');
+  Route::get('/password/email', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('user.password.email');
 });
 
 Route::prefix('order')->group(function() {

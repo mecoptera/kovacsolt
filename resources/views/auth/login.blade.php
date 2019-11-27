@@ -9,7 +9,7 @@
         <h1 class="c-panel__title">Bejelentkezés</h1>
 
         <div class="l-grid">
-          <form class="u-mx-auto l-grid__col--6 l-grid__col--offset-" method="post" action="{{ route('user.login') }}">
+          <form class="u-mx-auto l-grid__col--6" method="post" action="{{ route('user.login') }}">
             @csrf
 
             <k-input

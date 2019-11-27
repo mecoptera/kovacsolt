@@ -24,7 +24,7 @@
             data-label="Jelszó"
             @error('password')data-error="{{ $message }}"@enderror
           >
-            <template data-helper><a href="{{ route('user.password.email', [ 'from' => 'order' ]) }}">Elfelejtettem a jelszavam</a></template>
+            <template data-helper><a href="{{ route('user.password.email', [ 'from' => 'order.profile' ]) }}">Elfelejtettem a jelszavam</a></template>
           </k-input>
 
           <k-checkbox data-label="Emlékezz rám ezen a gépen" data-name="remember" data-checked="{{ old('remember') ? 'checked' : '' }}"></k-checkbox>

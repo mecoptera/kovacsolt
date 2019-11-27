@@ -69,7 +69,7 @@ export default class KInput extends Bamboo {
               ${this._state.get('type') === 'password' ? html`<div class="c-input__password" data-handler="password" onclick=${this}><k-icon data-icon="eye" data-color="${this._state.get('showPassword') ? 'brand' : 'text'}" data-size="8"></k-icon></div>` : ''}
             </div>
             ${!this._state.get('error') && this._state.get('helper') ? html`<div class="c-input__helper">${this._state.get('helper')}</div>` : ''}
-            ${!this._state.get('error') && this._templater.hasMarkup('helper') ? html`<div class="c-input__helper">${this._templater.render('helper')}</div>` : ''}
+            ${!this._state.get('error') && this._templater.hasMarkup('helper') ? html`<div class="c-input__helper">${this._templater.render('helper')()}</div>` : ''}
             ${this._state.get('error') ? html`<div class="c-input__error">${this._state.get('error')}</div>` : ''}
           `;
         },
