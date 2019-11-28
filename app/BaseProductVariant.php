@@ -13,8 +13,8 @@ class BaseProductVariant extends Model implements HasMedia {
   protected $appends = [ 'base_product_color', 'base_product_view', 'base_product_zone', 'image' ];
 
   public function registerMediaConversions(Media $media = null) {
-    $this->addMediaConversion('thumb')->keepOriginalImageFormat()->fit('max', 800, 800);
-    $this->addMediaConversion('planner')->keepOriginalImageFormat()->fit('max', 1600, 1600);
+    $this->addMediaConversion('thumb')->keepOriginalImageFormat()->fit('max', 800, 800)->nonOptimized();
+    $this->addMediaConversion('planner')->keepOriginalImageFormat()->fit('max', 1600, 1600)->nonOptimized();
   }
 
   public function registerMediaCollections() {

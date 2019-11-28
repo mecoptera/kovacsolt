@@ -65,15 +65,15 @@
             <b class="q-footer__title">OLDALTÉRKÉP</b>
             <ul class="q-footer__list">
               <li><a class="q-footer__link" href="{{ url('/') }}">Kezdőlap</a></li>
-              <li><a class="q-footer__link" href="{{ url('/references') }}">Referenciák</a></li>
-              <li><a class="q-footer__link" href="{{ url('/about') }}">Rólunk</a></li>
-              <li><a class="q-footer__link" href="{{ url('/contact') }}">Kapcsolat</a></li>
+              <li><a class="q-footer__link" href="{{ route('page.planner.step1') }}">Tervező</a></li>
+              <li><a class="q-footer__link" href="{{ route('page.contact') }}">Kapcsolat</a></li>
+              <li><a class="q-footer__link" href="{{ route('page.about') }}">Rólunk</a></li>
             </ul>
           </div>
           <div class="q-footer__category">
             <b class="q-footer__title">ADATVÉDELEM</b>
             <ul class="q-footer__list">
-              <li><a class="q-footer__link" href="{{ url('/privacy') }}">Adatvédelmi Nyilatkozat</a></li>
+              <li><a class="q-footer__link" href="{{ route('page.privacy') }}">Adatvédelmi Nyilatkozat</a></li>
             </ul>
           </div>
           <div class="q-footer__category">

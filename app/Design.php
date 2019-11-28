@@ -14,7 +14,7 @@ class Design extends Model implements HasMedia {
   protected $fillable = [ 'name' ];
 
   public function registerMediaConversions(Media $media = null) {
-    $this->addMediaConversion('thumb')->keepOriginalImageFormat()->fit('max', 800, 800);
-    $this->addMediaConversion('planner')->keepOriginalImageFormat()->fit('max', 1600, 1600);
+    $this->addMediaConversion('thumb')->keepOriginalImageFormat()->fit('max', 800, 800)->nonOptimized();
+    $this->addMediaConversion('planner')->keepOriginalImageFormat()->fit('max', 1600, 1600)->nonOptimized();
   }
 }
